@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="阿叶同学的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-14T12:13:32.000Z">
-<meta property="article:modified_time" content="2022-06-15T04:13:32.058Z">
+<meta property="article:modified_time" content="2022-06-15T05:15:19.553Z">
 <meta property="article:author" content="Victor Ye">
 <meta name="twitter:card" content="summary">
   
@@ -57,11 +57,15 @@
 			
 				<li><a href="/">主页</a></li>
 	        
+				<li><a href="/tags">标签</a></li>
+	        
+				<li><a href="/categories">分类</a></li>
+	        
 			</ul>
-		</nav>       
-        <nav>
-            总文章数 2
-        </nav> 
+		</nav>
+        <nav style="font-size: 16px;">
+            总文章数： 2
+        </nav>       
 		<nav class="header-smart-menu">
     		
     			
@@ -104,6 +108,10 @@
 			
 				
 			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -115,10 +123,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 100%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/tags">标签</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
 		        
 				</ul>
 			</nav>
@@ -133,7 +145,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="tags-" class="article article-type-tags " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -160,11 +172,11 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
+      <!-- 
         
-      
+       
 
-      
+      <!-- 
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
             <div class="tooltip tooltip-east">
@@ -190,8 +202,103 @@
           </div>
           </a>
         </div>
+          -->
       
+      
+        <div class="tag-cloud">
+            <div class="tag-cloud-title">
+            counter.tag_cloud
+            </div>
+            <div class="tag-cloud-tags">
+                <a href="/tags/1/" style="font-size: 16px; color: #ccc">1</a> <a href="/tags/2/" style="font-size: 16px; color: #ccc">2</a>
+            </div>
+        </div>
+
+        <style>
+            /*tag-cloud*/
+            .tag-cloud {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .tag-cloud a {
+                display: inline-block;
+                margin: 10px;
+            }
+            .tag-cloud-title {
+                font-weight: 700;
+                font-size: 24px;
+            }
+            .tag-cloud-tags {
+                margin-top: 15px;
+            }
+            .tag-cloud-tags a {
+                display: inline-block;
+                text-decoration: none;
+                font-weight: normal;
+                font-size: 10px;
+                color: #fff;
+                line-height: normal;
+                padding: 5px 5px 5px 10px;
+                position: relative;
+                border-radius: 0 5px 5px 0;
+                font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+            }
+            .tag-cloud-tags a:hover {
+                opacity: 0.8;
+            }
+            .tag-cloud-tags a:before {
+                content: " ";
+                width: 0;
+                height: 0;
+                position: absolute;
+                top: 0;
+                left: -18px;
+                border: 9px solid transparent;
+            }
+            .tag-cloud-tags a:after {
+                content: " ";
+                width: 4px;
+                height: 4px;
+                border-radius: 4px;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+                position: absolute;
+                top: 10px;
+                left: 2px;
+            }
+            .tag-cloud-tags a.color1 {
+                background: #FF945C;
+            }
+            .tag-cloud-tags a.color1:before {
+                border-right-color: #FF945C;
+            }
+            .tag-cloud-tags a.color2 {
+                background: #F5C7B7;
+            }
+            .tag-cloud-tags a.color2:before {
+                border-right-color: #F5C7B7;
+            }
+            .tag-cloud-tags a.color3 {
+                background: #BA8F6C;
+            }
+            .tag-cloud-tags a.color3:before {
+                border-right-color: #BA8F6C;
+            }
+            .tag-cloud-tags a.color4 {
+                background: #CFB7C4;
+            }
+            .tag-cloud-tags a.color4:before {
+                border-right-color: #CFB7C4;
+            }
+            .tag-cloud-tags a.color5 {
+                background: #7B5D5F;
+            }
+            .tag-cloud-tags a.color5:before {
+                border-right-color: #7B5D5F;
+            }
+        </style>
+        
     </div>
+
     <div class="article-info article-info-index">
       
       
@@ -275,16 +382,6 @@
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>
@@ -381,6 +478,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">1</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">2</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
