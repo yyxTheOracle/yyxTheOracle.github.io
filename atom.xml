@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>阿叶同学的博客</title>
   
-  
+  <subtitle>Trying to do better.</subtitle>
   <link href="https://yyxtheoracle.github.io/atom.xml" rel="self"/>
   
   <link href="https://yyxtheoracle.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://yyxtheoracle.github.io/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Victor Ye</name>
     
   </author>
   
