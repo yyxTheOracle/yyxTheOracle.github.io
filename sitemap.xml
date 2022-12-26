@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://yyxtheoracle.github.io/post/d87f7e0c.html</loc>
+    <loc>https://yyxtheoracle.github.io/post/7709adb1.html</loc>
     
     <lastmod>2022-12-26</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://yyxtheoracle.github.io/post/7709adb1.html</loc>
+    <loc>https://yyxtheoracle.github.io/post/d87f7e0c.html</loc>
     
     <lastmod>2022-12-26</lastmod>
     
@@ -83,13 +83,6 @@
 
   
   <url>
-    <loc>https://yyxtheoracle.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2022-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://yyxtheoracle.github.io/tags/antd/</loc>
     <lastmod>2022-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -103,17 +96,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://yyxtheoracle.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2022-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
-    <loc>https://yyxtheoracle.github.io/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://yyxtheoracle.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2022-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yyxtheoracle.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://yyxtheoracle.github.io/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2022-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
