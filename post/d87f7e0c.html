@@ -10,17 +10,17 @@
   <title>回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选 | Victor 的自留地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="description" content="前言最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:      原型图">
+  <meta name="description" content="前言　　最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:      原型图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选">
 <meta property="og:url" content="https://yyxtheoracle.github.io/post/d87f7e0c.html">
 <meta property="og:site_name" content="Victor 的自留地">
-<meta property="og:description" content="前言最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:      原型图">
+<meta property="og:description" content="前言　　最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:      原型图">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/26/aeiB.jpg">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/27/aeiG.jpg">
 <meta property="article:published_time" content="2022-04-23T10:54:37.000Z">
-<meta property="article:modified_time" content="2022-12-26T16:27:24.519Z">
+<meta property="article:modified_time" content="2022-12-26T16:32:08.996Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="antd">
 <meta property="article:tag" content="前端开发">
@@ -379,21 +379,21 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:</p>
+		  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近在做宝马的一个项目，遇到一个很常见的需求，上个图大家就懂了:</p>
 <div align=center>
   <img src="https://i.niupic.com/images/2022/12/26/aeiB.jpg" />
 </div>
 <center style="font-size:18px;color:#C0C0C0;">原型图</center><span id="more"></span>
 
-<p>然而，antd 官网给的例子里只有在组件中的实现方法（通过 rowSelection 配置），如下图:</p>
+<p>　　然而，antd 官网给的例子里只有在组件中的实现方法（通过 rowSelection 配置），如下图:</p>
 <div align=center>
   <img src="https://i.niupic.com/images/2022/12/27/aeiG.jpg" />
 </div>
 <center style="font-size:18px;color:#C0C0C0;">antd 提供的功能</center>
 
-<p>如果想要做到原型图这样在组件外实现全选 &amp; 取消全选，则需要更灵活地运用一下 rowSelection。</p>
+<p>　　如果想要做到原型图这样在组件外实现全选 &amp; 取消全选，则需要更灵活地运用一下 rowSelection。</p>
 <h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [selectedRowKeys, setSelectedRowKeys] = <span class="title function_">useState</span>([]);</span><br><span class="line"><span class="keyword">const</span> [selectedRows, setSelectedRows] = <span class="title function_">useState</span>([]);</span><br><span class="line"><span class="keyword">const</span> [tableData, setTableData] = <span class="title function_">useState</span>([]);</span><br><span class="line"></span><br><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">setTableData</span>(mock); <span class="comment">// 将 tableData 先设为表格内的全部数据</span></span><br><span class="line">&#125;, []); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 关键点：这个函数既作为回调函数，也能手动调用～</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">selectedRowKeys, selectedRows</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">setSelectedRowKeys</span>([...selectedRowKeys]);</span><br><span class="line">  <span class="title function_">setSelectedRows</span>([...selectedRows]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击 选择全部 的回调函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">selectAll</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  tableData.<span class="title function_">forEach</span>(<span class="function">(<span class="params">o, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 遍历，和全部的 tableData 作对比，找到没有勾选的 row, 将它的 key 值保存到 selectedRowKeys 数组</span></span><br><span class="line">    <span class="keyword">if</span> (!selectedRows.<span class="title function_">includes</span>(o)) selectedRowKeys.<span class="title function_">push</span>(tableData[i].<span class="property">account</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 手动修改 selectedRowKeys，和 Table 组件内的 selectedRowKeys 联动</span></span><br><span class="line">  <span class="title function_">handleChange</span>(selectedRowKeys, [...tableData]); </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击 取消全部 的回调函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">selectNone</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 手动修改 selectedRowKeys 和 selectedRows，全部置为空</span></span><br><span class="line">  <span class="title function_">handleChange</span>([], []);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rowSelection = &#123;</span><br><span class="line">  selectedRowKeys, <span class="comment">// 受控</span></span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;checkbox&quot;</span>,</span><br><span class="line">  <span class="attr">onChange</span>: handleChange <span class="comment">// 将 handleChange 定义在外面，从而可以手动调用</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Table 组件，略去了无关配置</span></span><br><span class="line"> <span class="language-xml"><span class="tag">&lt;<span class="name">Table</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">rowKey</span>=<span class="string">&quot;account&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">columns</span>=<span class="string">&#123;columns&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">dataSource</span>=<span class="string">&#123;mock&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">rowSelection</span>=<span class="string">&#123;rowSelection&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">/&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实最关键的地方就是 rowSelection 里的 onChange，通常的回调函数我们不会直接调用，而在这里，如果要实现在表格外全选，则需要手动调用这个 onchange 。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　其实最关键的地方就是 rowSelection 里的 onChange，通常的回调函数我们不会直接调用，而在这里，如果要实现在表格外全选，则需要手动调用这个 onchange 。</p>
 
 				  
 	  
@@ -443,7 +443,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2022年12月27日 00:27:24 -->
+	2022年12月27日 00:32:08 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
