@@ -10,19 +10,19 @@
   <title>拼音输入法还没输入完就触发搜索了?丨了解一下 onCompositionStart &amp; onCompositionEnd | Victor 的自留地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="description" content="先直接上场景   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。">
+  <meta name="description" content="最近开发遇到了一个有趣问题，先直接上场景   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拼音输入法还没输入完就触发搜索了?丨了解一下 onCompositionStart &amp; onCompositionEnd">
 <meta property="og:url" content="https://yyxtheoracle.github.io/post/11426bbe.html">
 <meta property="og:site_name" content="Victor 的自留地">
-<meta property="og:description" content="先直接上场景   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。">
+<meta property="og:description" content="最近开发遇到了一个有趣问题，先直接上场景   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/12/27/aefc04929a1cded1.gif">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/27/aejQ.jpg">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/27/aejT.jpg">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/12/27/265793f64952c3cc.gif">
 <meta property="article:published_time" content="2022-12-08T06:17:45.000Z">
-<meta property="article:modified_time" content="2022-12-27T15:26:19.901Z">
+<meta property="article:modified_time" content="2022-12-27T15:37:24.073Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+      background: linear-gradient(200deg,#ccc,#000);
     }
   </style>
     
@@ -356,7 +356,7 @@ var _hmt = _hmt || [];
 	    <i class="fa fa-bar-chart" aria-hidden="true"></i>
         <!-- <i class="fa fa-keyboard-o" aria-hidden="true"></i> -->
         <span class="post-meta-item-text">字数统计: </span>
-        <span class="post-count">372字</span>
+        <span class="post-count">385字</span>
       </span>
     </span>
 
@@ -381,11 +381,11 @@ var _hmt = _hmt || [];
 	  
 		  
 		  <blockquote>
-<p>先直接上场景</p>
+<p>最近开发遇到了一个有趣问题，先直接上场景</p>
 </blockquote>
 <p><img src="https://s3.bmp.ovh/imgs/2022/12/27/aefc04929a1cded1.gif" alt="bug复现"></p>
-<p>　　可以明显看到，在搜狗拼音输入法<strong>还没有完成输入的时候</strong>就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。<span id="more"></span></p>
-<p>　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。</p>
+<p>　　可以明显看到，在搜狗拼音输入法<strong>还没有完成输入的时候</strong>就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。</p>
+<p>　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。<span id="more"></span></p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><blockquote>
 <p>onCompositionStart &amp; onCompositionEnd</p>
 </blockquote>
@@ -394,7 +394,6 @@ var _hmt = _hmt || [];
   <img src="https://i.niupic.com/images/2022/12/27/aejQ.jpg" />
 </div>
 &nbsp;
-<!-- <center style="font-size:18px;color:#C0C0C0;">原型图</center> -->
 
 <p>　　简单来说，搜狗拼音输入法就是图中所说的 <code>IME(Input Method Editor)</code> ，当开启一段 <code>composition session</code> 的时候就会触发这个事件，至于什么是 <code>composition session</code> 呢~</p>
 <div align=center>
@@ -406,7 +405,7 @@ var _hmt = _hmt || [];
 <h1 id="（伪）代码"><a href="#（伪）代码" class="headerlink" title="（伪）代码"></a>（伪）代码</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Input</span></span><br><span class="line">  onChange=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">setInputVal</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125;</span><br><span class="line">  onCompositionStart=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">true</span>)&#125;</span><br><span class="line">  onCompositionEnd=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">false</span>)&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 输入拼音的情况下，选择了文字才搜索，正在输入拼音时不触发搜索</span></span><br><span class="line">  !lock &amp;&amp; <span class="title function_">triggerSearch</span>(inputVal);</span><br><span class="line">&#125;, [lock, inputVal]);</span><br></pre></td></tr></table></figure>
 
-<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://s3.bmp.ovh/imgs/2022/12/27/265793f64952c3cc.gif"></p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://s3.bmp.ovh/imgs/2022/12/27/265793f64952c3cc.gif" alt="最终效果"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　之前我一直以为这不是个前端范畴的问题，是系统层面的，事实证明还是认知局限呀🤣今后还是要多多学习，多多记录。</p>
 
 				  
@@ -457,7 +456,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2022年12月27日 23:26:19 -->
+	2022年12月27日 23:37:24 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -568,8 +567,8 @@ var _hmt = _hmt || [];
 <nav id="article-nav">
   
   
-    <a href="/post/7709adb1.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">或许遭遇了人生最大的 setback ?</div>
+    <a href="/post/ba9d0ab6.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">提前转正啦!!!</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -692,10 +691,10 @@ var _hmt = _hmt || [];
 	  <br>
 	  <div class="footer-center">
 	    <i class="fa fa-file-word-o" aria-hidden="true"></i>
-		<span> 3 篇</span>
+		<span> 4 篇</span>
 		<span class="post-meta-divider">|</span>
 		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-		<span> <span class="post-count">2.5k</span></span>
+		<span> <span class="post-count">3.3k</span></span>
       </div>
 	  
 	  <!-- 添加不蒜子统计 -->
@@ -903,15 +902,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">antd</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">前端开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
@@ -984,7 +983,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 			
 				<br>
 				  
-					<p id="js-aboutme" style="margin:0 20px 0 20px;">一名前端&lt;br&gt;会记录自己工作生活的所思所想</p>
+					<p id="js-aboutme" style="margin:0 20px 0 20px;">我是 Victor ，&lt;br&gt;是一名前端开发工程师，&lt;br&gt;同时也是一位中共党员。</p>
 				
 			</div> 
 		</div> 
