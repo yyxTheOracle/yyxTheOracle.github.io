@@ -23,8 +23,14 @@
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/28/aek5.png">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetx.png">
 <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aerR.png">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetH.jpg">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetI.jpg">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetL.jpg">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetT.png">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetU.png">
+<meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aetV.png">
 <meta property="article:published_time" content="2022-11-29T12:32:59.000Z">
-<meta property="article:modified_time" content="2022-12-31T07:01:56.037Z">
+<meta property="article:modified_time" content="2022-12-31T11:30:36.855Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -358,7 +364,7 @@ var _hmt = _hmt || [];
 	    <i class="fa fa-bar-chart" aria-hidden="true"></i>
         <!-- <i class="fa fa-keyboard-o" aria-hidden="true"></i> -->
         <span class="post-meta-item-text">字数统计: </span>
-        <span class="post-count">1k字</span>
+        <span class="post-count">1.4k字</span>
       </span>
     </span>
 
@@ -367,7 +373,7 @@ var _hmt = _hmt || [];
       <span class="post-meta-item-icon">
 	    <i class="fa fa-pagelines" aria-hidden="true"></i>
         <span class="post-meta-item-text">阅读时长: </span>
-        <span class="post-count">3min</span>
+        <span class="post-count">4min</span>
       </span>
     </span>
 	
@@ -399,32 +405,60 @@ var _hmt = _hmt || [];
 <div align=center>
   <img src="https://i.niupic.com/images/2022/12/28/aek5.png" />
 </div>
-<center style="color:#C0C0C0;">一次完整的提 issue，被响应，最终解决业务问题的经历😁</center>
+<center style="color:#C0C0C0;">一次完整的提 issue -> 被响应 -> 解决业务问题的经历😁</center>
 
-<h2 id="面对业务难题的心态"><a href="#面对业务难题的心态" class="headerlink" title="面对业务难题的心态"></a>面对业务难题的心态</h2><p>　　如果要选这五个月来最难的一个需求，我觉得是贡献度页面的 PDF 下载——用一个从未使用过的库(<code>html2canvas</code> &amp; <code>jspdf</code>)去完成一个定制化很高的需求。<br>　　拆开看其实难点也就是<code>从未使用过</code>和<code>定制化很高</code>。<br>　　前者还好，只需要花时间去读文档试 API；但对于后者，则意味着网上不会有完全可以参照的解决方案。</p>
+<h2 id="面对业务难题的心态"><a href="#面对业务难题的心态" class="headerlink" title="面对业务难题的心态"></a>面对业务难题的心态</h2><p>　　如果要选这五个月来最难的一个需求，我觉得是贡献度页面的 PDF 下载——用从未使用过的库(html2canvas &amp; jspdf)去完成一个定制化很高的需求。<br>　　拆开看其实就是两个大难点——<code>从未使用过</code> &amp; <code>定制化很高</code>。<br>　　前者还好，只需要花时间去读文档试 API；但对于后者，则意味着网上不会有完全可以参照的解决方案。</p>
 <div align=center>
   <img src="https://i.niupic.com/images/2022/12/31/aetx.png" />
 </div>
 <center style="color:#C0C0C0;">需要实现的 PDF 下载逻辑</center>
 
-<p>　　官方文档的目的是用最简示例让你明白核心 API 的用法，但如何去组合可用的几十上百个 API 来完成业务需求，这个是官方文档没法 cover 到的。记得刚开始做的时候确实毫无头绪，后来真的是某一个瞬间突然有了一个想法，</p>
+<p>　　官方文档的目的是用最简示例让你明白核心 API 的用法，但如何去组合可用的几十上百个 API 来完成业务需求，这个是官方文档没法 cover 到的。记得刚开始做的时候确实毫无头绪，后来真的是某个瞬间突然有了想法：html2canvas 是基于 DOM node 的，那我结合业务需求去手动控制 DOM node 是不是就可以了呢？后来尝试了一个简单的 case 发现确实可以！<br>　　有了大方向，后面去磨逻辑就可以了，细节会非常多，但到了这个阶段，其实已经演变成了和第一个难点同一级别的问题了——花时间就可以解决的问题，俗称体力活🤣。<br>　　这个需求完成之后，有种完成进化的感觉。</p>
 <div align=center>
   <img src="https://i.niupic.com/images/2022/12/31/aerR.png" />
 </div>
-<!-- <center style="color:#C0C0C0;">这五个月以来做过最难的需求</center> -->
+<center style="color:#C0C0C0;">完成后提的 PR </center>
 
-<p>　　quote 一下 10.9 的微博: </p>
+<p>　　quote 一下关于这件事的微博，记录了我的思考： </p>
 <blockquote>
-<p>　　紫月老师再一次用魔法拯救了我的电脑。<br>　　他平时都是用 Windows 开发的，但每次帮我解决问题的时候都能熟练地盲敲各种奇奇怪怪的 linux 命令，并且一通捣鼓之后问题也总是能迎刃而解，这点我真的非常佩服。<br>　　记录这件事也是因为有了些新的思考，最近刚做完一个比较特殊的导出 PDF 需求，用的两个库都是第一次接触( <code>html2canvas</code> &amp; <code>jspdf</code> )，一路上遇到了不少坑，最后都摸索着解决了。作为一个喜欢复盘的人，本来想着好好复盘一下这两个库的使用流程，但是后来好像就突然醒悟了:为什么要去细抠这两个库呢，在未来十几年开发生涯里用到这两个库的次数大概率屈指可数，真正有价值的其实是那些坑，是那些开发过程中的瓶颈，或者说，是跨过坑和迈过瓶颈的思考过程和处理方法。<br>　　其实是一个很简单的道理，相比聚焦于某个具体问题。作为一名工程师，需要培养的其实是解决问题的能力。从而达到一种 mentality:</p>
+<p>　　最近刚做完一个比较特殊的导出 PDF 需求，用的两个库都是第一次接触( <code>html2canvas</code> &amp; <code>jspdf</code> )，一路上遇到了不少坑，最后都摸索着解决了。作为一个喜欢复盘的人，本来想着好好复盘一下这两个库的使用流程，但是后来好像就突然醒悟了：为什么要去细抠这两个库呢，在未来十几年开发生涯里用到这两个库的次数大概率屈指可数，真正有价值的其实是那些坑，是那些开发过程中的瓶颈，或者说，是跨过坑和迈过瓶颈的思考过程和处理方法。<br>　　其实是一个很简单的道理，相比聚焦于某个具体问题。作为一名工程师，需要培养的其实是解决问题的能力。从而达到一种 mentality:</p>
 <ul>
 <li>任何问题都有解决的方法</li>
 <li>我遇到的问题也是</li>
 <li>我一定可以解决它</li>
 </ul>
 </blockquote>
-<h2 id="​bug-的分析-amp-调试"><a href="#​bug-的分析-amp-调试" class="headerlink" title="​bug 的分析 &amp; 调试"></a>​bug 的分析 &amp; 调试</h2><p>　　​对组件渲染、状态流动、异步有了更深的认识，打断点越来越准确，定位问题越来越快了。(离不开各位前端家人们的 code review 与 comment 😝)</p>
-<h2 id="技术文档的书写"><a href="#技术文档的书写" class="headerlink" title="技术文档的书写"></a>技术文档的书写</h2><p>　　​这个习惯深受紫月老师的影响。把零碎的思路形成易于接受的、有条理的文字是一件很浪漫的事情。(顺便感叹一句飞书文档真的好用，国庆去敦煌做攻略，一开始用的是Google Docs，不是很顺手，换飞书文档之后体验大大提升，强烈安利)</p>
-<p>　　下班之后​随手写了点，anyway，保持热爱，继续前进!</p>
+<h2 id="​bug-的分析-amp-调试"><a href="#​bug-的分析-amp-调试" class="headerlink" title="​bug 的分析 &amp; 调试"></a>​bug 的分析 &amp; 调试</h2><p>　　这点或许就是所谓的<code>经验</code>，开发年限久了，见识的场景多了，改 bug 的能力就自然而然提升了。<br>　　就我的例子而言，反映在​对组件渲染、状态流动、异步有了更深的认识，所以打断点越来越准确，定位问题越来越快了。<br>　　此外，也离不开其他前端家人们的 code review 与 comments，我在解决完一些比较 tricky 的 bug 的时候都会尽可能把心路历程和来龙去脉写在 commit message 里，我觉得能把原因-分析-解决的链路描述清楚，才算真正地吃透了这个 bug；此外，一般的 code review 大家只会看代码的风格是否可以优化，没太多时间去细究内部的业务逻辑(大家手头都有活)，但有了比较详尽的 description 之后能让 reviewer 更好地理解场景，有时他们会提供一些更好的思路，让我发现其实是我搞复杂了。</p>
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetH.jpg" />
+</div>
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetI.jpg" />
+</div>
+<center style="color:#C0C0C0;">解决一些 tricky bug 的 PR </center>
+
+<h2 id="技术文档的书写"><a href="#技术文档的书写" class="headerlink" title="技术文档的书写"></a>技术文档的书写</h2><p>　　像<code>大字版</code>和<code>埋点</code>这两个需求，我算是前端的 owner，从调研技术实现，到这两个模块的基建，再到书写文档和各位前端家人一起维护，有体验到一种 leadership 的感觉，是一种从未有过的体验😁。</p>
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetL.jpg" />
+</div>
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetT.png" />
+</div>
+<center style="color:#C0C0C0;">埋点的基建 & 文档</center>
+&nbsp;
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetU.png" />
+</div>
+<center style="color:#C0C0C0;">大字版文档</center>
+
+<p>　　包括在做某个功能的时候需要复用一个很复杂的组件，在确定复用方案上我也接受了紫月老师的建议，写了篇文档把两种方式做了对比，最终和大家讨论选取了一个更适合的方案。</p>
+<div align=center>
+  <img src="https://i.niupic.com/images/2022/12/31/aetV.png" />
+</div>
+<center style="color:#C0C0C0;">关于复用方案的评估文档</center>
+
+<p>　　​这个习惯深受<a target="_blank" rel="noopener" href="https://liriansu.com/">紫月老师</a>的影响。把零碎的思路形成易于接受的、有条理的文字是一件很浪漫的事情。(顺便感叹一句飞书文档真的好用，国庆去敦煌做了份<a target="_blank" rel="noopener" href="https://hzt1zdrg2z.feishu.cn/docx/Kz4rd8NBQopGH4xggircbhuhnqc?from=from_copylink">攻略</a>，一开始用的是 Google Docs，不是很顺手，换飞书文档之后体验大大提升，强烈安利😋)</p>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>　　下班之后​随手写了点，anyway，保持热爱，继续前进!</p>
 
 				  
 	  
@@ -474,7 +508,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2022年12月31日 15:01:56 -->
+	2022年12月31日 19:30:36 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -621,7 +655,7 @@ var _hmt = _hmt || [];
           <span class="tooltip-content">
 			<span style="font-size: 20px;font-weight: bold;">目录</span>
             <div class="toc-article">
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-Stack-Overflow%E3%80%81GitHub-%E7%AD%89%E7%A4%BE%E5%8C%BA%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">对 Stack Overflow、GitHub 等社区的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%AF%B9%E4%B8%9A%E5%8A%A1%E9%9A%BE%E9%A2%98%E7%9A%84%E5%BF%83%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">面对业务难题的心态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%8Bbug-%E7%9A%84%E5%88%86%E6%9E%90-amp-%E8%B0%83%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">​bug 的分析 &amp; 调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E7%9A%84%E4%B9%A6%E5%86%99"><span class="toc-number">4.</span> <span class="toc-text">技术文档的书写</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-Stack-Overflow%E3%80%81GitHub-%E7%AD%89%E7%A4%BE%E5%8C%BA%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">对 Stack Overflow、GitHub 等社区的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%AF%B9%E4%B8%9A%E5%8A%A1%E9%9A%BE%E9%A2%98%E7%9A%84%E5%BF%83%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">面对业务难题的心态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%8Bbug-%E7%9A%84%E5%88%86%E6%9E%90-amp-%E8%B0%83%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">​bug 的分析 &amp; 调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E7%9A%84%E4%B9%A6%E5%86%99"><span class="toc-number">4.</span> <span class="toc-text">技术文档的书写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">5.</span> <span class="toc-text">End</span></a></li></ol>
             </div>
           </span>
         </div>
@@ -721,7 +755,7 @@ var _hmt = _hmt || [];
 		<span> 4 篇</span>
 		<span class="post-meta-divider">|</span>
 		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-		<span> <span class="post-count">3.5k</span></span>
+		<span> <span class="post-count">4k</span></span>
       </div>
 	  
 	  <!-- 添加不蒜子统计 -->
