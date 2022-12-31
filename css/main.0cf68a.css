@@ -1847,18 +1847,20 @@ to {
 	float:right
 }
 .article-more-link a {
-	background:linear-gradient(45deg, #2196f3, #c974f5);
-	color:#fff;
+	/* background:linear-gradient(45deg, #2196f3, #c974f5); */
+  background: linear-gradient(200deg,#ccc,#000);
+
+  color:#fff;
 	font-size:12px;
 	padding:5px 8px;
 	line-height:16px;
 	border-radius:2px;
 	transition:background .3s
 }
-.article-more-link a:hover {
-	/*background:#3c3c3c;*/
+/* .article-more-link a:hover {
+	background:#3c3c3c;
 	background:#0088cc;
-}
+} */
 .article-more-link a.hidden {
 	visibility:hidden
 }
@@ -3686,11 +3688,13 @@ to {
 /*手机端样式调整*/
 @media screen and (max-width:800px) {
 	body {
-	background: linear-gradient(55deg,#88ACDB,#49B1F5,#9534f1,#49b1f5);
-	}
+	/* background: linear-gradient(55deg,#88ACDB,#49B1F5,#9534f1,#49b1f5); */
+	background: linear-gradient(200deg,#ccc,#000);
+}
 	.mid-col {
-    background: linear-gradient(55deg,#88ACDB,#49B1F5,#9534f1,#49b1f5);
-	}
+    /* background: linear-gradient(55deg,#88ACDB,#49B1F5,#9534f1,#49b1f5); */
+    background: linear-gradient(200deg,#ccc,#000);
+  }
 	.toc-container.tooltip-left .tooltip-east .tooltip-content {
     max-width: 300px;
     }
