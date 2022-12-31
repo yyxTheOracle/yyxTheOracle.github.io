@@ -465,7 +465,7 @@ h1,h2,h3 {
 	font-weight:400
 }
 h1 {
-	font-size:18px
+	
 }
 h2 {
 	font-size:16px
@@ -2750,7 +2750,7 @@ to {
 	padding:10px 0 30px
 }
 .article .article-inner h1.article-title,.article .article-title {
-	font-size:18px;
+	;
 	font-weight:300;
 	display:block;
 	margin:0
