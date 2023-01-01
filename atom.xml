@@ -3,11 +3,11 @@
   <title>Victor 的自留地</title>
   
   <subtitle>Keep Your Childlike Innocence Alive!</subtitle>
-  <link href="https://yyxtheoracle.github.io/atom.xml" rel="self"/>
+  <link href="https://victoryeah.com/atom.xml" rel="self"/>
   
-  <link href="https://yyxtheoracle.github.io/"/>
+  <link href="https://victoryeah.com/"/>
   <updated>2022-12-31T12:07:38.051Z</updated>
-  <id>https://yyxtheoracle.github.io/</id>
+  <id>https://victoryeah.com/</id>
   
   <author>
     <name>Victor Ye</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>解决输入法尚未结束输入就触发搜索的问题丨onCompositionStart &amp; onCompositionEnd</title>
-    <link href="https://yyxtheoracle.github.io/post/11426bbe.html"/>
-    <id>https://yyxtheoracle.github.io/post/11426bbe.html</id>
+    <link href="https://victoryeah.com/post/11426bbe.html"/>
+    <id>https://victoryeah.com/post/11426bbe.html</id>
     <published>2022-12-08T06:17:45.000Z</published>
     <updated>2022-12-31T12:07:38.051Z</updated>
     
@@ -35,19 +35,19 @@
     
     
     
-    <category term="前端开发" scheme="https://yyxtheoracle.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="前端开发" scheme="https://victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="前端开发" scheme="https://yyxtheoracle.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="前端开发" scheme="https://victoryeah.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
-    <category term="JavaScript" scheme="https://yyxtheoracle.github.io/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://victoryeah.com/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>提前转正啦!!!</title>
-    <link href="https://yyxtheoracle.github.io/post/ba9d0ab6.html"/>
-    <id>https://yyxtheoracle.github.io/post/ba9d0ab6.html</id>
+    <link href="https://victoryeah.com/post/ba9d0ab6.html"/>
+    <id>https://victoryeah.com/post/ba9d0ab6.html</id>
     <published>2022-11-29T12:32:59.000Z</published>
     <updated>2023-01-01T08:19:59.560Z</updated>
     
@@ -61,17 +61,17 @@
     
     
     
-    <category term="随笔" scheme="https://yyxtheoracle.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://victoryeah.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="随笔" scheme="https://yyxtheoracle.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://victoryeah.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
   <entry>
     <title>或许遭遇了人生最大的 setback ?</title>
-    <link href="https://yyxtheoracle.github.io/post/7709adb1.html"/>
-    <id>https://yyxtheoracle.github.io/post/7709adb1.html</id>
+    <link href="https://victoryeah.com/post/7709adb1.html"/>
+    <id>https://victoryeah.com/post/7709adb1.html</id>
     <published>2022-06-13T15:11:01.000Z</published>
     <updated>2022-12-31T07:00:34.860Z</updated>
     
@@ -82,17 +82,17 @@
     
     
     
-    <category term="随笔" scheme="https://yyxtheoracle.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://victoryeah.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="随笔" scheme="https://yyxtheoracle.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://victoryeah.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
   <entry>
     <title>回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选</title>
-    <link href="https://yyxtheoracle.github.io/post/d87f7e0c.html"/>
-    <id>https://yyxtheoracle.github.io/post/d87f7e0c.html</id>
+    <link href="https://victoryeah.com/post/d87f7e0c.html"/>
+    <id>https://victoryeah.com/post/d87f7e0c.html</id>
     <published>2022-04-23T10:54:37.000Z</published>
     <updated>2023-01-01T08:25:21.763Z</updated>
     
@@ -107,14 +107,14 @@
     
     
     
-    <category term="前端开发" scheme="https://yyxtheoracle.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="前端开发" scheme="https://victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="antd" scheme="https://yyxtheoracle.github.io/tags/antd/"/>
+    <category term="antd" scheme="https://victoryeah.com/tags/antd/"/>
     
-    <category term="前端开发" scheme="https://yyxtheoracle.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="前端开发" scheme="https://victoryeah.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
-    <category term="JavaScript" scheme="https://yyxtheoracle.github.io/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://victoryeah.com/tags/JavaScript/"/>
     
   </entry>
   
