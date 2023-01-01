@@ -18,17 +18,17 @@
 <meta property="og:site_name" content="Victor 的自留地">
 <meta property="og:description" content="最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/12/27/aefc04929a1cded1.gif">
-<meta property="og:image" content="https://i.niupic.com/images/2022/12/27/aejQ.jpg">
-<meta property="og:image" content="https://i.niupic.com/images/2022/12/27/aejT.jpg">
-<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/12/27/265793f64952c3cc.gif">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/577af882fddac58b.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/a4202af698e488f7.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/4e3fad241e7bdbe7.gif">
 <meta property="article:published_time" content="2022-12-08T06:17:45.000Z">
-<meta property="article:modified_time" content="2022-12-31T12:07:38.051Z">
+<meta property="article:modified_time" content="2023-01-01T15:25:05.567Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/12/27/aefc04929a1cded1.gif">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif">
   
   
     <link rel="alternative" href="/atom.xml" title="Victor 的自留地" type="application/atom+xml">
@@ -385,7 +385,7 @@ var _hmt = _hmt || [];
 		  <blockquote>
 <p>最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣</p>
 </blockquote>
-<p><img src="https://s3.bmp.ovh/imgs/2022/12/27/aefc04929a1cded1.gif" alt="bug复现"></p>
+<p><img src="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif" alt="bug复现"></p>
 <p>　　可以明显看到，在搜狗拼音输入法<strong>还没有完成输入的时候</strong>就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。</p>
 <p>　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。<span id="more"></span></p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><blockquote>
@@ -393,13 +393,13 @@ var _hmt = _hmt || [];
 </blockquote>
 <p>　　这两个事件确实第一次接触，放上 compositionstart event 在 MDN 的截图：</p>
 <div align=center>
-  <img src="https://i.niupic.com/images/2022/12/27/aejQ.jpg" />
+  <img src="https://s3.bmp.ovh/imgs/2023/01/01/577af882fddac58b.jpg" />
 </div>
 &nbsp;
 
 <p>　　简单来说，搜狗拼音输入法就是图中所说的 <code>IME(Input Method Editor)</code> ，当开启一段 <code>composition session</code> 的时候就会触发这个事件，至于什么是 <code>composition session</code> 呢~</p>
 <div align=center>
-  <img src="https://i.niupic.com/images/2022/12/27/aejT.jpg" />
+  <img src="https://s3.bmp.ovh/imgs/2023/01/01/a4202af698e488f7.jpg" />
 </div>  
 &nbsp;
 
@@ -407,7 +407,7 @@ var _hmt = _hmt || [];
 <h1 id="（伪）代码"><a href="#（伪）代码" class="headerlink" title="（伪）代码"></a>（伪）代码</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Input</span></span><br><span class="line">  onChange=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">setInputVal</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125;</span><br><span class="line">  onCompositionStart=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">true</span>)&#125;</span><br><span class="line">  onCompositionEnd=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">false</span>)&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 输入拼音的情况下，选择了文字才搜索，正在输入拼音时不触发搜索</span></span><br><span class="line">  !lock &amp;&amp; <span class="title function_">triggerSearch</span>(inputVal);</span><br><span class="line">&#125;, [lock, inputVal]);</span><br></pre></td></tr></table></figure>
 
-<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://s3.bmp.ovh/imgs/2022/12/27/265793f64952c3cc.gif" alt="最终效果"></p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://s3.bmp.ovh/imgs/2023/01/01/4e3fad241e7bdbe7.gif" alt="最终效果"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　之前我一直以为这不是个前端范畴的问题，是系统层面的，事实证明还是认知局限呀🤣今后还是要多多学习，多多记录。</p>
 
 				  
@@ -458,7 +458,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2022年12月31日 20:07:38 -->
+	2023年01月01日 23:25:05 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -852,10 +852,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">antd</a>
               </li>
              
@@ -865,6 +861,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

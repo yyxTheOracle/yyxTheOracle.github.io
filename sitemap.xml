@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/11426bbe.html</loc>
+    
+    <lastmod>2023-01-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/d87f7e0c.html</loc>
     
     <lastmod>2023-01-01</lastmod>
@@ -14,15 +23,6 @@
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/ba9d0ab6.html</loc>
     
     <lastmod>2023-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/11426bbe.html</loc>
-    
-    <lastmod>2022-12-31</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/archives/index.html</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/index.html</loc>
     
     <lastmod>2022-12-27</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/index.html</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/archives/index.html</loc>
     
     <lastmod>2022-12-27</lastmod>
     
@@ -99,13 +99,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2023-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/antd/</loc>
@@ -128,17 +121,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2023-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2023-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2023-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
