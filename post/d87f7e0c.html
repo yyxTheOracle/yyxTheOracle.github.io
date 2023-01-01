@@ -23,9 +23,9 @@
 <meta property="article:published_time" content="2022-04-23T10:54:37.000Z">
 <meta property="article:modified_time" content="2023-01-01T08:25:21.763Z">
 <meta property="article:author" content="Victor Ye">
-<meta property="article:tag" content="antd">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="antd">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.niupic.com/images/2023/01/01/aevg.jpg">
   
@@ -479,15 +479,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">antd</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">前端开发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">antd</a>
         		</li>
       		
 		</ul>
@@ -608,70 +608,30 @@ var _hmt = _hmt || [];
 
 
   
-  <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
-<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet' />
+  
+  
 
-<div id="waline"></div>
+
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 <script>
-	// 中文默认
-	const locale = {
-	  nick: ' 昵称: ',
-	  nickError: '昵称不能少于3个字符',
-	  mail: '邮箱: ',
-	  mailError: '请填写正确的邮件地址',
-	  link: '网址: ',
-	  placeholder: ' 客官留个言吧(◕ˇ∀ˇ◕)',
-	  sofa: '评论区空空荡荡，客官快来评论吧~',
-	  submit: '提交',
-	  reply: '回复',
-	  cancelReply: '取消回复',
-	  comment: '评论',
-	  more: '加载更多...',
-	  preview: '预览',
-	  emoji: '表情',
-	  uploadImage: '上传图片',
-	  seconds: '秒前',
-	  minutes: '分钟前',
-	  hours: '小时前',
-	  days: '天前',
-	  now: '刚刚',
-	  uploading: '正在上传',
-	  login: '登录',
-	  logout: '退出',
-	  admin: '博主',
-	  word: '字',
-	  wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-	};
-
-	Waline.init({
-	  el: '#waline',
-	  serverURL: 'waline-ten-jade.vercel.app',
-	  locale,
-	  login: 'enable',
-	  lang: 'zh-CN ',
-	  dark: '',
-	  // 设置 emoji 为微博与哔哩哔哩
-	  emoji: [
-		'https://unpkg.com/@waline/emojis@1.1.0/weibo',
-		'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
-	  ],
-	  wordLimit: 0,
-	  pageSize: 10,
-	  imageUploader: false,
-	  pageview: true,
-	  meta: ['nick', 'mail', 'link'],  //评论者相关属性，默认['nick', 'mail', 'link'],
-	  requiredMeta: ['nick'], //设置评论者属性必填项，默认[]（即匿名）
-	});
+var gitment = new Gitment({
+  id: "https://yyx-the-oracle-github-io-g1lc.vercel.app/post/d87f7e0c.html",
+  owner: 'yyxtheoracle',
+  repo: 'yyxtheoracle.github.io',
+  oauth: {
+    client_id: '89e5929a547fed23e2f3',
+    client_secret: 'c55457108d3c0ecaca0369d9dccb2488cf9bf49d',
+  },
+})
+gitment.render('gitment-ctn')
 </script>
-  
-  
-  
-
-
-  
-
-  
-
   
 
 
@@ -903,7 +863,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">antd</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -915,7 +875,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">antd</a>
               </li>
             
             <div class="clearfix"></div>
