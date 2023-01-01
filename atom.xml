@@ -90,6 +90,33 @@
   </entry>
   
   <entry>
+    <title>修改 antd 组件默认样式的坑丨:global 关键字</title>
+    <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/30ad5bee.html"/>
+    <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/30ad5bee.html</id>
+    <published>2022-04-25T06:43:55.000Z</published>
+    <updated>2023-01-01T16:38:06.309Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　今天根据原型图做一个密码修改框的时候，需要修改 antd 表单 label 的默认样式，把 label 放到 input 框的上面：</p><div align=center>  <img src="https://s3.bmp.ovh/imgs/2023/01/02/41666bf6622b6da4.jpg" /></div><center style="color:#C0C0C0;">原型图</center><span id="more"></span><p>　　一开始感觉没啥问题，用 chrome 调试工具在页面上找到 antd 组件内相应的元素，修改对应的 class 达到效果后复制到了 VSCode 里：</p><div align=center>  <img src="https://s3.bmp.ovh/imgs/2023/01/02/3b7d499d006810f0.jpg" /></div>&nbsp;<p>　　但是，<strong>页面完全没有变化！！！！！！！</strong> </p><p>　　后来翻了其他地方的代码才发现这里有一个坑。</p><h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><blockquote><p>　　在 React 项目中使用 scss/less，如果想让样式仅作用在某个组件，而不影响全局，一般都会把样式文件进行<strong>模块化</strong>，即打包后每个 class 名都会被自动<strong>加上一串唯一的序列号</strong>。</p></blockquote><p>举个例子：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;<br>模块化后打包的结果会是：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main__3D0Xe</span>&#123; <span class="attribute">width</span>: <span class="number">100px</span>; &#125;</span><br></pre></td></tr></table></figure><p>&nbsp;<br>　　而我们公司的框架自动做了样式的模块化，因此正是这串序列号导致无法正确选中 antd 组件内部元素的 class🤣。</p><h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>　　如果不想要这串序列号，那么在最外层套上一层 <code>:global</code> 即可～</p><div align=center>  <img src="https://s3.bmp.ovh/imgs/2023/01/02/63710433b803b78f.jpg" /></div>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;　　今天根据原型图做一个密码修改框的时候，需要修改 antd 表单 label 的默认样式，把 label 放到 input 框的上面：&lt;/p&gt;
+&lt;div align=center&gt;
+  &lt;img src=&quot;https://s3.bmp.ovh/imgs/2023/01/02/41666bf6622b6da4.jpg&quot; /&gt;
+&lt;/div&gt;
+&lt;center style=&quot;color:#C0C0C0;&quot;&gt;原型图&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="JavaScript" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选</title>
     <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/d87f7e0c.html"/>
     <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/d87f7e0c.html</id>
