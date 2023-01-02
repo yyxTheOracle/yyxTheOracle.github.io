@@ -11,19 +11,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aeu4.jpg">
 
-  <meta name="description" content="最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。">
+  <meta name="description" content="最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车）后，再去触发搜索框的搜索。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决输入法尚未结束输入就触发搜索的问题丨onCompositionStart &amp; onCompositionEnd">
 <meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/11426bbe.html">
 <meta property="og:site_name" content="Victor 的自留地">
-<meta property="og:description" content="最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。">
+<meta property="og:description" content="最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了🤣   　　可以明显看到，在搜狗拼音输入法还没有完成输入的时候就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。 　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车）后，再去触发搜索框的搜索。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/577af882fddac58b.jpg">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/a4202af698e488f7.jpg">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/01/4e3fad241e7bdbe7.gif">
 <meta property="article:published_time" content="2022-12-08T06:17:45.000Z">
-<meta property="article:modified_time" content="2023-01-01T16:59:43.161Z">
+<meta property="article:modified_time" content="2023-01-02T07:44:02.336Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
@@ -366,7 +366,7 @@ var _hmt = _hmt || [];
       &nbsp; | &nbsp;
       <span class="post-meta-item-icon">
 	    <i class="fa fa-pagelines" aria-hidden="true"></i>
-        <span class="post-meta-item-text">阅读时长: </span>
+        <span class="post-meta-item-text">预计阅读时长: </span>
         <span class="post-count">1min</span>
       </span>
     </span>
@@ -387,7 +387,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p><img src="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif" alt="bug复现"></p>
 <p>　　可以明显看到，在搜狗拼音输入法<strong>还没有完成输入的时候</strong>就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。</p>
-<p>　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车后）再去触发搜索框的搜索。<span id="more"></span></p>
+<p>　　这明显不是我们想要的效果，我们所希望的应该是在输入法完成输入（按下空格或回车）后，再去触发搜索框的搜索。<span id="more"></span></p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><blockquote>
 <p>onCompositionStart &amp; onCompositionEnd</p>
 </blockquote>
@@ -458,7 +458,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2023年01月02日 00:59:43 -->
+	2023年01月02日 15:44:02 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
@@ -642,10 +642,10 @@ var _hmt = _hmt || [];
 	  <br>
 	  <div class="footer-center">
 	    <i class="fa fa-file-word-o" aria-hidden="true"></i>
-		<span> 6 篇</span>
+		<span> 7 篇</span>
 		<span class="post-meta-divider">|</span>
 		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-		<span> <span class="post-count">4.9k</span></span>
+		<span> <span class="post-count">5.9k</span></span>
       </div>
 	  
 	  <!-- 添加不蒜子统计 -->
