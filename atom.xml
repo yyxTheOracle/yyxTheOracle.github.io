@@ -6,7 +6,7 @@
   <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/atom.xml" rel="self"/>
   
   <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/"/>
-  <updated>2023-01-15T10:53:02.160Z</updated>
+  <updated>2023-06-18T04:25:46.212Z</updated>
   <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>优秀技术文章留档</title>
+    <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html"/>
+    <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html</id>
+    <published>2023-06-18T04:22:01.000Z</published>
+    <updated>2023-06-18T04:25:46.212Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　时常读到一些优秀的技术文章（大部分来自国外技术大佬的博客），在这里分类存个档，便于日后温习。<span id="more"></span></p><h1 id="React-相关"><a href="#React-相关" class="headerlink" title="React 相关"></a>React 相关</h1><p><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">一文说清 React Render Behavior</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;　　时常读到一些优秀的技术文章（大部分来自国外技术大佬的博客），在这里分类存个档，便于日后温习。</summary>
+    
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="JavaScript" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd</title>
