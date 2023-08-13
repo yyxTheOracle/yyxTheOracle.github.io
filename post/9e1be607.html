@@ -7,19 +7,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta http-equiv="Content-Language" content="zh-cn">
   <link rel="dns-prefetch" href="https://yyx-the-oracle-github-io-g1lc.vercel.app">
-  <title>分类 | Victor 的自留地</title>
+  <title>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态 | Victor 的自留地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aeu4.jpg">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/index.html">
+  <meta name="description" content="前言　　最近在做一个 H5 工具，需要手机号 + 验证码登录，很自然地，点击发送验证码后需要等待一段时间才能重新发送，用于请求节流，避免用户疯狂点击：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态">
+<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/9e1be607.html">
 <meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="前言　　最近在做一个 H5 工具，需要手机号 + 验证码登录，很自然地，点击发送验证码后需要等待一段时间才能重新发送，用于请求节流，避免用户疯狂点击：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-27T15:36:35.746Z">
-<meta property="article:modified_time" content="2022-12-27T15:36:35.746Z">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/08/13/34a3ff33a7f0fe76.gif">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/08/13/8218b9d41c0ad738.gif">
+<meta property="article:published_time" content="2023-08-13T04:45:38.000Z">
+<meta property="article:modified_time" content="2023-08-13T10:46:38.834Z">
 <meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2023/08/13/34a3ff33a7f0fe76.gif">
   
   
     <link rel="alternative" href="/atom.xml" title="Victor 的自留地" type="application/atom+xml">
@@ -273,20 +280,90 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-2023-08-13-发送验证码后的节流倒计时" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title_code_ant" itemprop="name">
-	  <a href="/categories/index.html">分类</a>
+	  <a href="/post/9e1be607.html">发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</a>
 	</h1>
   
 
         
 		
+		  <a href="/post/9e1be607.html" class="archive-article-date">
+  	<time datetime="2023-08-13T04:45:38.000Z" itemprop="datePublished">
+	<!-- <i class="icon-calendar icon"></i> -->
+
+	<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+	&nbsp;
+	2023-08-13</time>
+	
+	<!-- busuanzi阅读量统计
+	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<span class="post-meta-item-text">阅读量:</span>
+		<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+		<span class="post-meta-item-text">次</span>
+	</span>
+	
+	-->
+	
+    <!-- waline阅读量统计 -->
+	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<i class="fa fa-eye" aria-hidden="true"></i>
+		&nbsp;
+		<span class="waline-pageview-count" data-path="/post/9e1be607.html"><i class="fa fa-spinner fa-spin"></i></span>
+	</span>
+	
+
+</a>
+
+
+        
 		
+		
+		  <!-- 添加标题栏文字统计效果 -->
+<div class="word-count">
+	
+      
+        <span class="article-type" style="
+          color: white;
+          font-size: 14px;
+          background: #0088CC;
+          padding: 0 5px 1px 5px;
+          margin-right: 5px;
+          border-radius: 2px;">原创</span>
+		  &nbsp; 
+      
+    
+	
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <!-- <i class="fa fa-keyboard-o" aria-hidden="true"></i> -->
+        <span class="post-meta-item-text">字数统计: </span>
+        <span class="post-count">614字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-pagelines" aria-hidden="true"></i>
+        <span class="post-meta-item-text">预计阅读时长: </span>
+        <span class="post-count">2min</span>
+      </span>
+    </span>
+	
+
+</div>
+<!-- 添加标题栏文字统计效果结束 -->
 		
       </header>
     
@@ -294,32 +371,93 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
 	  <!-- 添加分类与标签 -->
 	  
-		<div class="tag-cloud-title">
-		  <h3>共&nbsp;5&nbsp;个标签</h3>
-		</div>
-		 
-		<div class="tag-cloud">
-		  <div class="tag-cloud-tags">
-			<a href="/tags/JavaScript/" style="font-size: 34px; color: #9534f1">JavaScript</a> <a href="/tags/NBA/" style="font-size: 14px; color: #88acdb">NBA</a> <a href="/tags/antd/" style="font-size: 20.67px; color: #8c84e2">antd</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" style="font-size: 34px; color: #9534f1">前端开发</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 27.33px; color: #915cea">随笔</a>
-			</div>
-		</div>
 		  
-		<div class="category-all-page">
-		  <div class="category-all-title">
-			<h3>共&nbsp;2&nbsp;个分类</h3>
-		  </div>
-		  <div class="category-all">
-		    <ul class="category-list-item-list"><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><span class="category-list-item-list-count">5</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-item-list-count">4</span></li></ul>
-		  </div>
-		</div>
-		<!-- 添加分类与标签结束 -->
+		  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近在做一个 H5 工具，需要手机号 + 验证码登录，很自然地，点击发送验证码后需要等待一段时间才能重新发送，用于请求节流，避免用户疯狂点击：<span id="more"></span></p>
+<div align=center>
+  <img src="https://s3.bmp.ovh/imgs/2023/08/13/34a3ff33a7f0fe76.gif" />
+</div>
+&nbsp;
 
-		
+<p>　　不过这里其实有个隐藏需求——如果<code>仍然在冷却时间内</code>，那么用户无论是刷新或是关闭页面，再次打开登录弹窗，<code>需要直接展示正确的倒计时状态</code>。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><blockquote>
+<p>使用经典的 localStorage：<br>· 发送验证码时，将发送时间 (lastSendingTime) 存入 localStorage，并开启 60 秒倒计时。<br>· 倒计时结束后，清除 localStorage 中的 lastSendingTime，并重置倒计时为 60 秒。<br>· 重新进入页面时，若 localStorage 中存有 lastSendingTime，则说明仍处于冷却时间内，那么计算出剩余的倒计时 N，并开启 N 秒倒计时。</p>
+</blockquote>
+<h1 id="Talk-is-cheap-show-me-the-code"><a href="#Talk-is-cheap-show-me-the-code" class="headerlink" title="Talk is cheap, show me the code!"></a>Talk is cheap, show me the code!</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> [countdown, setCountdown] = <span class="title function_">useState</span>(<span class="number">60</span>) <span class="comment">// 倒计时</span></span><br><span class="line">  <span class="keyword">const</span> [canSendCode, setCanSendCode] = <span class="title function_">useState</span>(<span class="literal">true</span>) <span class="comment">// 控制按钮文案的状态</span></span><br><span class="line">  <span class="keyword">const</span> [timer, setTimer] = <span class="title function_">useState</span>() <span class="comment">// 定时器 ID</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">sendVerificationCode</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// network request...</span></span><br><span class="line">      <span class="title class_">Toast</span>.<span class="title function_">show</span>(&#123; <span class="attr">content</span>: <span class="string">&#x27;验证码发送成功&#x27;</span> &#125;)</span><br><span class="line">      <span class="title function_">startCountdown</span>()</span><br><span class="line">      <span class="title function_">setCanSendCode</span>(<span class="literal">false</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="title function_">setCountdown</span>(<span class="number">0</span>)</span><br><span class="line">      <span class="title function_">setCanSendCode</span>(<span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">startCountdown</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> nowTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()</span><br><span class="line">    <span class="keyword">const</span> lastSendingTime = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;lastSendingTime&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (lastSendingTime) &#123;</span><br><span class="line">      <span class="comment">// 若 localStorage 中存有 lastSendingTime，则说明仍处于冷却时间内，计算出剩余的 countdown</span></span><br><span class="line">      <span class="keyword">const</span> restCountdown = <span class="number">60</span> - <span class="built_in">parseInt</span>(((nowTime - lastSendingTime) / <span class="number">1000</span>), <span class="number">10</span>)</span><br><span class="line">      <span class="title function_">setCountdown</span>(restCountdown &lt;= <span class="number">0</span> ? <span class="number">0</span> : restCountdown)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 否则说明冷却时间已结束，则 countdown 为 60s，并将发送时间存入 localStorage</span></span><br><span class="line">      <span class="title function_">setCountdown</span>(<span class="number">60</span>)</span><br><span class="line">      <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;lastSendingTime&#x27;</span>, nowTime)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">setTimer</span>(</span><br><span class="line">      <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">setCountdown</span>(<span class="function"><span class="params">old</span> =&gt;</span> old - <span class="number">1</span>)</span><br><span class="line">      &#125;, <span class="number">1000</span>),</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 重新进入页面时，若 localStorage 中存有上次的发送时间，则说明还处于冷却时间内，则调用函数计算剩余倒计时；否则什么也不做</span></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> lastSendingTime = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;lastSendingTime&#x27;</span>) </span><br><span class="line">    <span class="keyword">if</span> (lastSendingTime) &#123;</span><br><span class="line">      <span class="title function_">setCanSendCode</span>(<span class="literal">false</span>)</span><br><span class="line">      <span class="title function_">startCountdown</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  <span class="comment">/** 监听倒计时，倒计时结束时:</span></span><br><span class="line"><span class="comment">   * - 清空 localStorage 中存储的上次发送时间</span></span><br><span class="line"><span class="comment">   * - 清除定时器</span></span><br><span class="line"><span class="comment">   * - 重置倒计时</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (countdown &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="title function_">setCanSendCode</span>(<span class="literal">true</span>)</span><br><span class="line">      <span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&#x27;lastSendingTime&#x27;</span>)</span><br><span class="line">      <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">      <span class="title function_">setCountdown</span>(<span class="number">60</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [countdown])</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  &#123;canSendCode ? (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">onClick</span>=<span class="string">&#123;sendVerificationCode&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      获取验证码</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">  ) : (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      获取验证码(&#123;`$&#123;countdown&#125;`&#125;)</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">  )&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><div align=center>
+  <img src="https://s3.bmp.ovh/imgs/2023/08/13/8218b9d41c0ad738.gif" />
+</div>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　一开始感觉这是个很简单的小需求，可能 20min 就写完了，但实际花了两个多小时才把逻辑全部 cover 到，还是不能太自信啊~</p>
+
+				  
+	  
       
 	  <!-- 添加打赏 -->
 	  
+		<!-- reward type 1 -->
+		
+		
+		<!-- reward type 2 -->
+		
+		  <div id="reward-container">
+		    <span class="icon-cursor" title="打赏" id="reward-button"
+			  onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'
+			  ><a style="color:#fff;">赏</a></span>
+		    <div id="reward-comment"><i class="icon icon-quo-left"></i>&nbsp;感觉不错 支持一下&nbsp;<i class="icon icon-quo-right"></i></div>
+		  
+		    <div id="qr" style="display: none;">
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/alipay.jpg" alt="支付宝" title="支付宝"/>
+			    <div><span class="reward-type">支付宝</span></div>
+			  </div>
+			
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/wechatpay.jpg" alt="微信支付" title="微信支付"/>
+			    <div><span class="reward-type">微信</span></div>
+			  </div>
+		    </div>
+	      </div>
+	    
+      
 	
 	  <!-- 添加版权声明 -->
+      
+        <!-- 添加版权声明 -->
+<!--https://blog.csdn.net/weixin_41287260/article/details/103050336-->
+
+<div class="declare">
+	<strong class="author">本文作者：</strong>
+	
+	  Victor Ye
+	
+	
+	<br>
+	<strong class="create-time">发布时间：</strong>
+	2023年08月13日 12:45:38
+	
+	<!-- <br>
+	<strong class="update-time">最后更新：</strong>
+	2023年08月13日 18:46:38 -->
+	
+	<!-- <br>
+	<strong class="article-titles">本文标题：</strong>
+	<a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/9e1be607.html" title="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态" target="_blank">发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</a> -->
+	
+	<br>
+	<strong class="article-url">本文链接：</strong>
+	<!-- <a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/9e1be607.html" title="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态" target="_blank">https://yyx-the-oracle-github-io-g1lc.vercel.app/post/9e1be607.html</a> -->
+	<a href="https://www.victoryeah.com/post/9e1be607.html" title="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态" target="_blank">https://www.victoryeah.com/post/9e1be607.html</a>
+	
+	<br>
+	<strong class="copyright">版权声明：</strong>
+	本作品采用
+	<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+	许可协议进行许可，转载请注明出处！
+	
+	
+</div>
+<!-- 添加版权声明 -->
       
 	  
 	</div>
@@ -330,6 +468,21 @@ var _hmt = _hmt || [];
 	  
 	  <!-- 分类页 -->
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">前端开发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
 	  
@@ -383,7 +536,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-	  <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/" alt="微信分享二维码">
+	  <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yyx-the-oracle-github-io-g1lc.vercel.app/post/9e1be607.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -398,6 +551,16 @@ var _hmt = _hmt || [];
 
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/post/435e2644.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">优秀技术文章留档</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 <!-- 添加回到顶部和文章目录 -->
@@ -411,6 +574,19 @@ var _hmt = _hmt || [];
       </div>
     
     
+      <div class="toc-container tooltip-left">
+        <i class="icon-font icon-category"></i>
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item"></span>
+          <span class="tooltip-content">
+			<span style="font-size: 20px;font-weight: bold;">目录</span>
+            <div class="toc-article">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Talk-is-cheap-show-me-the-code"><span class="toc-number">3.</span> <span class="toc-text">Talk is cheap, show me the code!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+          </span>
+        </div>
+      </div>
+	
   </div>
 </aside>
 
@@ -531,7 +707,7 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
