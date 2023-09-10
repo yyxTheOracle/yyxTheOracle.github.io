@@ -40,16 +40,16 @@
   </entry>
   
   <entry>
-    <title>优秀技术文章留档</title>
+    <title>一些超级棒的的前端技术博客 &amp; 演讲</title>
     <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html"/>
     <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html</id>
     <published>2023-06-18T04:22:01.000Z</published>
-    <updated>2023-09-10T15:59:51.379Z</updated>
+    <updated>2023-09-10T17:00:03.353Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　时常读到一些优秀的技术文章（大部分来自国外技术大佬的博客），在这里分类存个档，便于日后温习。<span id="more"></span></p><h1 id="React-相关"><a href="#React-相关" class="headerlink" title="React 相关"></a>React 相关</h1><p><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">一文说清 React Render Behavior</a></p>]]></content>
+    <content type="html"><![CDATA[<p>　　时常看到一些超级棒的文章或者演讲，在这里留个档。<span id="more"></span></p><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">Event Loop I</a>  </p><p><a href="https://www.youtube.com/watch?v=u1kqx6AenYw">Event Loop II</a></p><h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><p><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">A (Mostly) Complete Guide to React Rendering Behavior</a></p>]]></content>
     
     
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;　　时常读到一些优秀的技术文章（大部分来自国外技术大佬的博客），在这里分类存个档，便于日后温习。</summary>
+    <summary type="html">&lt;p&gt;　　时常看到一些超级棒的文章或者演讲，在这里留个档。</summary>
     
     
     
