@@ -6,7 +6,7 @@
   <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/atom.xml" rel="self"/>
   
   <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/"/>
-  <updated>2023-09-10T15:59:51.380Z</updated>
+  <updated>2023-09-12T16:36:46.254Z</updated>
   <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>究竟什么是 Event Loop ？丨总结 Philip Roberts 在 JSConf 的演讲</title>
+    <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html"/>
+    <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html</id>
+    <published>2023-09-11T15:04:15.000Z</published>
+    <updated>2023-09-12T16:36:46.254Z</updated>
+    
+    <content type="html"><![CDATA[<p>  26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。<span id="more"></span></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;  26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。</summary>
+    
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="前端开发" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="JavaScript" scheme="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</title>
@@ -40,16 +63,16 @@
   </entry>
   
   <entry>
-    <title>一些超级棒的的前端技术博客 &amp; 演讲</title>
+    <title>一些超级棒的前端技术博客 &amp; 演讲</title>
     <link href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html"/>
     <id>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/435e2644.html</id>
     <published>2023-06-18T04:22:01.000Z</published>
-    <updated>2023-09-10T17:00:03.353Z</updated>
+    <updated>2023-09-17T16:08:28.852Z</updated>
     
-    <content type="html"><![CDATA[<p>　　时常看到一些超级棒的文章或者演讲，在这里留个档。<span id="more"></span></p><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">Event Loop I</a>  </p><p><a href="https://www.youtube.com/watch?v=u1kqx6AenYw">Event Loop II</a></p><h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><p><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">A (Mostly) Complete Guide to React Rendering Behavior</a></p>]]></content>
+    <content type="html"><![CDATA[<p>　　时常看到一些超级棒的文章或者演讲，在这里留个档，空下来了会去做一下整理和总结，它们真的每一篇都值得反复阅览。<span id="more"></span></p><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">Event Loop I</a>  </p><p><a href="https://www.youtube.com/watch?v=u1kqx6AenYw">Event Loop II</a></p><h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><p><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">A (Mostly) Complete Guide to React Rendering Behavior</a></p>]]></content>
     
     
-    <summary type="html">&lt;p&gt;　　时常看到一些超级棒的文章或者演讲，在这里留个档。</summary>
+    <summary type="html">&lt;p&gt;　　时常看到一些超级棒的文章或者演讲，在这里留个档，空下来了会去做一下整理和总结，它们真的每一篇都值得反复阅览。</summary>
     
     
     
