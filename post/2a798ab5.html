@@ -7,17 +7,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta http-equiv="Content-Language" content="zh-cn">
   <link rel="dns-prefetch" href="https://yyx-the-oracle-github-io-g1lc.vercel.app">
-  <title>标签: NBA | Victor 的自留地</title>
+  <title>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲 | Victor 的自留地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aeu4.jpg">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Victor 的自留地">
-<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/NBA/index.html">
+  <meta name="description" content="26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲">
+<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html">
 <meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/9dffbb458ecfd50d.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/245adf7cc4cfe99e.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/78ace090e55544cc.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/1c8358013ed2daa1.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2024/05/19/8b6b9225900c089f.jpg">
+<meta property="article:published_time" content="2024-03-07T15:04:15.000Z">
+<meta property="article:modified_time" content="2026-01-05T06:17:24.482Z">
 <meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg">
   
   
     <link rel="alternative" href="/atom.xml" title="Victor 的自留地" type="application/atom+xml">
@@ -267,116 +281,403 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-2024-03-07-Event Loop Part I" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title_code_ant" itemprop="name">
+	  <a href="/post/2a798ab5.html">究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</a>
+	</h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/6308cf93.html" class="archive-article-date">
-  	<time datetime="2019-05-11T08:16:35.000Z" itemprop="datePublished">
+
+        
+		
+		  <a href="/post/2a798ab5.html" class="archive-article-date">
+  	<time datetime="2024-03-07T15:04:15.000Z" itemprop="datePublished">
 	<!-- <i class="icon-calendar icon"></i> -->
 
 	<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
 	&nbsp;
-	2019-05-11</time>
+	2024-03-07</time>
 	
 	<!-- busuanzi阅读量统计
+	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<span class="post-meta-item-text">阅读量:</span>
+		<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+		<span class="post-meta-item-text">次</span>
+	</span>
 	
 	-->
 	
     <!-- waline阅读量统计 -->
 	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<i class="fa fa-eye" aria-hidden="true"></i>
+		&nbsp;
+		<span class="waline-pageview-count" data-path="/post/2a798ab5.html"><i class="fa fa-spinner fa-spin"></i></span>
+	</span>
+	
 
 </a>
 
 
-        </div>
-    	 
-  
-    <h2 itemprop="name">
-      <a class="archive-article-title" href="/post/6308cf93.html">东决 G6 和西部半决 G6丨东詹和西詹的不同命运</a>
-    </h2>
-  
+        
+		
+		
+		  <!-- 添加标题栏文字统计效果 -->
+<div class="word-count">
+	
+      
+        <span class="article-type" style="
+          color: white;
+          font-size: 14px;
+          background: #0088CC;
+          padding: 0 5px 1px 5px;
+          margin-right: 5px;
+          border-radius: 2px;">原创</span>
+		  &nbsp; 
+      
+    
+	
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <!-- <i class="fa fa-keyboard-o" aria-hidden="true"></i> -->
+        <span class="post-meta-item-text">字数统计: </span>
+        <span class="post-count">1.1k字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
-          
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-pagelines" aria-hidden="true"></i>
+        <span class="post-meta-item-text">预计阅读时长: </span>
+        <span class="post-count">4min</span>
+      </span>
+    </span>
+	
+
+</div>
+<!-- 添加标题栏文字统计效果结束 -->
+		
+      </header>
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <p>  <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8aGhZQkoFbQ&list=PLI-Ik-cyh3JN2usTBFpZAVVPezC2I-8gM&index=5">26 分钟的视频</a>深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。<span id="more"></span></p>
+<h2 id="对-JavaScript-Runtime-的正确认识"><a href="#对-JavaScript-Runtime-的正确认识" class="headerlink" title="对 JavaScript Runtime 的正确认识"></a>对 JavaScript Runtime 的正确认识</h2><p>  对于 JavaScript，我们常说 JS 有一个调用栈 (call stack)、有一个事件循环机制 (Event Loop)、有一个任务/回调队列 (task/callback queue) 以及一些 WebAPI，但这等价于 V8 也拥有以上这些东西吗？</p>
+<p>  答案是：并非如此。 </p>
+<p>  以 V8 为例，简单来看，它其实只包含一个堆 (heap) 和一个调用栈 (call stack)。</p>
+<p>  如果 clone 一下 V8 的源码，会发现 setTimeout、DOM、HTTP Request 这些东西都是不在 V8 的源码中的。</p>
+<p>  也就是说，V8 并不包括 Event Loop、callback queue 和其他的 WebAPIs。</p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg" />
+  </div>
+
+<p>  由上图可以看出，JS 的浏览器运行环境包含三部分: </p>
+<ul>
+<li>V8 (JavaScript Runtime)</li>
+<li>浏览器提供的 WebAPIs (DOM、AJAX、setTimeout…) </li>
+<li>callback queue </li>
+</ul>
+<p>  这三者互相配合，共同实现了 Event Loop。</p>
+<h2 id="The-call-stack"><a href="#The-call-stack" class="headerlink" title="The call stack"></a>The call stack</h2><p>  <code>one thread === one call stack === one thing at a time</code></p>
+<p>  JavaScript 是一门单线程语言，也就是只有一个调用栈，即一次只能做一件事。</p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/9dffbb458ecfd50d.jpg" />
+  </div>
+  <center style="color:#C0C0C0;">抛错后的 stack trace</center>
+
+
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/245adf7cc4cfe99e.jpg" />
+  </div>
+  <center style="color:#C0C0C0;">爆栈的报错</center>
+
+<h2 id="blocking-阻塞"><a href="#blocking-阻塞" class="headerlink" title="blocking 阻塞"></a>blocking 阻塞</h2><p>  <code>What happens when things are slow?</code></p>
+<p>  慢的东西会阻塞调用栈</p>
+<p>  什么是慢的/快的东西？以下是一些直观的理解：</p>
+<ul>
+<li>console.log 不慢</li>
+<li>从 0 到 100亿 做一个 while 循环是慢的</li>
+<li>网络请求是慢的 </li>
+</ul>
+<p>  假设所有的 network request 都是同步（串行）的，那我们要等待每一个请求都结束之后，才能运行其他的代码。</p>
+<h2 id="Why-is-this-a-problem-because-browsers"><a href="#Why-is-this-a-problem-because-browsers" class="headerlink" title="Why is this a problem? because, browsers."></a>Why is this a problem? because, browsers.</h2><p>  blocking 会成为一个问题的一大原因，就是因为我们是在浏览器里运行代码。</p>
+<p>  而阻塞性的代码，会卡住 call stack，从而<strong>阻塞页面的渲染</strong>。</p>
+<h2 id="the-solution-asynchronous-callbacks"><a href="#the-solution-asynchronous-callbacks" class="headerlink" title="the solution? asynchronous callbacks"></a>the solution? asynchronous callbacks</h2><p>  <code>Here&#39;s a function. Call me maybe?</code></p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/78ace090e55544cc.jpg" />
+  </div>
+
+<p>  以这段简单的代码为例，执行到 setTimeOut 时，其中的 callback 就好像从 call stack 消失了一样。然后 5s 之后，又神奇地回到了 call stack 中，并被执行，其中到底有什么奥秘呢？</p>
+<h2 id="Concurrency-amp-the-Event-Loop"><a href="#Concurrency-amp-the-Event-Loop" class="headerlink" title="Concurrency &amp; the Event Loop"></a>Concurrency &amp; the Event Loop</h2><p>  <code>One thing at a time, except not really?</code></p>
+<p>  JavaScript Runtime 确实一次只能做一件事。但浏览器，并不只有 JavaScript Runtime。</p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg" />
+  </div>
+  <center style="color:#C0C0C0;">还记得这张图吗~</center>
+
+<p>  还是以 setTimeout 为例，正如上文提到的，setTimeout 并不存在于 runtime 中，而是由浏览器的提供的 WebAPI。</p>
+<p>  setTimeout 接收一个 callback 和一个 delay，当执行到 setTimeout 时，便由 WebAPI 接管了（上文提到过，setTimeout 并不存在于 V8 源码中），在 WebAPI 接管后，setTimeout 本身会 pop 出 call stack。</p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/1c8358013ed2daa1.jpg" />
+  </div>
+  
+<p>  WebAPI 提供了计时器的功能，当 delay 的时间到了之后，WebAPI 并不会直接把 callback 塞到 call stack 中（如果真是如此的话，那 callback 很可能会突然地出现在正在执行的代码里，这肯定是不对的）。</p>
+<p>  事实是，浏览器还提供了一个任务队列（回调队列），当倒计时结束后，这个 callback 将会进入这个队列中，等待进入 call stack。</p>
+  <div align=center>
+    <img src="https://s3.bmp.ovh/imgs/2024/05/19/8b6b9225900c089f.jpg" />
+  </div>
+
+<p>  这个时候，也就是 Event Loop 正式出场的时候。</p>
+<p>  Event Loop 做的事情非常简单：看一眼 call stack，如果空了，那就从任务队列中取出第一个任务，塞到 call stack 中去执行。</p>
+<p>  这个时候就得提到经典的 setTimeout(callback, 0) 了，通过上面的介绍，我们可以了解到这样写的目的，就是为了在 call stack 被清空的时候，才去执行 callback。</p>
+<p>  AJAX 也是同理，AJAX 并不存在于 V8 中，而是由浏览器提供。请求的过程由 WebAPI 接手，因此并不会阻塞 call stack。即使这个请求永远不结束，也不会阻塞其他代码的执行 &amp; 浏览器的渲染。</p>
+<p>  Event Listener 也是同理。以 $.on(‘button’, ‘click’, callback) 为例。WebAPIs 将会接手 click 事件的注册，当 click 发生时，WebAPIs 将会向任务队列中推入一个 callback。</p>
+<h2 id="Event-Loop-是如何配合浏览器渲染的？"><a href="#Event-Loop-是如何配合浏览器渲染的？" class="headerlink" title="Event Loop 是如何配合浏览器渲染的？"></a>Event Loop 是如何配合浏览器渲染的？</h2><p>  在 call stack 不为空时，浏览器是无法渲染的。</p>
+<p>  可以把 render 也看作是一个 callback，有一个专门的 render queue，它的优先级比 task queue 更高。</p>
+<p>  以 60 帧为例，每 16.6ms，浏览器就会把一个 render 加到 render queue （优先级更高的队列）中，但要等到 call stack 清空时，再进行 render。</p>
+<p>  我们常说的“不要阻塞事件循环”，就是指不要在栈上执行又臭又长的同步代码，因为这样一来，浏览器就无法渲染了。</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+		<!-- reward type 1 -->
+		
+		
+		<!-- reward type 2 -->
+		
+		  <div id="reward-container">
+		    <span class="icon-cursor" title="打赏" id="reward-button"
+			  onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'
+			  ><a style="color:#fff;">赏</a></span>
+		    <div id="reward-comment"><i class="icon icon-quo-left"></i>&nbsp;感觉不错 支持一下&nbsp;<i class="icon icon-quo-right"></i></div>
+		  
+		    <div id="qr" style="display: none;">
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/alipay.jpg" alt="支付宝" title="支付宝"/>
+			    <div><span class="reward-type">支付宝</span></div>
+			  </div>
+			
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/wechatpay.jpg" alt="微信支付" title="微信支付"/>
+			    <div><span class="reward-type">微信</span></div>
+			  </div>
+		    </div>
+	      </div>
+	    
+      
+	
+	  <!-- 添加版权声明 -->
+      
+        <!-- 添加版权声明 -->
+<!--https://blog.csdn.net/weixin_41287260/article/details/103050336-->
+
+<div class="declare">
+	<strong class="author">本文作者：</strong>
+	
+	  Victor Ye
+	
+	
+	<br>
+	<strong class="create-time">发布时间：</strong>
+	2024年03月07日 23:04:15
+	
+	<!-- <br>
+	<strong class="update-time">最后更新：</strong>
+	2026年01月05日 14:17:24 -->
+	
+	<!-- <br>
+	<strong class="article-titles">本文标题：</strong>
+	<a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html" title="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲" target="_blank">究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</a> -->
+	
+	<br>
+	<strong class="article-url">本文链接：</strong>
+	<!-- <a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html" title="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲" target="_blank">https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html</a> -->
+	<a href="https://www.victoryeah.com/post/2a798ab5.html" title="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲" target="_blank">https://www.victoryeah.com/post/2a798ab5.html</a>
+	
+	<br>
+	<strong class="copyright">版权声明：</strong>
+	本作品采用
+	<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+	许可协议进行许可，转载请注明出处！
+	
+	
+</div>
+<!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">前端开发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NBA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+	  
+	  <!-- 添加展开全文 -->
+      
+	  
+	  <!-- 添加分享 -->
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+	  <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2a798ab5.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
+
+  
+<nav id="article-nav">
+  
+    <a href="/post/12e2a8de.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          对接小红书海量数据丨Go 并发利器 Worker Pool 实践
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/9e1be607.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
     
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+      <div class="toc-container tooltip-left">
+        <i class="icon-font icon-category"></i>
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item"></span>
+          <span class="tooltip-content">
+			<span style="font-size: 20px;font-weight: bold;">目录</span>
+            <div class="toc-article">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-JavaScript-Runtime-%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%AE%A4%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">对 JavaScript Runtime 的正确认识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-call-stack"><span class="toc-number">2.</span> <span class="toc-text">The call stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blocking-%E9%98%BB%E5%A1%9E"><span class="toc-number">3.</span> <span class="toc-text">blocking 阻塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-is-this-a-problem-because-browsers"><span class="toc-number">4.</span> <span class="toc-text">Why is this a problem? because, browsers.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#the-solution-asynchronous-callbacks"><span class="toc-number">5.</span> <span class="toc-text">the solution? asynchronous callbacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concurrency-amp-the-Event-Loop"><span class="toc-number">6.</span> <span class="toc-text">Concurrency &amp; the Event Loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Loop-%E6%98%AF%E5%A6%82%E4%BD%95%E9%85%8D%E5%90%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">Event Loop 是如何配合浏览器渲染的？</span></a></li></ol>
+            </div>
+          </span>
+        </div>
+      </div>
+	
+  </div>
+</aside>
+
+<!-- 添加评论 -->
 
 
-
-<!-- 主页添加mathjax公式 -->
-
-  <!-- mathjax http://docs.mathjax.org/en/latest/web/start.html -->
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true
-  },
-  chtml: {
-    scale: 1,                      // global scaling factor for all expressions
-    minScale: .5,                  // smallest scaling factor to use
-    mtextInheritFont: false,       // true to make mtext elements use surrounding font
-    merrorInheritFont: false,      // true to make merror text use surrounding font
-    mtextFont: '',                 // font to use for mtext, if not inheriting (empty means use MathJax fonts)
-    merrorFont: 'serif',           // font to use for merror, if not inheriting (empty means use MathJax fonts)
-    unknownFamily: 'serif',        // font to use for character that aren't in MathJax's fonts
-    mathmlSpacing: false,          // true for MathML spacing rules, false for TeX rules
-    skipAttributes: {},            // RFDa and other attributes NOT to copy to the output
-    exFactor: .5,                  // default size of ex in em units
-    displayAlign: 'center',        // default for indentalign when set to 'auto'
-    displayIndent: '0'             // default for indentshift when set to 'auto'
-  },
-  options: {
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }
-};
-</script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  
+  
 
 
-<!-- 主页添加mathjax公式 -->
+  
+
+  
+
+  
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
           </div>
         </div>
       </div>
@@ -474,9 +775,9 @@ window.MathJax = {
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 			isArchive: false,
-				isTag: true,
+				isTag: false,
 					isCategory: false,
 						open_in_new: false,
 							toc_hide_index: false,

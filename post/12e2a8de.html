@@ -7,16 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta http-equiv="Content-Language" content="zh-cn">
   <link rel="dns-prefetch" href="https://yyx-the-oracle-github-io-g1lc.vercel.app">
-  <title>标签: NBA | Victor 的自留地</title>
+  <title>对接小红书海量数据丨Go 并发利器 Worker Pool 实践 | Victor 的自留地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:image" content="https://i.niupic.com/images/2022/12/31/aeu4.jpg">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Victor 的自留地">
-<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/NBA/index.html">
+  <meta name="description" content="背景最近有个业务需求，需要去小红书开放平台对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对接小红书海量数据丨Go 并发利器 Worker Pool 实践">
+<meta property="og:url" content="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/12e2a8de.html">
 <meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="背景最近有个业务需求，需要去小红书开放平台对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-11T08:45:18.000Z">
+<meta property="article:modified_time" content="2026-01-11T10:23:45.376Z">
 <meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="后端开发">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
   
   
@@ -267,116 +273,410 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-2026-01-11" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title_code_ant" itemprop="name">
+	  <a href="/post/12e2a8de.html">对接小红书海量数据丨Go 并发利器 Worker Pool 实践</a>
+	</h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/6308cf93.html" class="archive-article-date">
-  	<time datetime="2019-05-11T08:16:35.000Z" itemprop="datePublished">
+
+        
+		
+		  <a href="/post/12e2a8de.html" class="archive-article-date">
+  	<time datetime="2026-01-11T08:45:18.000Z" itemprop="datePublished">
 	<!-- <i class="icon-calendar icon"></i> -->
 
 	<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
 	&nbsp;
-	2019-05-11</time>
+	2026-01-11</time>
 	
 	<!-- busuanzi阅读量统计
+	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<span class="post-meta-item-text">阅读量:</span>
+		<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+		<span class="post-meta-item-text">次</span>
+	</span>
 	
 	-->
 	
     <!-- waline阅读量统计 -->
 	
+	<span>
+		&nbsp; &nbsp; &nbsp;
+		<i class="fa fa-eye" aria-hidden="true"></i>
+		&nbsp;
+		<span class="waline-pageview-count" data-path="/post/12e2a8de.html"><i class="fa fa-spinner fa-spin"></i></span>
+	</span>
+	
 
 </a>
 
 
-        </div>
-    	 
-  
-    <h2 itemprop="name">
-      <a class="archive-article-title" href="/post/6308cf93.html">东决 G6 和西部半决 G6丨东詹和西詹的不同命运</a>
-    </h2>
-  
+        
+		
+		
+		  <!-- 添加标题栏文字统计效果 -->
+<div class="word-count">
+	
+      
+        <span class="article-type" style="
+          color: white;
+          font-size: 14px;
+          background: #0088CC;
+          padding: 0 5px 1px 5px;
+          margin-right: 5px;
+          border-radius: 2px;">原创</span>
+		  &nbsp; 
+      
+    
+	
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <!-- <i class="fa fa-keyboard-o" aria-hidden="true"></i> -->
+        <span class="post-meta-item-text">字数统计: </span>
+        <span class="post-count">2.3k字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
-          
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+	    <i class="fa fa-pagelines" aria-hidden="true"></i>
+        <span class="post-meta-item-text">预计阅读时长: </span>
+        <span class="post-count">8min</span>
+      </span>
+    </span>
+	
+
+</div>
+<!-- 添加标题栏文字统计效果结束 -->
+		
+      </header>
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+	  <!-- 添加分类与标签 -->
+	  
+		  
+		  <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近有个业务需求，需要去<a target="_blank" rel="noopener" href="https://ad-market.xiaohongshu.com/docs-center?bizType=943&articleId=2734">小红书开放平台</a>对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。<span id="more"></span></p>
+<p>对接第三方接口需要遵守他们的规则。小红书接口单页允许的 <code>page_size</code> 最大为 100，这就意味着，如果有 100 万条数据，那么就需要做 1 万次 “拉取-落库” 的动作。单线程去做的话会非常耗时，因此需要利用 Go 并发编程的特性去多线程并发。</p>
+<p>让 Claude 4.5 Opus 实现功能之后，发现它使用了一种叫 <code>Worker Pool</code> (工作池) 的并发模式，通过 Gemini 进行学习了解后，发现这是 Go 中一种非常经典且高效的并发设计模式，正好最近刚学习完 <code>Goroutine</code>、<code>Channel</code>、<code>sync.WaitGroup</code> 等概念，<code>Worker Pool</code> 是一个综合的实践，而且 <code>Worker Pool</code> 的示例代码虽然看上去一眼就懂，但其实有很多细节我发现自己并没有完全理解（记录在了最后的 FAQ 章节），因此打算做一个记录~</p>
+<h1 id="Worker-Pool-的核心思想"><a href="#Worker-Pool-的核心思想" class="headerlink" title="Worker Pool 的核心思想"></a><code>Worker Pool</code> 的核心思想</h1><blockquote>
+<p>Gemini 的一句话总结和举例，我觉得非常完美，做到了 “多则惑，少则缺”，因此直接照抄过来。 </p>
+</blockquote>
+<p><code>Worker Pool</code> 的核心思想是：提前创建固定数量的 <code>Goroutine</code>（工作协程），让它们竞争式地从一个任务队列中获取并处理任务。</p>
+<p>就像是一个工厂的流水线，无论有多少订单（任务），流水线上只有固定数量的工人（Worker）在干活。</p>
+<h1 id="为什么需要-Worker-Pool？"><a href="#为什么需要-Worker-Pool？" class="headerlink" title="为什么需要 Worker Pool？"></a>为什么需要 <code>Worker Pool</code>？</h1><p>虽然 <code>Goroutine</code> 非常轻量（仅需 2KB 内存，作为对比，操作系统线程需要 2MB），但在处理海量任务时，如果直接为每个任务创建一个新的 <code>Goroutine</code>（还是前文的例子，假设有 100 万条数据，但每次最多只能拉取 100 条，如果为每个拉取 100 条数据的任务创建一个 <code>Goroutine</code>，那么就需要同时创建 1 万个），会产生以下问题：</p>
+<ul>
+<li>资源耗尽： 瞬时创建上万个 <code>Goroutine</code> 可能导致内存溢出。</li>
+<li>上下文切换开销： 过多 <code>Goroutine</code> 会增加 CPU 调度器的负担。</li>
+<li>缺乏控制： 难以限制对下游资源（如数据库连接、API 调用）的并发访问。</li>
+</ul>
+<p><code>Worker Pool</code> 通过 <strong>“复用”</strong> 和 <strong>“限额”</strong> 解决了这些问题。</p>
+<h1 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h1><p>一个典型的 <code>Worker Pool</code> 由三个部分组成：</p>
+<ul>
+<li><code>Job Queue</code> (任务队列)： 通常是一个 <code>channel</code>，用于存放待处理的任务。</li>
+<li><code>Worker</code> (工人)： 一组在后台循环运行的 <code>Goroutine</code>。</li>
+<li><code>Result Queue</code> (结果队列)： 可选，用于收集处理后的结果。</li>
+</ul>
+<pre class="mermaid">graph LR
+    Generator[Job Generator<br/>任务生成者] -->|Enqueue| JobQueue[Job Queue<br/>任务队列]
+    
+    subgraph WorkerPool [Worker Pool 工作池]
+        W1[Worker 1]
+        W2[Worker 2]
+        W3[Worker ...]
+    end
+    
+    JobQueue -->|Fetch| W1
+    JobQueue -->|Fetch| W2
+    JobQueue -->|Fetch| W3
+    
+    W1 -->|Result| ResultQueue[Result Queue<br/>结果队列]
+    W2 -->|Result| ResultQueue
+    W3 -->|Result| ResultQueue
+    
+    ResultQueue -->|Collect| Collector[Result Collector<br/>结果收集者]
+    
+    style JobQueue fill:#ffeb3b,stroke:#333,stroke-width:2px;
+    style ResultQueue fill:#4caf50,stroke:#333,stroke-width:2px;
+    style WorkerPool fill:#e3f2fd,stroke:#333,stroke-dasharray: 5 5;</pre>
+
+<h1 id="Talk-is-cheap-show-me-the-code"><a href="#Talk-is-cheap-show-me-the-code" class="headerlink" title="Talk is cheap, show me the code!"></a>Talk is cheap, show me the code!</h1><p>一个简单的流程示意图，对应后续代码中的执行步骤：</p>
+<pre class="mermaid">graph TD
+    %% 主流程节点
+    Init[1. 初始化通道] --> Start[2. 启动 5 个 Worker]
+    Start --> Send[3. 发送 1000 个任务]
+    Send --> CloseJobs[关闭 Job 通道]
+    
+    %% 后台逻辑
+    Start -.->|后台运行| Worker[Worker: 抢任务 -> 处理 -> 存结果]
+    
+    %% 监控与收集
+    CloseJobs --> Monitor[Monitor: 等待 Worker 全部结束]
+    Monitor --> CloseRes[关闭 Result 通道]
+    CloseRes --> Collect[4. 收集结果]
+    
+    %% 数据流向示意
+    Worker -.->|处理结果| Collect
+    
+    style Worker fill:#e1f5fe,stroke:#01579b
+    style Monitor fill:#fff9c4,stroke:#fbc02d</pre>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;sync&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * worker 函数：对应「核心结构」章节中的 Worker，从 jobs 通道读任务，处理后发给 results 通道</span></span><br><span class="line"><span class="comment"> * @param id      工人编号</span></span><br><span class="line"><span class="comment"> * @param jobs    只读通道 (&lt;-chan)：工人只能从这里拿任务</span></span><br><span class="line"><span class="comment"> * @param results 只写通道 (chan&lt;-)：工人只能把结果往这里放</span></span><br><span class="line"><span class="comment"> * @param wg      计数器：用来告诉主程序自己什么时候干完活</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">(id <span class="type">int</span>, jobs &lt;-<span class="keyword">chan</span> <span class="type">int</span>, results <span class="keyword">chan</span>&lt;- <span class="type">int</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">    <span class="comment">// defer 保证即使函数中途出错，也会在退出前执行 Done()，避免主线程死锁</span></span><br><span class="line">    <span class="keyword">defer</span> wg.Done()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// range 会不断从 jobs 中取数据，直到 jobs 通道被 close(jobs) 且数据取完</span></span><br><span class="line">    <span class="keyword">for</span> j := <span class="keyword">range</span> jobs &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;Worker %d 开始处理任务 %d\n&quot;</span>, id, j)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟耗时的真实业务逻辑（如调用小红书 API、读写数据库）</span></span><br><span class="line">        time.Sleep(time.Second)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理完后将结果放入结果通道</span></span><br><span class="line">        results &lt;- j * <span class="number">2</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;工人 %d: 完成任务 %d\n&quot;</span>, id, j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">const</span> numJobs = <span class="number">1000</span> <span class="comment">// 假设一共有 1000 个任务</span></span><br><span class="line">    <span class="keyword">const</span> numWorkers = <span class="number">5</span> <span class="comment">// 限制并发数为 5（控制压力），最多只有 5 个 worker 同时处理，可以灵活配置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化【任务通道】和【结果通道】</span></span><br><span class="line">    jobs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, numJobs) <span class="comment">// 对应「核心结构」章节中的 Job Queue (任务队列)：通常是一个 channel，用于存放待处理的任务</span></span><br><span class="line">    results := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, numJobs) <span class="comment">// 对应「核心结构」章节中的 Result Queue (结果队列)：可选，用于收集处理后的结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 启动指定数量的 worker，目前数量是 5 </span></span><br><span class="line">    <span class="comment">// 此时工人已经就绪，但在 jobs 通道没数据前，他们都会阻塞在 range 那行 “待命”</span></span><br><span class="line">    <span class="keyword">for</span> w := <span class="number">1</span>; w &lt;= numWorkers; w++ &#123;</span><br><span class="line">        wg.Add(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">go</span> worker(w, jobs, results, &amp;wg)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 发送任务到队列</span></span><br><span class="line">    <span class="keyword">for</span> j := <span class="number">1</span>; j &lt;= numJobs; j++ &#123;</span><br><span class="line">        jobs &lt;- j</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 【关键点】任务发完了，一定要关闭 jobs 通道</span></span><br><span class="line">    <span class="comment">// 关闭后，workers 里的 range 循环在取完剩余任务后会自动结束</span></span><br><span class="line">    <span class="built_in">close</span>(jobs)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 监控完成情况 (开启一个“收尾”协程)</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        wg.Wait() <span class="comment">// 等待所有工人退出</span></span><br><span class="line">        <span class="built_in">close</span>(results) <span class="comment">// 所有人都干完了，结果通道也可以关了</span></span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 收集结果</span></span><br><span class="line">    <span class="keyword">for</span> res := <span class="keyword">range</span> results &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;结果:&quot;</span>, res)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">&quot;所有任务处理完毕！&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><blockquote>
+<p>那些我发现一开始并没有完全理解的点。</p>
+</blockquote>
+<h2 id="1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？"><a href="#1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？" class="headerlink" title="1. 为什么 jobs 和 results 都要初始化成有缓冲区的通道 (Buffered Channel)？"></a>1. 为什么 <code>jobs</code> 和 <code>results</code> 都要初始化成有缓冲区的通道 (<code>Buffered Channel</code>)？</h2><p>如果没有缓冲区，发一个任务就必须立刻有一个工人接走，否则发送者就会卡在那动弹不得。</p>
+<p>有了缓冲区，主程序可以先把 1000 个任务一股脑丢进暂存区，然后去干别的事。工人根据自己的节奏慢慢拿，这样能极大提高吞吐量，解耦了“发任务”和“做任务”的速度差异。</p>
+<h2 id="2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？"><a href="#2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？" class="headerlink" title="2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？"></a>2. 在发送任务结束后就立刻 <code>close(jobs)</code>，那如果 <code>jobs</code> 内的数据还没有被处理，不会出问题吗？</h2><p><strong>不会。</strong>  这是 Go Channel 的重要特性：</p>
+<ul>
+<li>关闭通道仅仅意味着：<strong>以后不会再有新任务进来了</strong>。</li>
+<li>已经在通道里的任务（缓冲区里的）依然可以被正常读取。</li>
+<li>工人们读完缓冲区里的最后一个任务后，<code>for j := range jobs</code> 就会自动结束循环。</li>
+</ul>
+<h2 id="3-为什么-wg-Wait-和-close-results-要单独放在一个-Goroutine-里？"><a href="#3-为什么-wg-Wait-和-close-results-要单独放在一个-Goroutine-里？" class="headerlink" title="3. 为什么 wg.Wait() 和 close(results) 要单独放在一个 Goroutine 里？"></a>3. 为什么 <code>wg.Wait()</code> 和 <code>close(results)</code> 要单独放在一个 <code>Goroutine</code> 里？</h2><p><strong>这是为了避免“死锁”。</strong> </p>
+<p>主程序运行到 <code>for res := range results</code> 时会一直等着拿数据。</p>
+<p>工人们一直在往 <code>results</code> 塞数据。</p>
+<p>如果你在主程序里写 <code>wg.Wait()</code>，主程序会卡在这里等工人干完。但如果工人因为 <code>results</code> 通道满了（且没人从里面拿走）而阻塞，他们就永远干不完。</p>
+<p><strong>结果：</strong> 工人在等主程序拿数据，主程序在等工人干完活。谁也不让谁，程序就“卡死”了。单独开一个协程监控收尾，可以保证主程序能立刻开始处理结果。</p>
+<h2 id="4-多个-worker-并发从-jobs-里取数据，不会出现取到同一个任务的情况吗？"><a href="#4-多个-worker-并发从-jobs-里取数据，不会出现取到同一个任务的情况吗？" class="headerlink" title="4. 多个 worker 并发从 jobs 里取数据，不会出现取到同一个任务的情况吗？"></a>4. 多个 worker 并发从 <code>jobs</code> 里取数据，不会出现取到同一个任务的情况吗？</h2><p><strong>绝对不会。</strong> </p>
+<p><code>Go</code> 的 <code>Channel</code> 底层有锁机制（加锁的环形链表），它是并发安全的。</p>
+<p>就像一个自动售货机，无论多少人同时扫码买最后一瓶水，最终只会有一个人拿到，售货机内部会保证数据的原子性。</p>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><blockquote>
+<p>这两块内容在需求中没有设计，目前只停留在理论阶段，等实践过了再更新到正文。</p>
+</blockquote>
+<h2 id="1-如果其中一个任务导致-Worker-Panic（崩溃）了怎么办？"><a href="#1-如果其中一个任务导致-Worker-Panic（崩溃）了怎么办？" class="headerlink" title="1. 如果其中一个任务导致 Worker Panic（崩溃）了怎么办？"></a>1. 如果其中一个任务导致 Worker Panic（崩溃）了怎么办？</h2><p><strong>问题：</strong> 默认情况下，一个 <code>Goroutine</code> 崩溃会导致整个进程退出。<br><strong>解决：</strong> 在 worker 函数内部使用 <code>recover()</code>。在 <code>Worker Pool</code> 中，通常需要捕获异常，打印日志，并调用 <code>wg.Done()</code>，否则 <code>Wait()</code> 永远等不到结束，程序会死锁。</p>
+<h2 id="2-如何优雅地“提前关闭”-Worker-Pool？"><a href="#2-如何优雅地“提前关闭”-Worker-Pool？" class="headerlink" title="2. 如何优雅地“提前关闭” Worker Pool？"></a>2. 如何优雅地“提前关闭” <code>Worker Pool</code>？</h2><p><strong>场景：</strong> 比如用户点击了取消按钮，或者遇到了严重错误，不想跑剩下的 1 万个任务了。<br><strong>技巧：</strong> 仅仅 <code>close(jobs)</code> 是不够的，因为工人可能正阻塞在某个耗时操作上。这时候需要引入 <code>context.Context</code>。给工人传入一个 <code>ctx</code>，在函数内通过 <code>select &#123; case &lt;-ctx.Done(): return &#125;</code> 来实现秒级的停止。</p>
+
+				  
+	  
+      
+	  <!-- 添加打赏 -->
+	  
+		<!-- reward type 1 -->
+		
+		
+		<!-- reward type 2 -->
+		
+		  <div id="reward-container">
+		    <span class="icon-cursor" title="打赏" id="reward-button"
+			  onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'
+			  ><a style="color:#fff;">赏</a></span>
+		    <div id="reward-comment"><i class="icon icon-quo-left"></i>&nbsp;感觉不错 支持一下&nbsp;<i class="icon icon-quo-right"></i></div>
+		  
+		    <div id="qr" style="display: none;">
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/alipay.jpg" alt="支付宝" title="支付宝"/>
+			    <div><span class="reward-type">支付宝</span></div>
+			  </div>
+			
+			  <div style="display:inline-block">
+			    <img loading="lazy" src="/img/wechatpay.jpg" alt="微信支付" title="微信支付"/>
+			    <div><span class="reward-type">微信</span></div>
+			  </div>
+		    </div>
+	      </div>
+	    
+      
+	
+	  <!-- 添加版权声明 -->
+      
+        <!-- 添加版权声明 -->
+<!--https://blog.csdn.net/weixin_41287260/article/details/103050336-->
+
+<div class="declare">
+	<strong class="author">本文作者：</strong>
+	
+	  Victor Ye
+	
+	
+	<br>
+	<strong class="create-time">发布时间：</strong>
+	2026年01月11日 16:45:18
+	
+	<!-- <br>
+	<strong class="update-time">最后更新：</strong>
+	2026年01月11日 18:23:45 -->
+	
+	<!-- <br>
+	<strong class="article-titles">本文标题：</strong>
+	<a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/12e2a8de.html" title="对接小红书海量数据丨Go 并发利器 Worker Pool 实践" target="_blank">对接小红书海量数据丨Go 并发利器 Worker Pool 实践</a> -->
+	
+	<br>
+	<strong class="article-url">本文链接：</strong>
+	<!-- <a href="https://yyx-the-oracle-github-io-g1lc.vercel.app/post/12e2a8de.html" title="对接小红书海量数据丨Go 并发利器 Worker Pool 实践" target="_blank">https://yyx-the-oracle-github-io-g1lc.vercel.app/post/12e2a8de.html</a> -->
+	<a href="https://www.victoryeah.com/post/12e2a8de.html" title="对接小红书海量数据丨Go 并发利器 Worker Pool 实践" target="_blank">https://www.victoryeah.com/post/12e2a8de.html</a>
+	
+	<br>
+	<strong class="copyright">版权声明：</strong>
+	本作品采用
+	<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+	许可协议进行许可，转载请注明出处！
+	
+	
+</div>
+<!-- 添加版权声明 -->
+      
+	  
+	</div>
+	
+	<!-- 添加置顶 -->
+    <div class="article-info article-info-index">
+      
+	  
+	  <!-- 分类页 -->
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">后端开发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NBA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Go</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+	  
+	  <!-- 添加展开全文 -->
+      
+	  
+	  <!-- 添加分享 -->
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+	  <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yyx-the-oracle-github-io-g1lc.vercel.app/post/12e2a8de.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+	  
+      <div class="clearfix"></div>
+	  
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/post/2a798ab5.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+<!-- 添加回到顶部和文章目录 -->
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
     
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+      </div>
+    
+    
+      <div class="toc-container tooltip-left">
+        <i class="icon-font icon-category"></i>
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item"></span>
+          <span class="tooltip-content">
+			<span style="font-size: 20px;font-weight: bold;">目录</span>
+            <div class="toc-article">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Worker-Pool-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">Worker Pool 的核心思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-Worker-Pool%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">为什么需要 Worker Pool？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">核心结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Talk-is-cheap-show-me-the-code"><span class="toc-number">5.</span> <span class="toc-text">Talk is cheap, show me the code!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FAQ"><span class="toc-number">6.</span> <span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88-jobs-%E5%92%8C-results-%E9%83%BD%E8%A6%81%E5%88%9D%E5%A7%8B%E5%8C%96%E6%88%90%E6%9C%89%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E9%80%9A%E9%81%93-Buffered-Channel-%EF%BC%9F"><span class="toc-number">6.1.</span> <span class="toc-text">1. 为什么 jobs 和 results 都要初始化成有缓冲区的通道 (Buffered Channel)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9C%A8%E5%8F%91%E9%80%81%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9D%9F%E5%90%8E%E5%B0%B1%E7%AB%8B%E5%88%BB-close-jobs-%EF%BC%8C%E9%82%A3%E5%A6%82%E6%9E%9C-jobs-%E5%86%85%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BF%98%E6%B2%A1%E6%9C%89%E8%A2%AB%E5%A4%84%E7%90%86%EF%BC%8C%E4%B8%8D%E4%BC%9A%E5%87%BA%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F"><span class="toc-number">6.2.</span> <span class="toc-text">2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88-wg-Wait-%E5%92%8C-close-results-%E8%A6%81%E5%8D%95%E7%8B%AC%E6%94%BE%E5%9C%A8%E4%B8%80%E4%B8%AA-Goroutine-%E9%87%8C%EF%BC%9F"><span class="toc-number">6.3.</span> <span class="toc-text">3. 为什么 wg.Wait() 和 close(results) 要单独放在一个 Goroutine 里？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%A4%9A%E4%B8%AA-worker-%E5%B9%B6%E5%8F%91%E4%BB%8E-jobs-%E9%87%8C%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%8F%96%E5%88%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%83%85%E5%86%B5%E5%90%97%EF%BC%9F"><span class="toc-number">6.4.</span> <span class="toc-text">4. 多个 worker 并发从 jobs 里取数据，不会出现取到同一个任务的情况吗？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TODO"><span class="toc-number">7.</span> <span class="toc-text">TODO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E6%9E%9C%E5%85%B6%E4%B8%AD%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E5%AF%BC%E8%87%B4-Worker-Panic%EF%BC%88%E5%B4%A9%E6%BA%83%EF%BC%89%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">7.1.</span> <span class="toc-text">1. 如果其中一个任务导致 Worker Panic（崩溃）了怎么办？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E2%80%9C%E6%8F%90%E5%89%8D%E5%85%B3%E9%97%AD%E2%80%9D-Worker-Pool%EF%BC%9F"><span class="toc-number">7.2.</span> <span class="toc-text">2. 如何优雅地“提前关闭” Worker Pool？</span></a></li></ol></li></ol>
+            </div>
+          </span>
+        </div>
+      </div>
+	
+  </div>
+</aside>
+
+<!-- 添加评论 -->
 
 
-
-<!-- 主页添加mathjax公式 -->
-
-  <!-- mathjax http://docs.mathjax.org/en/latest/web/start.html -->
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true
-  },
-  chtml: {
-    scale: 1,                      // global scaling factor for all expressions
-    minScale: .5,                  // smallest scaling factor to use
-    mtextInheritFont: false,       // true to make mtext elements use surrounding font
-    merrorInheritFont: false,      // true to make merror text use surrounding font
-    mtextFont: '',                 // font to use for mtext, if not inheriting (empty means use MathJax fonts)
-    merrorFont: 'serif',           // font to use for merror, if not inheriting (empty means use MathJax fonts)
-    unknownFamily: 'serif',        // font to use for character that aren't in MathJax's fonts
-    mathmlSpacing: false,          // true for MathML spacing rules, false for TeX rules
-    skipAttributes: {},            // RFDa and other attributes NOT to copy to the output
-    exFactor: .5,                  // default size of ex in em units
-    displayAlign: 'center',        // default for indentalign when set to 'auto'
-    displayIndent: '0'             // default for indentshift when set to 'auto'
-  },
-  options: {
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }
-};
-</script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  
+  
 
 
-<!-- 主页添加mathjax公式 -->
+  
+
+  
+
+  
+
+
+<!-- 文章页添加mathjax公式 -->
+
+  
+
+<!-- 文章页添加mathjax公式 -->
           </div>
         </div>
       </div>
@@ -474,9 +774,9 @@ window.MathJax = {
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 			isArchive: false,
-				isTag: true,
+				isTag: false,
 					isCategory: false,
 						open_in_new: false,
 							toc_hide_index: false,
@@ -554,6 +854,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 							<!--添加鼠标特效结束-->
 
 							
+								<script src='https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js'></script>
+								<script>
+									if (window.mermaid) {
+										mermaid.initialize({ theme: 'default' });
+									}
+								</script>
+								<style>
+									.mermaid {
+										background: white !important;
+										padding: 10px;
+										margin-bottom: 20px;
+										border-radius: 4px;
+										text-align: center;
+									}
+								</style>
+								
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">
