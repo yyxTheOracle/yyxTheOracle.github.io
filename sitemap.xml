@@ -83,15 +83,6 @@
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/music/index.html</loc>
-    
-    <lastmod>2023-08-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/photos/data.json</loc>
     
     <lastmod>2023-08-14</lastmod>
@@ -102,6 +93,15 @@
   
   <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/photos/index.html</loc>
+    
+    <lastmod>2023-08-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/music/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/archives/index.html</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/categories/index.html</loc>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/archives/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     

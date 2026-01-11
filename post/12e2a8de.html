@@ -18,12 +18,14 @@
 <meta property="og:site_name" content="Victor 的自留地">
 <meta property="og:description" content="背景最近有个业务需求，需要去小红书开放平台对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://r.kezaihui.com/client/2026-01-11/image/yeyuxuan/redbook_report_api_screenshot.png">
 <meta property="article:published_time" content="2026-01-11T08:45:18.000Z">
-<meta property="article:modified_time" content="2026-01-11T10:36:40.707Z">
+<meta property="article:modified_time" content="2026-01-11T10:49:33.490Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="后端开发">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://r.kezaihui.com/client/2026-01-11/image/yeyuxuan/redbook_report_api_screenshot.png">
   
   
     <link rel="alternative" href="/atom.xml" title="Victor 的自留地" type="application/atom+xml">
@@ -365,10 +367,9 @@ var _hmt = _hmt || [];
 	  <!-- 添加分类与标签 -->
 	  
 		  
-		  <!-- vercel trigger commit 2026-01-11 18:48 -->
-
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近有个业务需求，需要去<a target="_blank" rel="noopener" href="https://ad-market.xiaohongshu.com/docs-center?bizType=943&articleId=2734">小红书开放平台</a>对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。<span id="more"></span></p>
+		  <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近有个业务需求，需要去<a target="_blank" rel="noopener" href="https://ad-market.xiaohongshu.com/docs-center?bizType=943&articleId=2734">小红书开放平台</a>对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。<span id="more"></span></p>
 <p>对接第三方接口需要遵守他们的规则。小红书接口单页允许的 <code>page_size</code> 最大为 100，这就意味着，如果有 100 万条数据，那么就需要做 1 万次 “拉取-落库” 的动作。单线程去做的话会非常耗时，因此需要利用 Go 并发编程的特性去多线程并发。</p>
+<p><img src="https://r.kezaihui.com/client/2026-01-11/image/yeyuxuan/redbook_report_api_screenshot.png" alt="redbook_report_api_screenshot"></p>
 <p>让 Claude 4.5 Opus 实现功能之后，发现它使用了一种叫 <code>Worker Pool</code> (工作池) 的并发模式，通过 Gemini 进行学习了解后，发现这是 Go 中一种非常经典且高效的并发设计模式，正好最近刚学习完 <code>Goroutine</code>、<code>Channel</code>、<code>sync.WaitGroup</code> 等概念，<code>Worker Pool</code> 是一个综合的实践，而且 <code>Worker Pool</code> 的示例代码虽然看上去一眼就懂，但其实有很多细节我发现自己并没有完全理解（记录在了最后的 FAQ 章节），因此打算做一个记录~</p>
 <h1 id="Worker-Pool-的核心思想"><a href="#Worker-Pool-的核心思想" class="headerlink" title="Worker Pool 的核心思想"></a><code>Worker Pool</code> 的核心思想</h1><blockquote>
 <p>Gemini 的一句话总结和举例，我觉得非常完美，做到了 “多则惑，少则缺”，因此直接照抄过来。 </p>
@@ -507,7 +508,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2026年01月11日 18:36:40 -->
+	2026年01月11日 18:49:33 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
