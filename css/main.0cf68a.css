@@ -1981,9 +1981,9 @@ to {
 .article-entry ol {
 	counter-reset:item
 }
-.article-entry ol li:before {
+.article-entry ol > li:before {
 	counter-increment:item;
-	/*content:counter(item) ".";*/
+	content:counter(item) ".";
 	margin-right:10px
 }
 .article-entry ol,.article-entry ul {

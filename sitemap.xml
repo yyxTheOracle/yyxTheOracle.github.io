@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/db62fe35.html</loc>
+    
+    <lastmod>2026-08-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/post/2979ee1c.html</loc>
     
     <lastmod>2026-08-09</lastmod>
@@ -230,6 +239,13 @@
   
   <url>
     <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/Go/</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yyx-the-oracle-github-io-g1lc.vercel.app/tags/Skills/</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
