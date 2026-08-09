@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/02/3b7d499d006810f0.jpg">
 <meta property="og:image" content="https://s3.bmp.ovh/imgs/2023/01/02/63710433b803b78f.jpg">
 <meta property="article:published_time" content="2022-04-25T06:43:55.000Z">
-<meta property="article:modified_time" content="2026-07-23T07:28:17.755Z">
+<meta property="article:modified_time" content="2026-07-23T09:13:20.843Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="antd">
 <meta property="article:tag" content="前端开发">
@@ -379,9 +379,9 @@ var _hmt = _hmt || [];
 <h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><blockquote>
 <p>　　在 React 项目中使用 scss/less，如果想让样式仅作用在某个组件，而不影响全局，一般都会把样式文件进行<strong>模块化</strong>，即打包后每个 class 名都会被自动<strong>加上一串唯一的序列号</strong>。</p>
 </blockquote>
-<p>举个例子：</p>
+<p>　　举个例子：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&nbsp;<br>模块化后打包的结果会是：</p>
+<p>&nbsp;<br>　　模块化后打包的结果会是：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main__3D0Xe</span>&#123; <span class="attribute">width</span>: <span class="number">100px</span>; &#125;</span><br></pre></td></tr></table></figure>
 <p>&nbsp;<br>　　而我们公司的框架自动做了样式的模块化，因此正是这串序列号导致无法正确选中 antd 组件内部元素的 class🤣。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>　　如果不想要这串序列号，那么在最外层套上一层 <code>:global</code> 即可～</p>
@@ -437,7 +437,7 @@ var _hmt = _hmt || [];
 	
 	<!-- <br>
 	<strong class="update-time">最后更新：</strong>
-	2026年07月23日 15:28:17 -->
+	2026年07月23日 17:13:20 -->
 	
 	<!-- <br>
 	<strong class="article-titles">本文标题：</strong>
