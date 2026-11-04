@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/310ea7d9.html</loc>
+    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -20,7 +20,25 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/435e2644.html</loc>
+    <loc>https://www.victoryeah.com/post/30ad5bee.html</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/2979ee1c.html</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -38,7 +56,16 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/2979ee1c.html</loc>
+    <loc>https://www.victoryeah.com/post/310ea7d9.html</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/435e2644.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -65,15 +92,6 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/music/index.html</loc>
-    
-    <lastmod>2026-11-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/photos/data.json</loc>
     
     <lastmod>2026-11-04</lastmod>
@@ -92,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/archives/index.html</loc>
+    <loc>https://www.victoryeah.com/music/index.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -102,6 +120,15 @@
   
   <url>
     <loc>https://www.victoryeah.com/categories/index.html</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/archives/index.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -163,33 +190,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
-    
-    <lastmod>2026-11-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/post/30ad5bee.html</loc>
-    
-    <lastmod>2026-11-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
-    
-    <lastmod>2026-11-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://www.victoryeah.com/</loc>
@@ -201,20 +201,6 @@
   
   <url>
     <loc>https://www.victoryeah.com/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/NBA/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/antd/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -235,21 +221,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/tags/Electron/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/Puppeteer/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/AI-Coding/</loc>
+    <loc>https://www.victoryeah.com/tags/AI/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -264,27 +236,6 @@
   
   <url>
     <loc>https://www.victoryeah.com/tags/Go/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/AI/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/Codex/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/Skills/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -307,14 +258,14 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://www.victoryeah.com/categories/AI/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/AI/</loc>
+    <loc>https://www.victoryeah.com/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
