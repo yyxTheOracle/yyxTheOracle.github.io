@@ -110,15 +110,6 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/2a798ab5.html</loc>
-    
-    <lastmod>2026-11-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/post/9e1be607.html</loc>
     
     <lastmod>2026-11-04</lastmod>
@@ -128,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/ba9d0ab6.html</loc>
+    <loc>https://www.victoryeah.com/post/2a798ab5.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -138,6 +129,15 @@
   
   <url>
     <loc>https://www.victoryeah.com/post/7709adb1.html</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/ba9d0ab6.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -256,6 +256,20 @@
   </url>
   
   <url>
+    <loc>https://www.victoryeah.com/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/tags/Go/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victoryeah.com/tags/AI/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -271,20 +285,6 @@
   
   <url>
     <loc>https://www.victoryeah.com/tags/Skills/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/Go/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -307,14 +307,14 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/AI/</loc>
+    <loc>https://www.victoryeah.com/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://www.victoryeah.com/categories/AI/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
