@@ -1,0 +1,8 @@
+User-agent: *
+
+Allow: /
+
+
+Sitemap: https://www.victoryeah.com/sitemap.xml
+Sitemap: https://www.victoryeah.com/baidusitemap.xml
+

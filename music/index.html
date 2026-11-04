@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>音乐 | Victor 的自留地</title>
+  
+  <meta name="description" content="前端开发、AI Coding 与生活记录。Victor 的个人博客。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="音乐">
+<meta property="og:url" content="https://www.victoryeah.com/music/index.html">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="前端开发、AI Coding 与生活记录。Victor 的个人博客。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2026-11-04T03:20:43.871Z">
+<meta property="article:modified_time" content="2026-11-04T03:20:43.871Z">
+<meta property="article:author" content="Victor Ye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="standalone-page"><h1>音乐</h1><div class="article-prose"><center>
+    <img src="https://qiniu.findn.cn/blog/photos/article/music-1.jpg" />
+</center>
+
+
+<!-- 添加APlayer音乐播放器,详见: https://aplayer.js.org -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<!-- 列表左对齐 并显示在最上面一层 -->
+<div id="aplayer2" style="text-align:left;">
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+
+<!-- 为方便修改，添加一个配置文件，修改时直接修改配置文件即可。 -->
+<script type="text/javascript" src="/music/aplayer_page_config.js"></script>
+
+<!-- 根据封面自适应主题色，主要是作用于进度条 -->
+<script type="text/javascript">
+      const colorThief = new ColorThief();
+      const setTheme = (index) => {
+        if (!ap.list.audios[index].theme) {
+          colorThief.getColorAsync(ap.list.audios[index].cover, function(color) {
+            ap.theme(`rgb(${color[0]}, ${color[1]}, ${color[2]})`, index);
+          });
+        }
+      };
+      setTheme(ap.list.index);
+      ap.on('listswitch', (data) => {
+        setTheme(data.index);
+      });
+</script>
+
+<!-- APlayer音乐播放器功能结束 -->
+
+
+<center>
+    <h1></h1>
+    <h1></h1>
+</center>
+
+<center>
+<img src="https://qiniu.findn.cn/blog/photos/article/music-2.jpg" />
+</center>
+
+<!-- 用meting-js 添加APlayer音乐播放器, 可以实现添加导入音乐列表, 详见: https://github.com/metowolf/MetingJS -->
+<!-- 支持server：netease, tencent, kugou, xiami, baidu -->
+<!-- 网易云音乐 “我喜欢的音乐”不支持 其它收藏歌单均支持 -->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+
+<!-- 歌单 替换id即可 -->
+<p><meting-js style="margin-top: 1.5rem;width: auto;height: auto"
+    server="netease"
+    type="playlist"
+    id="6728476093"
+    fixed="false"
+    mini="false"
+    theme="#0088cc"
+    autoplay="false"
+    loop="all"
+    preload="auto"
+    volume="0.7"
+    order="list"
+    mutex="true"
+    list-folded="false"
+    list-max-height="700px"
+    storage-name="metingjs"><br></meting-js></p>
+</div></div>
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>

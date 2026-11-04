@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>用 Codex Computer Use 搞定小程序 E2E Test | Victor 的自留地</title>
+  
+  <meta name="description" content="两个月前还在调试一套基于 Playwright 的 E2E Test Skill，没想到 Codex 的 Computer Use 直接就把端到端测试给解决了🤣">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Codex Computer Use 搞定小程序 E2E Test">
+<meta property="og:url" content="https://www.victoryeah.com/post/2979ee1c.html">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="两个月前还在调试一套基于 Playwright 的 E2E Test Skill，没想到 Codex 的 Computer Use 直接就把端到端测试给解决了🤣">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2026-05-21T14:47:36.000Z">
+<meta property="article:modified_time" content="2026-11-04T09:54:55.672Z">
+<meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Codex">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="reading-layout">
+  <article class="reading-article" id="post-codex-computer-use">
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/AI/">AI</a><a href="/tags/Codex/">Codex</a></div><h1>用 Codex Computer Use 搞定小程序 E2E Test</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2026-05-21">2026.05.21</time><span>预计阅读 1 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2979ee1c.html">—</span></span></div></header>
+    
+    <div id="article-content" class="article-prose"><p>　　两个月前还在调试一套基于 Playwright 的 E2E Test Skill，没想到 Codex 的 Computer Use 直接就把端到端测试给解决了🤣<span id="more"></span></p>
+<div style="position:relative; padding-bottom:56.25%; width:100%; height:0; margin:24px 0;">
+  <iframe
+    src="https://player.bilibili.com/player.html?bvid=BV1GhLh67EcH&page=1"
+    scrolling="no"
+    border="0"
+    frameborder="no"
+    framespacing="0"
+    allowfullscreen="true"
+    style="position:absolute; inset:0; width:100%; height:100%;">
+  </iframe>
+</div>
+
+<figure style="text-align:center; margin:24px 0;">
+  <img src="https://s3.bmp.ovh/2026/11/04/BRHz9lI8.jpg" alt="Playwright E2E Agent Prompt Template" style="width:75%; max-width:760px;">
+  <figcaption style="color:#888;">这个年代，做的东西可能突然就一文不值了🤣</figcaption>
+</figure>
+
+<p>　　想起 4 月底 OpenAI 出的 <a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5">GPT-5.5 提示词指南</a> 有个很明显的转向：对于 GPT-5.5 这个级别的强推理模型，不用再像以前那样面向过程一步步告诉它怎么做，最佳实践反而是提示词越简单越好，只需要给 Expected Outcome、Constraints 和 Success Criteria，让模型自己去选择实现路径。</p>
+<div style="text-align:center; margin:24px 0;">
+  <img src="https://s3.bmp.ovh/2026/11/04/02MGIkg0.png" alt="GPT-5.5 prompting guide" style="width:85%; max-width:900px;">
+</div>
+
+<p>　　就像上面的视频一样，我把原视频丢给 Codex，Prompt 就一句话：给我生成一个 16 倍速版本。Codex 直接用一段 Swift 脚本解决了。</p>
+<p>　　足够强的 Reasoning Capability，加上 Codex 最近出的 Computer Use 和 Chrome 插件，给目标 -&gt; 开发 -&gt; 验证 -&gt; 修复 -&gt; 再验证的 Goal-Driven Development Loop，感觉已经完全闭环了。</p>
+</div>
+    <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/db62fe35.html"><span>上一篇</span><strong>Matt Pocock Skills v1.1 使用体验</strong></a><a href="/post/12e2a8de.html"><span>下一篇</span><strong>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</strong></a></nav>
+    
+<link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
+<section class="article-comments" aria-labelledby="article-comments-title">
+  <div class="article-comments-inner">
+    <header class="article-comments-header">
+      <h2 id="article-comments-title">留言</h2>
+      <p>欢迎交流想法，也欢迎指出文中的问题。</p>
+    </header>
+    <div id="waline"></div>
+  </div>
+</section>
+<script type="module">
+  // 沿用主站的提示和字段要求，预览不另设一套留言规则。
+  const locale = {
+    nick: '昵称',
+    nickError: '昵称不能少于3个字符',
+    mail: '邮箱',
+    mailError: '请填写正确的邮件地址',
+    link: '网址',
+    placeholder: '写下你的想法…',
+    sofa: '还没有留言，欢迎第一个参与。',
+    submit: '提交',
+    reply: '回复',
+    cancelReply: '取消回复',
+    comment: '评论',
+    more: '加载更多...',
+    preview: '预览',
+    emoji: '表情',
+    uploadImage: '上传图片',
+    seconds: '秒前',
+    minutes: '分钟前',
+    hours: '小时前',
+    days: '天前',
+    now: '刚刚',
+    uploading: '正在上传',
+    login: '登录',
+    logout: '退出',
+    admin: '博主',
+    word: '字',
+    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+  };
+
+  try {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    init({
+      el: '#waline',
+      serverURL: "https://victor-waline.vercel.app",
+      // 评论按文章路径归属，不能用 localhost 域名或预览目录建立另一组评论。
+      path: "/post/2979ee1c.html",
+      locale,
+      login: "enable",
+      lang: "zh-CN",
+      dark: "html[data-theme=\"dark\"]",
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.1.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
+      ],
+      wordLimit: 0,
+      pageSize: 10,
+      imageUploader: false,
+      // 仅正式域名累计阅读量，本地预览始终不递增。
+      pageview: location.hostname === 'www.victoryeah.com' || location.hostname === 'victoryeah.com',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+    });
+  } catch {
+    document.querySelector('#waline').textContent = '评论加载失败，请刷新重试。';
+  }
+</script>
+
+
+  </article>
+  
+</div>
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>
