@@ -68,30 +68,24 @@ kbd { font:11px ui-monospace,SFMono-Regular,Consolas,monospace; color:var(--mute
 .section-heading h2 { margin:0; font-size:24px; letter-spacing:-.5px; }
 .section-heading>a { margin:0; font-size:14px; color:var(--muted); }
 .featured-grid { display:grid; grid-template-columns:1.1fr 1fr; grid-template-rows:1fr 1fr; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); }
-.featured-post { display:block; padding:25px 30px; min-width:0; }
-.featured-post:hover { background:var(--accent-soft); }
+.featured-post { display:flex; flex-direction:column; padding:30px; min-width:0; }
+a.featured-post:hover { background:var(--accent-soft); }
 /* 精选容器裁切圆角，焦点框画在卡片内部才不会被截断。 */
 .featured-post:focus-visible { outline-offset:-3px; }
 .featured-post:last-child { border-top:1px solid var(--line); }
-.featured-main { grid-row:span 2; border-right:1px solid var(--line); background:var(--soft); display:flex; flex-direction:column; justify-content:center; padding:38px; }
+.featured-main { grid-row:span 2; border-right:1px solid var(--line); background:var(--soft); gap:24px; }
+.featured-main-copy { display:flex; flex:1; flex-direction:column; }
+.featured-post .post-meta { margin-top:auto; }
 .post-topic { color:var(--accent); font-size:12px; font-weight:600; margin:0 0 11px; }
 .featured-post h3 { font-size:20px; line-height:1.55; margin:0 0 12px; letter-spacing:-.3px; }
 .featured-main h3 { font-size:29px; line-height:1.5; }
-.featured-post:is(:hover,:focus-visible) h3,.post-row:is(:hover,:focus-visible) h3,.project-copy:is(:hover,:focus-visible) h2 { color:var(--accent); }
+a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focus-visible) h3,.post-row:is(:hover,:focus-visible) h3 { color:var(--accent); }
 .post-summary { color:var(--muted); font-size:14px; line-height:1.85; margin:0 0 20px; }
 .featured-main .post-summary { font-size:15px; margin-top:8px; margin-bottom:30px; }
 .post-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; color:var(--muted); font-size:12px; }
 .post-meta .read-link { color:var(--accent); margin-left:auto; }
-.project-section { display:grid; grid-template-columns:1.15fr 1fr; gap:45px; align-items:center; margin:66px 0; }
-.project-image { display:block; border:1px solid var(--line); border-radius:10px; background:var(--surface); padding:13px; overflow:hidden; }
-.project-image img { display:block; width:100%; border-radius:4px; }
 .project-demo { display:flex; flex-direction:column; margin:0; }
 .project-demo video { display:block; width:100%; border-radius:4px; }
-/* 控件放在画面下方，避免挡住录屏右下角的“开始回复”操作。 */
-#project-demo-toggle { align-self:flex-end; margin-top:10px; padding:5px 10px; border:1px solid var(--line); border-radius:5px; background:var(--soft); color:var(--text); font-size:12px; }
-.project-copy h2 { font-size:29px; line-height:1.5; letter-spacing:-.5px; margin:10px 0 16px; }
-.project-copy>p:not(.post-topic) { color:var(--muted); font-size:14px; margin:0 0 20px; }
-.text-link { font-size:14px; color:var(--accent); font-weight:600; }
 .latest-section { margin:58px 0 74px; scroll-margin-top:35px; }
 .post-row { display:grid; grid-template-columns:112px 1fr 20px; align-items:start; gap:24px; padding:23px 0; border-top:1px solid var(--line); }
 .post-row time { font:12px/2 ui-monospace,SFMono-Regular,Consolas,monospace; color:var(--muted); }
@@ -271,16 +265,19 @@ mark { color:var(--accent); background:var(--accent-soft); border-radius:2px; }
   .intro-description { font-size:14px; }
   .intro-links { gap:20px; font-size:13px; }
   .featured-post { padding:22px; }
-  .featured-main h3 { font-size:23px; }
   .featured-post h3 { font-size:19px; }
-  .project-section { gap:28px; }
-  .project-copy h2 { font-size:24px; }
+  .featured-main h3 { font-size:23px; }
   .reading-layout { display:block; max-width:800px; margin-top:30px; }
   .desktop-toc { display:none; }
   .mobile-toc { display:block; background:var(--soft); border:1px solid var(--line); border-radius:6px; margin:26px 0; font-size:13px; }
   .mobile-toc summary { cursor:pointer; padding:11px 15px; color:var(--accent); font-weight:600; }
   .mobile-toc nav { padding:0 14px 14px; max-height:50vh; overflow:auto; }
   .post-header h1 { font-size:30px; }
+}
+/* 两列过窄时提前纵向排列，避免标题和摘要被挤成细长段落。 */
+@media (max-width:640px) {
+  .featured-grid { display:block; }
+  .featured-main { border-right:0; border-bottom:1px solid var(--line); }
 }
 @media (max-width:540px) {
   .home-shell { padding:0 20px; }
@@ -300,14 +297,10 @@ mark { color:var(--accent); background:var(--accent-soft); border-radius:2px; }
   .section-heading { gap:12px; margin-bottom:18px; }
   .section-heading h2 { font-size:21px; }
   .section-heading>a { font-size:12px; }
-  .featured-grid { display:block; }
-  .featured-main { border-right:0; border-bottom:1px solid var(--line); }
   .featured-post h3 { font-size:19px; }
   .featured-main h3 { font-size:23px; }
   .featured-main .post-summary { font-size:14px; margin-bottom:20px; }
   .post-meta { gap:7px 12px; font-size:11px; }
-  .project-section { display:flex; flex-direction:column; align-items:stretch; gap:24px; margin:40px 0; }
-  .project-copy h2 { font-size:24px; }
   .latest-section { margin:40px 0; }
   .post-row { grid-template-columns:1fr 16px; gap:5px 12px; padding:19px 0; }
   .post-row time { grid-column:1; font-size:11px; }

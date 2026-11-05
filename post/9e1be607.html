@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2023-08-13T04:45:38.000Z">
-<meta property="article:modified_time" content="2026-11-04T03:20:43.864Z">
+<meta property="article:modified_time" content="2026-07-23T07:28:17.759Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
@@ -73,7 +73,7 @@
   <main id="main">
 <div class="reading-layout">
   <article class="reading-article" id="post-验证码倒计时">
-    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/JavaScript/">JavaScript</a></div><h1>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2023-08-13">2023.08.13</time><span>预计阅读 2 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/9e1be607.html">—</span></span></div></header>
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/JavaScript/">JavaScript</a></div><h1>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2023-08-13">2023.08.13</time><span>约 605 字</span><span>预计阅读 2 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/9e1be607.html">—</span></span></div></header>
     <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Talk-is-cheap-show-me-the-code"><span class="toc-text">Talk is cheap, show me the code!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></nav></details>
     <div id="article-content" class="article-prose"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近在做一个 H5 工具，需要手机号 + 验证码登录，很自然地，点击发送验证码后需要等待一段时间才能重新发送，用于请求节流，避免用户疯狂点击：<span id="more"></span></p>
 <div align=center>
