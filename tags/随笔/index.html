@@ -28,6 +28,12 @@
     } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
   </script>
   <link rel="stylesheet" href="/css/site.css">
+  
+  
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/browse.css">
+    <script defer src="/js/article-list.js"></script>
+  
   <script defer src="/js/site.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
@@ -41,7 +47,7 @@
     <nav class="site-nav" aria-label="主导航">
       <a href="/" >主页</a>
       <a href="/archives/" >归档</a>
-      <a href="/categories/" >分类</a>
+      <a href="/categories/" aria-current="page">分类</a>
     </nav>
     <div class="header-actions">
       <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
@@ -66,12 +72,39 @@
     </div>
   </header>
   
-  <main id="main"><div class="list-shell"><header class="list-heading"><p class="post-topic">Victor 的自留地</p><h1>随笔</h1></header><div class="post-list"><a class="post-row" href="/post/310ea7d9.html" aria-label="雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁"><time datetime="2026-10-17">2026.10.17</time><div><h3>雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/ba9d0ab6.html" aria-label="提前转正啦😝丨一些回忆与复盘"><time datetime="2022-11-29">2022.11.29</time><div><h3>提前转正啦😝丨一些回忆与复盘</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/7709adb1.html" aria-label="或许遭遇了人生最大的 setback ?"><time datetime="2022-06-13">2022.06.13</time><div><h3>或许遭遇了人生最大的 setback ?</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/47e794c4.html" aria-label="傻逼上海国拍丨拍到牌照后的操蛋付款经历"><time datetime="2021-07-27">2021.07.27</time><div><h3>傻逼上海国拍丨拍到牌照后的操蛋付款经历</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/6308cf93.html" aria-label="东决 G6 和西部半决 G6丨东詹和西詹的不同命运"><time datetime="2019-05-11">2019.05.11</time><div><h3>东决 G6 和西部半决 G6丨东詹和西詹的不同命运</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-</div></div>
+  <main id="main">
+<div class="browse-shell browse-detail">
+  <nav class="browse-breadcrumb" aria-label="当前位置"><a href="/categories/">全部分类与标签</a> / 标签</nav>
+  <header class="browse-heading"><h1>随笔</h1><p>标签 · 5 篇文章，按发布时间排列。</p></header>
+  <nav class="browse-topic-links" aria-label="切换标签"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" >前端开发<span>7</span></a><a href="/tags/JavaScript/" >JavaScript<span>6</span></a><a href="/tags/%E9%9A%8F%E7%AC%94/" aria-current="page">随笔<span>5</span></a><a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" >后端开发<span>1</span></a><a href="/tags/Go/" >Go<span>1</span></a><a href="/tags/AI/" >AI<span>3</span></a></nav>
+  <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/310ea7d9.html" aria-label="雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁">
+  <div class="browse-copy"><h3>雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁</h3><p class="browse-meta"><time datetime="2026-10-17">2026.10.17</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/ba9d0ab6.html" aria-label="提前转正啦😝丨一些回忆与复盘">
+  <div class="browse-copy"><h3>提前转正啦😝丨一些回忆与复盘</h3><p class="browse-meta"><time datetime="2022-11-29">2022.11.29</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/7709adb1.html" aria-label="或许遭遇了人生最大的 setback ?">
+  <div class="browse-copy"><h3>或许遭遇了人生最大的 setback ?</h3><p class="browse-meta"><time datetime="2022-06-13">2022.06.13</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/47e794c4.html" aria-label="傻逼上海国拍丨拍到牌照后的操蛋付款经历">
+  <div class="browse-copy"><h3>傻逼上海国拍丨拍到牌照后的操蛋付款经历</h3><p class="browse-meta"><time datetime="2021-07-27">2021.07.27</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/6308cf93.html" aria-label="东决 G6 和西部半决 G6丨东詹和西詹的不同命运">
+  <div class="browse-copy"><h3>东决 G6 和西部半决 G6丨东詹和西詹的不同命运</h3><p class="browse-meta"><time datetime="2019-05-11">2019.05.11</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+  
+</div>
 
 </main>
   <footer class="site-footer">

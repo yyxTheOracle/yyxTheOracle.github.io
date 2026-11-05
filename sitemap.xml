@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
+    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
+    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/photos/index.html</loc>
+    <loc>https://www.victoryeah.com/music/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/music/index.html</loc>
+    <loc>https://www.victoryeah.com/photos/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -200,13 +200,6 @@
 
   
   <url>
-    <loc>https://www.victoryeah.com/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -221,7 +214,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/tags/AI/</loc>
+    <loc>https://www.victoryeah.com/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -241,17 +234,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://www.victoryeah.com/tags/AI/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
-    <loc>https://www.victoryeah.com/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://www.victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://www.victoryeah.com/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -28,6 +28,12 @@
     } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
   </script>
   <link rel="stylesheet" href="/css/site.css">
+  
+  
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/browse.css">
+    <script defer src="/js/article-list.js"></script>
+  
   <script defer src="/js/site.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
@@ -66,17 +72,128 @@
     </div>
   </header>
   
-  <main id="main"><div class="list-shell"><header class="list-heading"><p class="post-topic">Victor 的自留地</p><h1>文章归档</h1></header><div class="post-list"><a class="post-row" href="/post/310ea7d9.html" aria-label="雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁"><time datetime="2026-10-17">2026.10.17</time><div><h3>雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/db62fe35.html" aria-label="Matt Pocock Skills v1.1 使用体验"><time datetime="2026-07-12">2026.07.12</time><div><h3>Matt Pocock Skills v1.1 使用体验</h3><p>AI</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/2979ee1c.html" aria-label="用 Codex Computer Use 搞定小程序 E2E Test"><time datetime="2026-05-21">2026.05.21</time><div><h3>用 Codex Computer Use 搞定小程序 E2E Test</h3><p>AI</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/12e2a8de.html" aria-label="对接小红书海量数据丨Go 并发利器 Worker Pool 实践"><time datetime="2026-01-11">2026.01.11</time><div><h3>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</h3><p>后端开发 · Go</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/2733f88e.html" aria-label="给运营支持团队做提效工具，做着做着，这个团队没了"><time datetime="2025-09-14">2025.09.14</time><div><h3>给运营支持团队做提效工具，做着做着，这个团队没了</h3><p>前端开发 · AI</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/2a798ab5.html" aria-label="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲"><time datetime="2024-03-07">2024.03.07</time><div><h3>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</h3><p>前端开发 · JavaScript</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/9e1be607.html" aria-label="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态"><time datetime="2023-08-13">2023.08.13</time><div><h3>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</h3><p>前端开发 · JavaScript</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/435e2644.html" aria-label="一些超级棒的前端技术博客 &amp; 演讲"><time datetime="2023-06-18">2023.06.18</time><div><h3>一些超级棒的前端技术博客 &amp; 演讲</h3><p>前端开发 · JavaScript</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/11426bbe.html" aria-label="拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd"><time datetime="2022-12-08">2022.12.08</time><div><h3>拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd</h3><p>前端开发 · JavaScript</p></div><span aria-hidden="true">↗</span></a>
-<a class="post-row" href="/post/ba9d0ab6.html" aria-label="提前转正啦😝丨一些回忆与复盘"><time datetime="2022-11-29">2022.11.29</time><div><h3>提前转正啦😝丨一些回忆与复盘</h3><p>随笔</p></div><span aria-hidden="true">↗</span></a>
-</div><nav class="pagination" aria-label="文章分页"><span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a></nav></div>
+  <main id="main">
+<div class="browse-shell archive-index">
+  <header class="browse-heading"><h1>文章归档</h1></header>
+  <div class="archive-layout">
+    <nav class="archive-years" aria-label="按年份浏览文章">
+      <a href="#archive-year-2026"><span>2026</span><span class="archive-year-count">4 篇</span></a><a href="#archive-year-2025"><span>2025</span><span class="archive-year-count">1 篇</span></a><a href="#archive-year-2024"><span>2024</span><span class="archive-year-count">1 篇</span></a><a href="#archive-year-2023"><span>2023</span><span class="archive-year-count">2 篇</span></a><a href="#archive-year-2022"><span>2022</span><span class="archive-year-count">5 篇</span></a><a href="#archive-year-2021"><span>2021</span><span class="archive-year-count">1 篇</span></a><a href="#archive-year-2019"><span>2019</span><span class="archive-year-count">1 篇</span></a>
+    </nav>
+    <div class="archive-content">
+      
+        <section class="archive-group" id="archive-year-2026" aria-labelledby="archive-title-2026">
+          <h2 id="archive-title-2026">2026</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/310ea7d9.html" aria-label="雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁">
+  <div class="browse-copy"><h3>雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁</h3><p class="browse-meta"><time datetime="2026-10-17">10.17</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/db62fe35.html" aria-label="Matt Pocock Skills v1.1 使用体验">
+  <div class="browse-copy"><h3>Matt Pocock Skills v1.1 使用体验</h3><p class="browse-meta"><time datetime="2026-07-12">07.12</time><span>AI</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/2979ee1c.html" aria-label="用 Codex Computer Use 搞定小程序 E2E Test">
+  <div class="browse-copy"><h3>用 Codex Computer Use 搞定小程序 E2E Test</h3><p class="browse-meta"><time datetime="2026-05-21">05.21</time><span>AI</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/12e2a8de.html" aria-label="对接小红书海量数据丨Go 并发利器 Worker Pool 实践">
+  <div class="browse-copy"><h3>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</h3><p class="browse-meta"><time datetime="2026-01-11">01.11</time><span>后端开发 · Go</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2025" aria-labelledby="archive-title-2025">
+          <h2 id="archive-title-2025">2025</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/2733f88e.html" aria-label="给运营支持团队做提效工具，做着做着，这个团队没了">
+  <div class="browse-copy"><h3>给运营支持团队做提效工具，做着做着，这个团队没了</h3><p class="browse-meta"><time datetime="2025-09-14">09.14</time><span>前端开发 · AI</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2024" aria-labelledby="archive-title-2024">
+          <h2 id="archive-title-2024">2024</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/2a798ab5.html" aria-label="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲">
+  <div class="browse-copy"><h3>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</h3><p class="browse-meta"><time datetime="2024-03-07">03.07</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2023" aria-labelledby="archive-title-2023">
+          <h2 id="archive-title-2023">2023</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/9e1be607.html" aria-label="发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态">
+  <div class="browse-copy"><h3>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</h3><p class="browse-meta"><time datetime="2023-08-13">08.13</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/435e2644.html" aria-label="一些超级棒的前端技术博客 &amp; 演讲">
+  <div class="browse-copy"><h3>一些超级棒的前端技术博客 &amp; 演讲</h3><p class="browse-meta"><time datetime="2023-06-18">06.18</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2022" aria-labelledby="archive-title-2022">
+          <h2 id="archive-title-2022">2022</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/11426bbe.html" aria-label="拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd">
+  <div class="browse-copy"><h3>拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd</h3><p class="browse-meta"><time datetime="2022-12-08">12.08</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/ba9d0ab6.html" aria-label="提前转正啦😝丨一些回忆与复盘">
+  <div class="browse-copy"><h3>提前转正啦😝丨一些回忆与复盘</h3><p class="browse-meta"><time datetime="2022-11-29">11.29</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/7709adb1.html" aria-label="或许遭遇了人生最大的 setback ?">
+  <div class="browse-copy"><h3>或许遭遇了人生最大的 setback ?</h3><p class="browse-meta"><time datetime="2022-06-13">06.13</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/30ad5bee.html" aria-label="修改 antd 组件默认样式的坑丨:global 关键字">
+  <div class="browse-copy"><h3>修改 antd 组件默认样式的坑丨:global 关键字</h3><p class="browse-meta"><time datetime="2022-04-25">04.25</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+
+<a class="browse-row" data-browse-row href="/post/d87f7e0c.html" aria-label="回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选">
+  <div class="browse-copy"><h3>回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选</h3><p class="browse-meta"><time datetime="2022-04-23">04.23</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2021" aria-labelledby="archive-title-2021">
+          <h2 id="archive-title-2021">2021</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/47e794c4.html" aria-label="傻逼上海国拍丨拍到牌照后的操蛋付款经历">
+  <div class="browse-copy"><h3>傻逼上海国拍丨拍到牌照后的操蛋付款经历</h3><p class="browse-meta"><time datetime="2021-07-27">07.27</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+        <section class="archive-group" id="archive-year-2019" aria-labelledby="archive-title-2019">
+          <h2 id="archive-title-2019">2019</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/6308cf93.html" aria-label="东决 G6 和西部半决 G6丨东詹和西詹的不同命运">
+  <div class="browse-copy"><h3>东决 G6 和西部半决 G6丨东詹和西詹的不同命运</h3><p class="browse-meta"><time datetime="2019-05-11">05.11</time><span>随笔</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+    </div>
+  </div>
+</div>
 
 </main>
   <footer class="site-footer">

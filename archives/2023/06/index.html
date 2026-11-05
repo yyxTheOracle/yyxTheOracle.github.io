@@ -28,6 +28,12 @@
     } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
   </script>
   <link rel="stylesheet" href="/css/site.css">
+  
+  
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/browse.css">
+    <script defer src="/js/article-list.js"></script>
+  
   <script defer src="/js/site.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
@@ -66,8 +72,28 @@
     </div>
   </header>
   
-  <main id="main"><div class="list-shell"><header class="list-heading"><p class="post-topic">Victor 的自留地</p><h1>文章归档</h1></header><div class="post-list"><a class="post-row" href="/post/435e2644.html" aria-label="一些超级棒的前端技术博客 &amp; 演讲"><time datetime="2023-06-18">2023.06.18</time><div><h3>一些超级棒的前端技术博客 &amp; 演讲</h3><p>前端开发 · JavaScript</p></div><span aria-hidden="true">↗</span></a>
-</div></div>
+  <main id="main">
+<div class="browse-shell archive-index">
+  <header class="browse-heading"><h1>文章归档</h1></header>
+  <div class="archive-layout">
+    <nav class="archive-years" aria-label="按年份浏览文章">
+      <a href="#archive-year-2023"><span>2023</span><span class="archive-year-count">1 篇</span></a>
+    </nav>
+    <div class="archive-content">
+      
+        <section class="archive-group" id="archive-year-2023" aria-labelledby="archive-title-2023">
+          <h2 id="archive-title-2023">2023</h2>
+          <div class="browse-list"><div class="browse-marker" aria-hidden="true"></div>
+<a class="browse-row" data-browse-row href="/post/435e2644.html" aria-label="一些超级棒的前端技术博客 &amp; 演讲">
+  <div class="browse-copy"><h3>一些超级棒的前端技术博客 &amp; 演讲</h3><p class="browse-meta"><time datetime="2023-06-18">06.18</time><span>前端开发 · JavaScript</span></p></div>
+  <svg class="browse-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>
+</div>
+        </section>
+      
+    </div>
+  </div>
+</div>
 
 </main>
   <footer class="site-footer">
