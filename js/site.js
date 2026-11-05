@@ -268,6 +268,29 @@
   }
 
   const article = document.querySelector('#article-content');
+  const backTop = document.querySelector('.back-top');
+  if (backTop && article) {
+    // 只计算正文：底部进入视口即读完，标题、相邻文章和评论不拉长进度。
+    function updateBackTop() {
+      const { top, height, bottom } = article.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      const progress = height > viewport
+        ? Math.max(0, Math.min(1, -top / (height - viewport)))
+        : Number(bottom <= viewport);
+      backTop.style.setProperty('--reading-progress', `${progress * 100}%`);
+      backTop.setAttribute('aria-label', `回到顶部（已阅读 ${Math.round(progress * 100)}%）`);
+    }
+
+    // 回到整页顶部；减少动态效果时直接定位，不沿用全局平滑滚动。
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    });
+    window.addEventListener('scroll', updateBackTop, { passive: true });
+    window.addEventListener('resize', updateBackTop);
+    // 图片、图表和代码折叠改变正文高度时，静止中的进度环也要同步。
+    if ('ResizeObserver' in window) new ResizeObserver(updateBackTop).observe(article);
+    updateBackTop();
+  }
   const tocLinks = [...document.querySelectorAll('.toc-link')];
   const headings = article ? [...article.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')] : [];
 
