@@ -76,7 +76,16 @@
   <main id="main">
 <div class="reading-layout">
   <article class="reading-article" id="post-codex-computer-use">
-    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/AI/">AI</a></div><h1>用 Codex Computer Use 搞定小程序 E2E Test</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2026-05-21">2026.05.21</time><span>约 246 字</span><span>预计阅读 1 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2979ee1c.html">—</span></span></div></header>
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/AI/">AI</a></div><h1>用 Codex Computer Use 搞定小程序 E2E Test</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2026-05-21">2026.05.21</time><span>约 246 字</span><span>预计阅读 1 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2979ee1c.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    
+    <script>
+      // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
+      setTimeout(() => {
+        const count = document.querySelector('.waline-pageview-count');
+        if (count && count.querySelector('.pageview-loading')) count.textContent = '—';
+      }, 15000);
+    </script>
+    
     
     <div id="article-content" class="article-prose"><p>　　两个月前还在调试一套基于 Playwright 的 E2E Test Skill，没想到 Codex 的 Computer Use 直接就把端到端测试给解决了🤣<span id="more"></span></p>
 <div style="position:relative; padding-bottom:56.25%; width:100%; height:0; margin:24px 0;">

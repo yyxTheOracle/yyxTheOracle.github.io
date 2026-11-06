@@ -88,6 +88,8 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 .featured-main .post-summary { font-size:15px; margin-top:8px; margin-bottom:30px; }
 .post-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; color:var(--muted); font-size:12px; }
 .post-meta .read-link { color:var(--accent); margin-left:auto; }
+.pageview-loading { display:inline-block; width:1em; height:1em; vertical-align:-.1em; border:1.5px solid currentColor; border-right-color:transparent; border-radius:50%; animation:pageview-spin .8s linear infinite; }
+@keyframes pageview-spin { to { transform:rotate(360deg); } }
 .project-demo { display:flex; flex-direction:column; margin:0; }
 .project-demo video { display:block; width:100%; border-radius:4px; }
 .latest-section { margin:58px 0 74px; scroll-margin-top:32px; }
@@ -363,6 +365,7 @@ mark { color:var(--accent); background:var(--accent-soft); border-radius:2px; }
 }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }
+  .pageview-loading { animation:none; }
   .back-top { transition:none; }
   .hero-word.is-flipping .hero-word-current { transform:none; opacity:1; transition:none; }
   .hero-word.is-flipping .hero-word-next { transform:rotateX(-90deg); opacity:0; transition:none; }
