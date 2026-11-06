@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2022-04-25T06:43:55.000Z">
-<meta property="article:modified_time" content="2026-11-06T05:50:00.078Z">
+<meta property="article:modified_time" content="2026-11-06T06:56:36.747Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="/css/site.css">
   
     <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
     <script defer src="/js/media-viewer.js"></script>
   
   
@@ -95,11 +96,7 @@
     
     <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9D%91"><span class="toc-text">坑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol></nav></details>
     <div id="article-content" class="article-prose"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　今天做一个 Modal 的时候，需要修改 antd Form 的一些默认样式。一开始感觉没啥问题，用 Chrome DevTools 在页面上找到 antd 组件内相应的元素，修改对应的 class 达到效果后复制到了 VSCode 里，但是，<strong>页面完全没有变化！！！！！！！</strong> <span id="more"></span></p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/3b7d499d006810f0.jpg" width="939" height="697" decoding="async" loading="eager" />
-</div>
-<center style="color:#C0C0C0;"> less 代码</center>
-
+<figure class="article-image"><img src="/assets/article-images/fce1071f18601bdf26d9-760.webp" alt="&#x76F4;&#x63A5;&#x8986;&#x76D6; Ant Design Form &#x7C7B;&#x540D;&#x7684; Less &#x6837;&#x5F0F;&#xFF0C;&#x5C1A;&#x672A;&#x5305;&#x88F9; :global" width="939" height="697" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/3b7d499d006810f0.jpg" data-original-width="939" data-original-height="697" srcset="/assets/article-images/fce1071f18601bdf26d9-480.webp 480w, /assets/article-images/fce1071f18601bdf26d9-760.webp 760w, /assets/article-images/fce1071f18601bdf26d9-939.webp 939w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="less &#x4EE3;&#x7801;"><figcaption>less 代码</figcaption></figure>
 <p>　　钻了 20 分钟没解决，赶紧去问 mentor, 津铭哥笑着和我说需要在外层加一个 <code>:global</code> 才能生效，试了下还真是！赶紧去补了下这个关键字的知识，在这里做一个记录。</p>
 <h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><blockquote>
 <p>　　在 React 项目中使用 scss/less，如果想让样式仅作用在某个组件，而不影响全局，一般都会把样式文件进行<strong>模块化</strong>，即打包后每个 class 名都会被自动<strong>加上一串唯一的序列号</strong>。</p>
@@ -110,9 +107,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main__3D0Xe</span>&#123; <span class="attribute">width</span>: <span class="number">100px</span>; &#125;</span><br></pre></td></tr></table></figure>
 <p>&nbsp;<br>　　而我们公司的框架自动做了样式的模块化，因此正是这串序列号导致无法正确选中 antd 组件内部元素的 class🤣。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>　　如果不想要这串序列号，那么在最外层套上一层 <code>:global</code> 即可～</p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/63710433b803b78f.jpg" width="932" height="730" decoding="async" loading="lazy" />
-</div>
+<figure class="article-image"><img src="/assets/article-images/734383ac8baa8f62f852-760.webp" alt="&#x5728; :global &#x5185;&#x8986;&#x76D6; Ant Design Form &#x53CA;&#x5176;&#x5B50;&#x5143;&#x7D20;&#x6837;&#x5F0F;&#x7684; Less &#x4EE3;&#x7801;" width="932" height="730" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/63710433b803b78f.jpg" data-original-width="932" data-original-height="730" srcset="/assets/article-images/734383ac8baa8f62f852-480.webp 480w, /assets/article-images/734383ac8baa8f62f852-760.webp 760w, /assets/article-images/734383ac8baa8f62f852-932.webp 932w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
     <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/graduation-setback/"><span>上一篇</span><strong>或许遭遇了人生最大的 setback ?</strong></a><a href="/post/antd-table-external-selection/"><span>下一篇</span><strong>回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选</strong></a></nav>
@@ -207,13 +202,19 @@
     <div class="media-viewer-actions">
       <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
       <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
       <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
       <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
     </div>
   </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
     <div class="media-viewer-canvas"></div>
   </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
   <p class="media-viewer-caption" aria-live="polite"></p>
 </dialog>
 

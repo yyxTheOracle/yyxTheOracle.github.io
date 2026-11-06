@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2021-07-27T06:48:49.000Z">
-<meta property="article:modified_time" content="2026-11-06T05:50:00.079Z">
+<meta property="article:modified_time" content="2026-11-06T06:56:36.748Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="/css/site.css">
   
     <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
     <script defer src="/js/media-viewer.js"></script>
   
   
@@ -106,39 +107,18 @@
 <h1 id="设备的坑"><a href="#设备的坑" class="headerlink" title="设备的坑"></a>设备的坑</h1><p>　　首先移动端的 app 是支付不了的，意味着手机无法操作，<code>只能通过 PC 端付款</code>；</p>
 <p>　　然后，和上大的毕设管理网站一样，<code>只能用老 IE 登录</code>，Edge，Chrome 和火狐等现代浏览器都无法成功进入付款界面。</p>
 <h1 id="付款界面的坑"><a href="#付款界面的坑" class="headerlink" title="付款界面的坑"></a>付款界面的坑</h1><p>　　进入付款页面后可以直接忽略页面上的付款流程， 应该是 2015 年以前的版本没更新。2015 年 2 月 15 日之后银联卡有了 <code>5 万元的单日/单笔支付限额</code>，但沪牌价格要 9w+，根本不能直接付款。(和使用哪家银行的银行卡没有关系，三个付款选项除了分期付款，其他两个都是银联，就会存在 5 万的额度上限)</p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/fe8ccb306eca03a4.jpg" width="830" height="403" decoding="async" loading="eager" />
-</div>
-<center style="color:#C0C0C0;">支付页面超额报错</center>
-
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/4af49c4dc56478c3.jpg" width="1080" height="1140" decoding="async" loading="lazy" />
-</div>
-<center style="color:#C0C0C0;">论坛上关于这个报错的讨论</center>
-
+<figure class="article-image"><img src="/assets/article-images/83b0fffbccea5da631ee-760.webp" alt="&#x5DE5;&#x884C;&#x5728;&#x7EBF;&#x652F;&#x4ED8;&#x5931;&#x8D25;&#x9875;&#x9762;&#xFF0C;&#x63D0;&#x793A;&#x65E5;&#x7D2F;&#x8BA1;&#x652F;&#x4ED8;&#x91D1;&#x989D;&#x8D85;&#x9650;" width="830" height="403" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/fe8ccb306eca03a4.jpg" data-original-width="830" data-original-height="403" srcset="/assets/article-images/83b0fffbccea5da631ee-480.webp 480w, /assets/article-images/83b0fffbccea5da631ee-760.webp 760w, /assets/article-images/83b0fffbccea5da631ee-830.webp 830w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x652F;&#x4ED8;&#x9875;&#x9762;&#x8D85;&#x989D;&#x62A5;&#x9519;"><figcaption>支付页面超额报错</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/fdbea6a061315555e2d3-760.webp" alt="&#x8BBA;&#x575B;&#x8BA8;&#x8BBA;&#x652F;&#x4ED8;&#x8D85;&#x9650;&#x9519;&#x8BEF;&#xFF0C;&#x63D0;&#x5230;&#x7535;&#x5B50;&#x5BC6;&#x7801;&#x5668;&#x5355;&#x7B14;&#x4E0E;&#x65E5;&#x7D2F;&#x8BA1;&#x4E94;&#x4E07;&#x5143;&#x9650;&#x989D;" width="1080" height="1140" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/4af49c4dc56478c3.jpg" data-original-width="1080" data-original-height="1140" srcset="/assets/article-images/fdbea6a061315555e2d3-480.webp 480w, /assets/article-images/fdbea6a061315555e2d3-760.webp 760w, /assets/article-images/fdbea6a061315555e2d3-1080.webp 1080w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x8BBA;&#x575B;&#x4E0A;&#x5173;&#x4E8E;&#x8FD9;&#x4E2A;&#x62A5;&#x9519;&#x7684;&#x8BA8;&#x8BBA;"><figcaption>论坛上关于这个报错的讨论</figcaption></figure>
 <p>　　报错之后我去工行网点加了卡的额度，<code>但还是会显示超额</code>，心态第一次炸裂😑。</p>
 <p>　　本来已经打算放弃线上支付了，工作人员让我试试 U 盾，没想到又是一条新的踩坑之路。</p>
 <h1 id="使用-U-盾的坑"><a href="#使用-U-盾的坑" class="headerlink" title="使用 U 盾的坑"></a>使用 U 盾的坑</h1><p>　　花了 70 搞了个 U 盾，使用之前需要下载安全证书，但估计是 IE 的问题，<code>安全证书的下载链接一点击就会闪退</code>，刚开始尝试就遇到了阻塞性的 bug，心态第二次炸裂😑。</p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/c7dda2a901e653b2.jpg" width="830" height="395" decoding="async" loading="lazy" />
-</div>
-<center style="color:#C0C0C0;">U 盾需要下载安全证书</center>
-
+<figure class="article-image"><img src="/assets/article-images/a7aaa4eb0ba26c6e46a7-760.webp" alt="&#x5DE5;&#x884C;&#x652F;&#x4ED8;&#x5931;&#x8D25;&#x63D0;&#x793A;&#xFF0C;&#x8981;&#x6C42;&#x7533;&#x8BF7; U &#x76FE;&#x6216;&#x4E0B;&#x8F7D; U &#x76FE;&#x8BC1;&#x4E66;&#x540E;&#x91CD;&#x65B0;&#x652F;&#x4ED8;" width="830" height="395" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/c7dda2a901e653b2.jpg" data-original-width="830" data-original-height="395" srcset="/assets/article-images/a7aaa4eb0ba26c6e46a7-480.webp 480w, /assets/article-images/a7aaa4eb0ba26c6e46a7-760.webp 760w, /assets/article-images/a7aaa4eb0ba26c6e46a7-830.webp 830w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="U &#x76FE;&#x9700;&#x8981;&#x4E0B;&#x8F7D;&#x5B89;&#x5168;&#x8BC1;&#x4E66;"><figcaption>U 盾需要下载安全证书</figcaption></figure>
 <p>　　但又出现了转机，一个年轻小哥和我说工行 app 也能下载安全证书，经过他的操作，15 分钟后我拥有了一个<code>蓝牙安全证书</code>，从而能够继续尝试下去。</p>
 <p>　　接下来跳出了一个弹窗，提示我安装一个安全控件，点了确定之后会出来一个另一个弹窗，此时<code>不管你点重试还是取消选项都会自动退出网银登录</code>，而每次重登都要输身份证手机号验证码，来回搞了七八次还是没有装成功，心态第三次炸裂😑。</p>
 <p>　　我问工作人员官网能不能下这玩意，工作人员说好像可以，于是我上官网寻找，首先没有任何提示性的信息，其次在搜索框搜关键词也没有任何结果，找了大概有十几分钟<code>才发现在他妈的页面最下面</code>，这到底是哪个反人类的 UX 设计的，这么关键的东西是真的一点指引都没有啊！！</p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/35bf0d7239ff4d69.jpg" width="1591" height="474" decoding="async" loading="lazy" />
-</div>
-<center style="color:#C0C0C0;">页面没有任何提示，藏在最下面</center>
-
+<figure class="article-image"><img src="/assets/article-images/51ebacbb69b80e8669f1-760.webp" alt="&#x5DE5;&#x884C;&#x5B98;&#x7F51;&#x9875;&#x811A;&#x7684;&#x7F51;&#x94F6;&#x52A9;&#x624B;&#x4E0B;&#x8F7D;&#x5165;&#x53E3;&#xFF0C;&#x88AB;&#x7EA2;&#x5708;&#x6807;&#x51FA;" width="1591" height="474" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/35bf0d7239ff4d69.jpg" data-original-width="1591" data-original-height="474" srcset="/assets/article-images/51ebacbb69b80e8669f1-480.webp 480w, /assets/article-images/51ebacbb69b80e8669f1-760.webp 760w, /assets/article-images/51ebacbb69b80e8669f1-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x9875;&#x9762;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x63D0;&#x793A;&#xFF0C;&#x85CF;&#x5728;&#x6700;&#x4E0B;&#x9762;"><figcaption>页面没有任何提示，藏在最下面</figcaption></figure>
 <p>　　这个下完之后总算成功支付了，我安慰自己，不断折腾也是人生的意义😑。</p>
-<div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/1de2f2f521d4862b.jpg" width="830" height="380" decoding="async" loading="lazy" />
-</div>
-<center style="color:#C0C0C0;">终于付款成功</center>
-
-
+<figure class="article-image"><img src="/assets/article-images/b803075fdb0b0aa5df1c-760.webp" alt="&#x5DE5;&#x884C;&#x8BA2;&#x5355;&#x652F;&#x4ED8;&#x9875;&#x9762;&#x663E;&#x793A;&#x4EA4;&#x6613;&#x6210;&#x529F;" width="830" height="380" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/02/1de2f2f521d4862b.jpg" data-original-width="830" data-original-height="380" srcset="/assets/article-images/b803075fdb0b0aa5df1c-480.webp 480w, /assets/article-images/b803075fdb0b0aa5df1c-760.webp 760w, /assets/article-images/b803075fdb0b0aa5df1c-830.webp 830w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x7EC8;&#x4E8E;&#x4ED8;&#x6B3E;&#x6210;&#x529F;"><figcaption>终于付款成功</figcaption></figure>
 <h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>　　拍牌已经够难的了，没想到付个款也能这么 disgusting🤣。</p>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
@@ -234,13 +214,19 @@
     <div class="media-viewer-actions">
       <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
       <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
       <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
       <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
     </div>
   </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
     <div class="media-viewer-canvas"></div>
   </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
   <p class="media-viewer-caption" aria-live="polite"></p>
 </dialog>
 

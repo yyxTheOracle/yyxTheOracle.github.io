@@ -1,6 +1,16 @@
 /* 原生弹层沿用主题语义色；预留滚动条空间，打开时正文行宽不变。 */
 html { scrollbar-gutter:stable; }
 html.media-viewer-open { overflow:hidden; }
+/* 图与图注共用一个间距来源，避免图组 gap 和图片 margin 重复叠加。 */
+.article-prose .article-image { max-width:100%; margin:28px auto; }
+.article-prose .article-image img { display:block; max-width:100%; height:auto; margin:0 auto; }
+.article-prose .article-image figcaption,.article-image-caption { display:block; margin:10px 0 0; color:var(--muted); text-align:center; font-size:13px; line-height:1.7; overflow-wrap:anywhere; }
+.article-prose [data-image-size="compact"] { max-width:480px; margin:28px auto; }
+.article-prose [data-image-size="compact"]>.article-image { margin:0; }
+.article-prose .article-image-inline { display:inline-block; max-width:100%; vertical-align:middle; }
+.article-prose .article-image-inline img { max-width:100%; height:auto; margin:0; }
+.article-prose .article-gallery { margin:28px 0; }
+.article-prose .article-gallery>.article-image { margin:0 0 24px; }
 .article-prose .media-zoomable { cursor:zoom-in; }
 #media-viewer { width:calc(100% - 48px); max-width:1440px; height:calc(100dvh - 48px); max-height:none; padding:0; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--text); box-shadow:var(--shadow); overflow:hidden; }
 #media-viewer[open] { display:flex; flex-direction:column; }

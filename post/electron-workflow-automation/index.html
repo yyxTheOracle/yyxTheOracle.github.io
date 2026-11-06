@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2025-09-14T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-06T05:50:00.080Z">
+<meta property="article:modified_time" content="2026-11-06T06:58:54.457Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="AI">
@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="/css/site.css">
   
     <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
     <script defer src="/js/media-viewer.js"></script>
   
   
@@ -104,7 +105,7 @@
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。<span id="more"></span></p>
 <p>　　借着 AI Coding，用自然语言把需求理顺、让模型给出骨架再一点点调细节，很快就能把一个以前没碰过的技术栈跑通。最爽的是反馈极其直观：在可见模式下，看着 Electron 窗口在眼前自动切换平台、选日期、勾指标、一路把报表落盘，那些原本需要运营同学每天机械重复几个小时的操作，程序自己几十秒就跑完了。第一次看着它跑通的时候，确实挺震撼的。</p>
 <h1 id="天工的设计与核心架构"><a href="#天工的设计与核心架构" class="headerlink" title="天工的设计与核心架构"></a>天工的设计与核心架构</h1><p>　　界面结构其实很直接：左边内嵌美团开店宝，右边是天工自己的操作面板，负责账号切换、话术管理和下载任务。</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/zKLZ7XJG.png" alt="天工界面：左侧嵌入开店宝，右侧管理账号和操作功能" width="3024" height="1600" decoding="async" loading="eager"></p>
+<figure class="article-image"><img src="/assets/article-images/06e7b08218b2bf6dcd3f-760.webp" alt="&#x5929;&#x5DE5;&#x754C;&#x9762;&#xFF1A;&#x5DE6;&#x4FA7;&#x5D4C;&#x5165;&#x5F00;&#x5E97;&#x5B9D;&#xFF0C;&#x53F3;&#x4FA7;&#x7BA1;&#x7406;&#x8D26;&#x53F7;&#x548C;&#x64CD;&#x4F5C;&#x529F;&#x80FD;" width="3024" height="1600" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/zKLZ7XJG.png" data-original-width="3024" data-original-height="1600" srcset="/assets/article-images/06e7b08218b2bf6dcd3f-480.webp 480w, /assets/article-images/06e7b08218b2bf6dcd3f-760.webp 760w, /assets/article-images/06e7b08218b2bf6dcd3f-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　技术栈是 <strong>Electron + React + TypeScript + MobX + Puppeteer</strong>。React 负责右侧的面板与交互，Electron 提供桌面窗口、会话隔离和本地能力，Puppeteer 则专门负责去操控开店宝的后台页面。</p>
 <pre class="mermaid"><span class="mermaid-source">flowchart LR
     E["Electron 桌面应用"] --> C["Chromium<br/>渲染 Web 界面与开店宝"]
@@ -134,9 +135,9 @@
 
 <p>　　带上 <code>persist:</code> 前缀后，Session 数据会被持久化写入本地磁盘。只要登录态还有效，应用重启后就能接着用，不必重新扫码。</p>
 <p>　　实际切换非常丝滑。选中账号 A，左侧展示 A 门店的后台：</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/RKK9Cqsc.png" alt="选中账号 A 后，webview 使用对应的开店宝登录态" width="3024" height="1890" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/cb45976b2a07576c959a-760.webp" alt="&#x9009;&#x4E2D;&#x8D26;&#x53F7; A &#x540E;&#xFF0C;webview &#x4F7F;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x5F00;&#x5E97;&#x5B9D;&#x767B;&#x5F55;&#x6001;" width="3024" height="1890" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/RKK9Cqsc.png" data-original-width="3024" data-original-height="1890" srcset="/assets/article-images/cb45976b2a07576c959a-480.webp 480w, /assets/article-images/cb45976b2a07576c959a-760.webp 760w, /assets/article-images/cb45976b2a07576c959a-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　切换到账号 B，左侧无缝切换到 B 门店的会话：</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/2ux2YQNJ.png" alt="切换到账号 B，页面里的门店和经营数据随账号改变" width="3024" height="1890" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/e9ef8e10dea0265566a3-760.webp" alt="&#x5207;&#x6362;&#x5230;&#x8D26;&#x53F7; B&#xFF0C;&#x9875;&#x9762;&#x91CC;&#x7684;&#x95E8;&#x5E97;&#x548C;&#x7ECF;&#x8425;&#x6570;&#x636E;&#x968F;&#x8D26;&#x53F7;&#x6539;&#x53D8;" width="3024" height="1890" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/2ux2YQNJ.png" data-original-width="3024" data-original-height="1890" srcset="/assets/article-images/e9ef8e10dea0265566a3-480.webp 480w, /assets/article-images/e9ef8e10dea0265566a3-760.webp 760w, /assets/article-images/e9ef8e10dea0265566a3-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　第一次发现仅靠一个 <code>partition</code> 就能优雅解掉多账号共存和快速切换的问题时，着实被 Chromium 原生能力的强大惊艳到了。</p>
 <h3 id="状态持久化：装饰器-MobX-electron-store"><a href="#状态持久化：装饰器-MobX-electron-store" class="headerlink" title="状态持久化：装饰器 + MobX + electron-store"></a>状态持久化：装饰器 + MobX + electron-store</h3><p>　　除了开店宝网页的 Cookie，天工自身也有不少状态需要落盘：添加了哪些账号、当前选中的是谁、导入了哪些分类话术。</p>
 <p>　　如果每次修改状态都手动调一次写盘函数，代码会变得极易漏写。这里配合 <code>reflect-metadata</code>、装饰器、MobX 和 <code>electron-store</code>，实现了一套声明式的持久化逻辑：</p>
@@ -169,7 +170,8 @@
 <p>　　这样业务代码只需要专注修改 MobX 状态，数据的存取和磁盘同步完全自动化了。</p>
 <details>
 <summary>查看持久化时序设计原图</summary>
-<img src="https://s3.bmp.ovh/2026/11/04/1h2UxYBK.png" alt="Account、PersistStore、MobX 和 electron-store 时序图" width="2050" height="1648" decoding="async" loading="lazy">
+
+<figure class="article-image"><img src="/assets/article-images/3e886f684a39d84115ff-760.webp" alt="Account&#x3001;PersistStore&#x3001;MobX &#x548C; electron-store &#x65F6;&#x5E8F;&#x56FE;" width="2050" height="1648" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/1h2UxYBK.png" data-original-width="2050" data-original-height="1648" srcset="/assets/article-images/3e886f684a39d84115ff-480.webp 480w, /assets/article-images/3e886f684a39d84115ff-760.webp 760w, /assets/article-images/3e886f684a39d84115ff-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 </details>
 
 <h3 id="从-Excel-导入话术与-IPC-进程通信"><a href="#从-Excel-导入话术与-IPC-进程通信" class="headerlink" title="从 Excel 导入话术与 IPC 进程通信"></a>从 Excel 导入话术与 IPC 进程通信</h3><p>　　运营同学整理好的话术是以 Excel 表格提供的。点击「导入话术」需要调起系统的文件选择框并读取本地文件内容。</p>
@@ -299,7 +301,8 @@
 
 <details>
 <summary>查看经营参谋全链路时序原图</summary>
-<img src="https://s3.bmp.ovh/2026/11/04/X0SUh2KD.png" alt="经营参谋下载时序图" width="1280" height="1272" decoding="async" loading="lazy">
+
+<figure class="article-image"><img src="/assets/article-images/992ea62620353853de01-760.webp" alt="&#x7ECF;&#x8425;&#x53C2;&#x8C0B;&#x4E0B;&#x8F7D;&#x65F6;&#x5E8F;&#x56FE;" width="1280" height="1272" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/X0SUh2KD.png" data-original-width="1280" data-original-height="1272" srcset="/assets/article-images/992ea62620353853de01-480.webp 480w, /assets/article-images/992ea62620353853de01-760.webp 760w, /assets/article-images/992ea62620353853de01-1280.webp 1280w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 </details>
 
 <h2 id="任务调度与稳定性保障"><a href="#任务调度与稳定性保障" class="headerlink" title="任务调度与稳定性保障"></a>任务调度与稳定性保障</h2><p>　　当从单账号操作演进到几十个账号的批量调度时，工程重心就转移到了状态可观测性与异常排查上。</p>
@@ -329,7 +332,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> taskContext = <span class="keyword">new</span> <span class="title class_">AsyncLocalStorage</span>&lt;<span class="built_in">string</span>&gt;()</span><br><span class="line"><span class="keyword">const</span> taskLogger = log.<span class="title function_">create</span>(&#123; <span class="attr">logId</span>: <span class="string">&#x27;task&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line">taskLogger.<span class="property">transports</span>.<span class="property">file</span>.<span class="property">resolvePath</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> taskId = taskContext.<span class="title function_">getStore</span>()</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">join</span>(</span><br><span class="line">    app.<span class="title function_">getPath</span>(<span class="string">&#x27;logs&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;task-logs&#x27;</span>,</span><br><span class="line">    <span class="string">`<span class="subst">$&#123;taskId || <span class="string">&#x27;orphaned-task-activities&#x27;</span>&#125;</span>.log`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> taskContext.<span class="title function_">run</span>(mainTaskId, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  taskLogger.<span class="title function_">info</span>(<span class="string">&#x27;开始处理账号&#x27;</span>, accountId)</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">executeDownload</span>(options)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>　　任务结束后，日志文件会自动上传至 OSS 并上报埋点，直接在 Metabase 里按任务 ID 检索定位，省去了找用户远程要日志的沟通成本。</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/65UzaCZv.png" alt="Metabase 中的任务日志查询：创建时间、用户、版本、操作名称和日志下载地址" width="3840" height="1868" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/fb38073bef1046d9d6b5-760.webp" alt="Metabase &#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x65E5;&#x5FD7;&#x67E5;&#x8BE2;&#xFF1A;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&#x3001;&#x7528;&#x6237;&#x3001;&#x7248;&#x672C;&#x3001;&#x64CD;&#x4F5C;&#x540D;&#x79F0;&#x548C;&#x65E5;&#x5FD7;&#x4E0B;&#x8F7D;&#x5730;&#x5740;" width="3840" height="1868" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/65UzaCZv.png" data-original-width="3840" data-original-height="1868" srcset="/assets/article-images/fb38073bef1046d9d6b5-480.webp 480w, /assets/article-images/fb38073bef1046d9d6b5-760.webp 760w, /assets/article-images/fb38073bef1046d9d6b5-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <h3 id="失败自动截屏：有图有真相"><a href="#失败自动截屏：有图有真相" class="headerlink" title="失败自动截屏：有图有真相"></a>失败自动截屏：有图有真相</h3><p>　　第三方后台由于样式改版、接口报错或突发验证码，随时可能导致 Puppeteer 找不到选择器。光看报错堆栈很难知道页面究竟卡在什么状态。</p>
 <p>　　因此在错误捕获分支中增加了自动截屏兜底：</p>
 <pre class="mermaid"><span class="mermaid-source">flowchart TB
@@ -344,7 +347,7 @@
 <p>　　<strong>日志告诉你代码死在了哪一步，截屏告诉你当时现场是什么样子。</strong> 这两套机制上线后，排查线上问题的效率提升了不止一个数量级。</p>
 <h2 id="账号会话无缝迁移"><a href="#账号会话无缝迁移" class="headerlink" title="账号会话无缝迁移"></a>账号会话无缝迁移</h2><p>　　另一个很受运营好评的功能是账号信息的“一键搬家”。</p>
 <p>　　由于所有登录态都在各自独立命名的 <code>Partitions</code> 目录下，既然已经实现了隔离，那直接把这个目录打包迁移到另一台电脑上，是不是就能免扫码继承登录态？</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/pF0jL6O0.png" alt="天工账号管理区的“输出账号信息文件夹到桌面”入口" width="2172" height="1442" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/f676d45b04eadbfded3b-760.webp" alt="&#x5929;&#x5DE5;&#x8D26;&#x53F7;&#x7BA1;&#x7406;&#x533A;&#x7684;&#x201C;&#x8F93;&#x51FA;&#x8D26;&#x53F7;&#x4FE1;&#x606F;&#x6587;&#x4EF6;&#x5939;&#x5230;&#x684C;&#x9762;&#x201D;&#x5165;&#x53E3;" width="2172" height="1442" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/pF0jL6O0.png" data-original-width="2172" data-original-height="1442" srcset="/assets/article-images/f676d45b04eadbfded3b-480.webp 480w, /assets/article-images/f676d45b04eadbfded3b-760.webp 760w, /assets/article-images/f676d45b04eadbfded3b-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　天工在主进程中利用 <code>app.getPath(&#39;userData&#39;)</code> 获取路径，通过 Node.js 剔除无关的 <code>Cache</code>、<code>Code Cache</code> 目录后打包导出至桌面。再配一个简单的 CLI 工具在同事电脑上一键导入：</p>
 <pre class="mermaid"><span class="mermaid-source">flowchart TB
     A["同事 A 电脑<br/>已登录的账号会话"] --> E["导出 Partitions 目录<br/>过滤无用 Cache"]
@@ -356,11 +359,11 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看将要导入的内容（演练模式）</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span> --dry-run</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行实际导入</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s3.bmp.ovh/2026/11/04/Ft6ZkmaH.png" alt="CLI 导入示例：共 8 个账号，成功 8 个，跳过 0 个，失败 0 个" width="1280" height="1206" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/2579ac476b8390aa533d-760.webp" alt="CLI &#x5BFC;&#x5165;&#x793A;&#x4F8B;&#xFF1A;&#x5171; 8 &#x4E2A;&#x8D26;&#x53F7;&#xFF0C;&#x6210;&#x529F; 8 &#x4E2A;&#xFF0C;&#x8DF3;&#x8FC7; 0 &#x4E2A;&#xFF0C;&#x5931;&#x8D25; 0 &#x4E2A;" width="1280" height="1206" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/Ft6ZkmaH.png" data-original-width="1280" data-original-height="1206" srcset="/assets/article-images/2579ac476b8390aa533d-480.webp 480w, /assets/article-images/2579ac476b8390aa533d-760.webp 760w, /assets/article-images/2579ac476b8390aa533d-1280.webp 1280w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　当时一人集中扫码，其他同事导入后就能接着用，省去了逐个登录的麻烦。最开始为了做隔离而引入的 <code>partition</code>，到这里，把账号切换、后台下载和账号共享这几件事都串起来了。</p>
 <h1 id="上线之后"><a href="#上线之后" class="headerlink" title="上线之后"></a>上线之后</h1><p>　　当时有一个 10 人的运营支持团队，专门负责下载各个门店的日常报表并上传到业务系统。天工内测灰度期间，他们一直充当最积极的核心用户，每天帮我们做真机测试，反馈了一大堆边界 case 和体验问题。工具能一点点跑顺、稳定下来，他们功不可没。</p>
 <p>　　2025 年 9 月 4 日，运营支持团队的 leader 在飞书群里公开表扬了天工的速度与准确率，还贴上了组员们的实测好评：<strong>79 个账号、3 天的经营参谋报表，Mac 端只花了 17 分钟就下载完了。</strong></p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" alt="2025 年 9 月 4 日，运营支持团队在群里对天工下载速度和准确率的反馈" width="1740" height="1756" decoding="async" loading="lazy"></p>
+<figure class="article-image"><img src="/assets/article-images/b35061754c79f573d7c2-760.webp" alt="2025 &#x5E74; 9 &#x6708; 4 &#x65E5;&#xFF0C;&#x8FD0;&#x8425;&#x652F;&#x6301;&#x56E2;&#x961F;&#x5728;&#x7FA4;&#x91CC;&#x5BF9;&#x5929;&#x5DE5;&#x4E0B;&#x8F7D;&#x901F;&#x5EA6;&#x548C;&#x51C6;&#x786E;&#x7387;&#x7684;&#x53CD;&#x9988;" width="1740" height="1756" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" data-original-width="1740" data-original-height="1756" srcset="/assets/article-images/b35061754c79f573d7c2-480.webp 480w, /assets/article-images/b35061754c79f573d7c2-760.webp 760w, /assets/article-images/b35061754c79f573d7c2-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
 <p>　　作为研发，做提效工具能收到一线业务方这样真诚正向的反馈，当时真的成就感爆棚。那些他们以前每天机械重复、烦躁不堪的操作，终于全部解脱交给代码了。</p>
 <p>　　工具彻底稳定运行之后不久，这位 leader 和整个运营支持团队，被全部优化裁员了。</p>
 <p>　　现在回过头再看群里的那张截图，心里挺五味杂陈的。他们在群里真诚地感谢我们，热情地帮我们找 bug、测场景，一起把工具打磨成熟。但讽刺的是，这个工具最终替代掉的，恰恰就是他们自己的工作岗位。</p>
@@ -469,13 +472,19 @@
     <div class="media-viewer-actions">
       <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
       <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
       <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
       <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
     </div>
   </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
     <div class="media-viewer-canvas"></div>
   </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
   <p class="media-viewer-caption" aria-live="polite"></p>
 </dialog>
 

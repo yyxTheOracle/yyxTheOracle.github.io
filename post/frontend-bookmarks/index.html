@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="/css/site.css">
   
     <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
     <script defer src="/js/media-viewer.js"></script>
   
   
@@ -192,13 +193,19 @@
     <div class="media-viewer-actions">
       <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
       <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
       <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
       <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
     </div>
   </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
     <div class="media-viewer-canvas"></div>
   </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
   <p class="media-viewer-caption" aria-live="polite"></p>
 </dialog>
 
