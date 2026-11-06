@@ -2,6 +2,17 @@
   'use strict';
 
   const root = document.documentElement;
+  const header = document.querySelector('.site-header');
+  // 窄屏换行和浏览器缩放会改变导航高度，锚点与目录共用实际尺寸。
+  function updateHeaderHeight() {
+    root.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+  }
+  if (header) {
+    updateHeaderHeight();
+    if ('ResizeObserver' in window) new ResizeObserver(updateHeaderHeight).observe(header);
+    else window.addEventListener('resize', updateHeaderHeight);
+  }
+
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
   const themeOptions = [...document.querySelectorAll('input[name="theme-mode"]')];
   const diagrams = [...document.querySelectorAll('.mermaid')].map((element) => {
@@ -328,7 +339,7 @@
     function updateCurrentHeading() {
       let current = headings[0];
       for (const heading of headings) {
-        if (heading.getBoundingClientRect().top <= 120) current = heading;
+        if (heading.getBoundingClientRect().top <= (header ? header.getBoundingClientRect().height + 72 : 120)) current = heading;
         else break;
       }
       setCurrentHeading(current.id);
