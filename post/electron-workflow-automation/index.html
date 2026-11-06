@@ -10,18 +10,19 @@
   <meta name="description" content="前言 前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="给运营支持团队做提效工具，做着做着，这个团队没了">
-<meta property="og:url" content="https://www.victoryeah.com/post/2733f88e.html">
+<meta property="og:url" content="https://www.victoryeah.com/post/electron-workflow-automation/">
 <meta property="og:site_name" content="Victor 的自留地">
 <meta property="og:description" content="前言 前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2025-09-14T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-05T12:13:02.367Z">
+<meta property="article:modified_time" content="2026-11-06T05:50:00.080Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/electron-workflow-automation/">
   <link rel="icon" href="/img/favicon.ico">
   <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
   
@@ -376,7 +377,7 @@
 </ul>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
-    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/12e2a8de.html"><span>上一篇</span><strong>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</strong></a><a href="/post/2a798ab5.html"><span>下一篇</span><strong>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</strong></a></nav>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/go-worker-pool/"><span>上一篇</span><strong>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</strong></a><a href="/post/philip-roberts-event-loop/"><span>下一篇</span><strong>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</strong></a></nav>
     
 <link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
 <section class="article-comments" aria-labelledby="article-comments-title">
@@ -424,7 +425,7 @@
     init({
       el: '#waline',
       serverURL: "https://victor-waline.vercel.app",
-      // 评论按文章路径归属，不能用 localhost 域名或预览目录建立另一组评论。
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
       path: "/post/2733f88e.html",
       locale,
       login: "enable",

@@ -10,18 +10,19 @@
   <meta name="description" content="前言 最近在做宝马的一个项目，需要实现 Table 的全选 &amp; 取消全选，原型图如下:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回调函数也能主动调用丨antd Table 组件外实现全选 &amp; 取消全选">
-<meta property="og:url" content="https://www.victoryeah.com/post/d87f7e0c.html">
+<meta property="og:url" content="https://www.victoryeah.com/post/antd-table-external-selection/">
 <meta property="og:site_name" content="Victor 的自留地">
 <meta property="og:description" content="前言 最近在做宝马的一个项目，需要实现 Table 的全选 &amp; 取消全选，原型图如下:">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2022-04-23T10:54:37.000Z">
-<meta property="article:modified_time" content="2026-11-04T11:40:33.282Z">
+<meta property="article:modified_time" content="2026-11-06T05:50:00.078Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/antd-table-external-selection/">
   <link rel="icon" href="/img/favicon.ico">
   <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
   
@@ -112,7 +113,7 @@
 <p>　　期间遇到了<code>form.setFieldsValue 不会触发控件 onChange</code>的问题，找到了一个<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinyouhunran/p/15578373.html">解决方案</a>，和我这篇文章的思路挺像的，也是需要<code>手动触发一个回调函数</code>，在这里更新记录一下。</p>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
-    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/30ad5bee.html"><span>上一篇</span><strong>修改 antd 组件默认样式的坑丨:global 关键字</strong></a><a href="/post/47e794c4.html"><span>下一篇</span><strong>傻逼上海国拍丨拍到牌照后的操蛋付款经历</strong></a></nav>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/antd-style-overrides/"><span>上一篇</span><strong>修改 antd 组件默认样式的坑丨:global 关键字</strong></a><a href="/post/shanghai-plate-payment-pitfalls/"><span>下一篇</span><strong>傻逼上海国拍丨拍到牌照后的操蛋付款经历</strong></a></nav>
     
 <link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
 <section class="article-comments" aria-labelledby="article-comments-title">
@@ -160,7 +161,7 @@
     init({
       el: '#waline',
       serverURL: "https://victor-waline.vercel.app",
-      // 评论按文章路径归属，不能用 localhost 域名或预览目录建立另一组评论。
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
       path: "/post/d87f7e0c.html",
       locale,
       login: "enable",

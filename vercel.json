@@ -10,5 +10,83 @@
         }
       ]
     }
-  ]
+  ],
+  "redirects": [
+    {
+      "source": "/post/6308cf93.html",
+      "destination": "/post/two-james-two-fates/",
+      "permanent": true
+    },
+    {
+      "source": "/post/47e794c4.html",
+      "destination": "/post/shanghai-plate-payment-pitfalls/",
+      "permanent": true
+    },
+    {
+      "source": "/post/d87f7e0c.html",
+      "destination": "/post/antd-table-external-selection/",
+      "permanent": true
+    },
+    {
+      "source": "/post/30ad5bee.html",
+      "destination": "/post/antd-style-overrides/",
+      "permanent": true
+    },
+    {
+      "source": "/post/7709adb1.html",
+      "destination": "/post/graduation-setback/",
+      "permanent": true
+    },
+    {
+      "source": "/post/ba9d0ab6.html",
+      "destination": "/post/passing-probation-early/",
+      "permanent": true
+    },
+    {
+      "source": "/post/11426bbe.html",
+      "destination": "/post/ime-composition-events/",
+      "permanent": true
+    },
+    {
+      "source": "/post/435e2644.html",
+      "destination": "/post/frontend-bookmarks/",
+      "permanent": true
+    },
+    {
+      "source": "/post/9e1be607.html",
+      "destination": "/post/persistent-sms-countdown/",
+      "permanent": true
+    },
+    {
+      "source": "/post/2a798ab5.html",
+      "destination": "/post/philip-roberts-event-loop/",
+      "permanent": true
+    },
+    {
+      "source": "/post/2733f88e.html",
+      "destination": "/post/electron-workflow-automation/",
+      "permanent": true
+    },
+    {
+      "source": "/post/12e2a8de.html",
+      "destination": "/post/go-worker-pool/",
+      "permanent": true
+    },
+    {
+      "source": "/post/2979ee1c.html",
+      "destination": "/post/codex-computer-use-e2e/",
+      "permanent": true
+    },
+    {
+      "source": "/post/db62fe35.html",
+      "destination": "/post/matt-pocock-skills-v1-1/",
+      "permanent": true
+    },
+    {
+      "source": "/post/310ea7d9.html",
+      "destination": "/post/jincai-30th-anniversary/",
+      "permanent": true
+    }
+  ],
+  "trailingSlash": true
 }

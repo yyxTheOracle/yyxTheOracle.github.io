@@ -10,18 +10,19 @@
   <meta name="description" content="背景 最近有个业务需求，需要去小红书开放平台对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对接小红书海量数据丨Go 并发利器 Worker Pool 实践">
-<meta property="og:url" content="https://www.victoryeah.com/post/12e2a8de.html">
+<meta property="og:url" content="https://www.victoryeah.com/post/go-worker-pool/">
 <meta property="og:site_name" content="Victor 的自留地">
 <meta property="og:description" content="背景 最近有个业务需求，需要去小红书开放平台对接一些报表数据接口，通过定时任务，在每天特定的时间点拉取效果数据并落库。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2026-01-11T08:45:18.000Z">
-<meta property="article:modified_time" content="2026-11-04T11:15:31.769Z">
+<meta property="article:modified_time" content="2026-11-06T05:50:00.081Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="后端开发">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/go-worker-pool/">
   <link rel="icon" href="/img/favicon.ico">
   <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
   
@@ -187,7 +188,7 @@
 <h2 id="2-如何优雅地“提前关闭”-Worker-Pool？"><a href="#2-如何优雅地“提前关闭”-Worker-Pool？" class="headerlink" title="2. 如何优雅地“提前关闭” Worker Pool？"></a>2. 如何优雅地“提前关闭” <code>Worker Pool</code>？</h2><p>　　<strong>场景：</strong> 比如用户点击了取消按钮，或者遇到了严重错误，不想跑剩下的 1 万个任务了。<br><strong>技巧：</strong> 仅仅 <code>close(jobs)</code> 是不够的，因为工人可能正阻塞在某个耗时操作上。这时候需要引入 <code>context.Context</code>。给工人传入一个 <code>ctx</code>，在函数内通过 <code>select &#123; case &lt;-ctx.Done(): return &#125;</code> 来实现秒级的停止。</p>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
-    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/2979ee1c.html"><span>上一篇</span><strong>用 Codex Computer Use 搞定小程序 E2E Test</strong></a><a href="/post/2733f88e.html"><span>下一篇</span><strong>给运营支持团队做提效工具，做着做着，这个团队没了</strong></a></nav>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/codex-computer-use-e2e/"><span>上一篇</span><strong>用 Codex Computer Use 搞定小程序 E2E Test</strong></a><a href="/post/electron-workflow-automation/"><span>下一篇</span><strong>给运营支持团队做提效工具，做着做着，这个团队没了</strong></a></nav>
     
 <link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
 <section class="article-comments" aria-labelledby="article-comments-title">
@@ -235,7 +236,7 @@
     init({
       el: '#waline',
       serverURL: "https://victor-waline.vercel.app",
-      // 评论按文章路径归属，不能用 localhost 域名或预览目录建立另一组评论。
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
       path: "/post/12e2a8de.html",
       locale,
       login: "enable",
