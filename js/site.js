@@ -5,7 +5,8 @@
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
   const themeOptions = [...document.querySelectorAll('input[name="theme-mode"]')];
   const diagrams = [...document.querySelectorAll('.mermaid')].map((element) => {
-    const source = element.cloneNode(true);
+    // 构建时的占位文案不属于 Mermaid 源码；未收录尺寸的图仍读取原始元素。
+    const source = (element.querySelector('.mermaid-source') || element).cloneNode(true);
     source.querySelectorAll('br').forEach((br) => br.replaceWith('<br/>'));
     return { element, source: source.textContent };
   });
@@ -75,7 +76,9 @@
       }
     }).catch(() => {
       if (revision !== diagramRevision) return;
-      diagrams.forEach(({ element }) => {
+      diagrams.forEach(({ element, source }) => {
+        // CDN 不可用时撤掉占位，恢复源码，避免留下永远加载中的空框。
+        if (!element.querySelector('svg')) element.textContent = source;
         element.dataset.renderError = '图表加载失败，以下为原始内容';
       });
     });
@@ -293,32 +296,98 @@
   }
   const tocLinks = [...document.querySelectorAll('.toc-link')];
   const headings = article ? [...article.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')] : [];
+  const tocDialog = document.querySelector('#mobile-toc-dialog');
+  let currentHeadingId;
 
-  // 桌面和手机目录同步标记当前位置，不改变浏览器原生锚点跳转。
+  // 只滚动目录自己的容器，避免 scrollIntoView 连带移动正在阅读的正文。
+  function revealTocLink(link, container) {
+    if (!container) return;
+    const bounds = container.getBoundingClientRect();
+    if (!bounds.height) return;
+    const item = link.getBoundingClientRect();
+    if (item.top < bounds.top) container.scrollTop += item.top - bounds.top - 8;
+    else if (item.bottom > bounds.bottom) container.scrollTop += item.bottom - bounds.bottom + 8;
+  }
+
+  // 桌面和手机目录共用当前章节，只在章节变化时更新高亮和目录位置。
   function setCurrentHeading(id) {
+    if (currentHeadingId === id) return;
+    currentHeadingId = id;
     tocLinks.forEach((link) => {
       let target;
       try { target = decodeURIComponent(link.hash.slice(1)); } catch { target = link.hash.slice(1); }
-      if (target === id) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
+      if (target === id) {
+        link.setAttribute('aria-current', 'location');
+        revealTocLink(link, link.closest('.desktop-toc'));
+      } else link.removeAttribute('aria-current');
     });
   }
 
-  if (headings.length && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(() => {
+  if (headings.length && tocLinks.length) {
+    // 每帧最多计算一次；平滑滚动结束时即使没有新的交叉事件，也能准确选中章节。
+    function updateCurrentHeading() {
       let current = headings[0];
       for (const heading of headings) {
         if (heading.getBoundingClientRect().top <= 120) current = heading;
         else break;
       }
       setCurrentHeading(current.id);
-    }, { rootMargin: '-96px 0px -60% 0px' });
-    headings.forEach((heading) => observer.observe(heading));
+    }
+    let scheduled = false;
+    function scheduleCurrentHeading() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        updateCurrentHeading();
+      });
+    }
+    window.addEventListener('scroll', scheduleCurrentHeading, { passive: true });
+    window.addEventListener('resize', scheduleCurrentHeading);
+    window.addEventListener('hashchange', scheduleCurrentHeading);
+    if ('ResizeObserver' in window) new ResizeObserver(scheduleCurrentHeading).observe(article);
+    updateCurrentHeading();
   }
   tocLinks.forEach((link) => link.addEventListener('click', () => {
     const mobileToc = link.closest('details.mobile-toc');
     if (mobileToc) mobileToc.open = false;
+    if (tocDialog?.open && tocDialog.contains(link)) tocDialog.close();
   }));
+
+  const mobileToc = document.querySelector('.mobile-toc');
+  const tocTrigger = document.querySelector('.mobile-toc-trigger');
+  if (mobileToc && tocTrigger && typeof tocDialog?.showModal === 'function') {
+    const nav = mobileToc.querySelector('nav');
+    const summary = mobileToc.querySelector('summary');
+    let openedFrom;
+    // 复用页首目录节点；无 dialog 支持或 JS 未加载时仍可展开原生 details。
+    tocDialog.append(nav);
+    root.classList.add('mobile-toc-ready');
+    summary.setAttribute('aria-haspopup', 'dialog');
+    summary.setAttribute('aria-controls', tocDialog.id);
+
+    function openToc(event) {
+      event.preventDefault();
+      openedFrom = event.currentTarget;
+      tocDialog.showModal();
+      root.classList.add('toc-open');
+      const current = nav.querySelector('[aria-current="location"]');
+      if (current) revealTocLink(current, nav);
+    }
+    summary.addEventListener('click', openToc);
+    tocTrigger.addEventListener('click', openToc);
+    tocDialog.querySelector('[data-close-toc]').addEventListener('click', () => tocDialog.close());
+    tocDialog.addEventListener('click', (event) => {
+      const bounds = tocDialog.getBoundingClientRect();
+      if (event.target === tocDialog && (event.clientX < bounds.left || event.clientX > bounds.right ||
+          event.clientY < bounds.top || event.clientY > bounds.bottom)) tocDialog.close();
+    });
+    // Esc、关闭按钮和选章都走同一清理，恢复焦点时不改变原来的滚动位置。
+    tocDialog.addEventListener('close', () => {
+      root.classList.remove('toc-open');
+      openedFrom?.focus({ preventScroll: true });
+    });
+  }
 
   // Hexo 用 br 保存换行，克隆后转成文本，避免复制时把代码行粘在一起。
   function codeText(code) {

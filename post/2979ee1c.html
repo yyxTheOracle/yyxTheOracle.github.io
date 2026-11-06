@@ -33,6 +33,10 @@
   </script>
   <link rel="stylesheet" href="/css/site.css">
   
+    <link rel="stylesheet" href="/css/article-media.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
   
   
   <script defer src="/js/site.js"></script>
@@ -102,13 +106,13 @@
 </div>
 
 <figure style="text-align:center; margin:24px 0;">
-  <img src="https://s3.bmp.ovh/2026/11/04/BRHz9lI8.jpg" alt="Playwright E2E Agent Prompt Template" style="width:75%; max-width:760px;">
+  <img src="https://s3.bmp.ovh/2026/11/04/BRHz9lI8.jpg" alt="Playwright E2E Agent Prompt Template" style="width:75%; max-width:760px;" width="2386" height="1920" decoding="async" loading="eager">
   <figcaption style="color:#888;">这个年代，做的东西可能突然就一文不值了🤣</figcaption>
 </figure>
 
 <p>　　想起 4 月底 OpenAI 出的 <a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5">GPT-5.5 提示词指南</a> 有个很明显的转向：对于 GPT-5.5 这个级别的强推理模型，不用再像以前那样面向过程一步步告诉它怎么做，最佳实践反而是提示词越简单越好，只需要给 Expected Outcome、Constraints 和 Success Criteria，让模型自己去选择实现路径。</p>
 <div style="text-align:center; margin:24px 0;">
-  <img src="https://s3.bmp.ovh/2026/11/04/02MGIkg0.png" alt="GPT-5.5 prompting guide" style="width:85%; max-width:900px;">
+  <img src="https://s3.bmp.ovh/2026/11/04/02MGIkg0.png" alt="GPT-5.5 prompting guide" style="width:85%; max-width:900px;" width="2292" height="924" decoding="async" loading="lazy">
 </div>
 
 <p>　　就像上面的视频一样，我把原视频丢给 Codex，Prompt 就一句话：给我生成一个 16 倍速版本。Codex 直接用一段 Swift 脚本解决了。</p>
@@ -195,6 +199,23 @@
   <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
   <span>回到顶部</span>
 </button>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
 
 </main>
   <footer class="site-footer">

@@ -33,6 +33,10 @@
   </script>
   <link rel="stylesheet" href="/css/site.css">
   
+    <link rel="stylesheet" href="/css/article-media.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
   
   
   <script defer src="/js/site.js"></script>
@@ -180,6 +184,23 @@
   <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
   <span>回到顶部</span>
 </button>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
 
 </main>
   <footer class="site-footer">

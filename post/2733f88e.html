@@ -34,6 +34,10 @@
   </script>
   <link rel="stylesheet" href="/css/site.css">
   
+    <link rel="stylesheet" href="/css/article-media.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
   
   
   <script defer src="/js/site.js"></script>
@@ -99,16 +103,16 @@
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。<span id="more"></span></p>
 <p>　　借着 AI Coding，用自然语言把需求理顺、让模型给出骨架再一点点调细节，很快就能把一个以前没碰过的技术栈跑通。最爽的是反馈极其直观：在可见模式下，看着 Electron 窗口在眼前自动切换平台、选日期、勾指标、一路把报表落盘，那些原本需要运营同学每天机械重复几个小时的操作，程序自己几十秒就跑完了。第一次看着它跑通的时候，确实挺震撼的。</p>
 <h1 id="天工的设计与核心架构"><a href="#天工的设计与核心架构" class="headerlink" title="天工的设计与核心架构"></a>天工的设计与核心架构</h1><p>　　界面结构其实很直接：左边内嵌美团开店宝，右边是天工自己的操作面板，负责账号切换、话术管理和下载任务。</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/zKLZ7XJG.png" alt="天工界面：左侧嵌入开店宝，右侧管理账号和操作功能"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/zKLZ7XJG.png" alt="天工界面：左侧嵌入开店宝，右侧管理账号和操作功能" width="3024" height="1600" decoding="async" loading="eager"></p>
 <p>　　技术栈是 <strong>Electron + React + TypeScript + MobX + Puppeteer</strong>。React 负责右侧的面板与交互，Electron 提供桌面窗口、会话隔离和本地能力，Puppeteer 则专门负责去操控开店宝的后台页面。</p>
-<pre class="mermaid">flowchart LR
+<pre class="mermaid"><span class="mermaid-source">flowchart LR
     E["Electron 桌面应用"] --> C["Chromium<br/>渲染 Web 界面与开店宝"]
     E --> N["Node.js<br/>本地文件读写与 npm 生态"]
-    E --> A["Native API<br/>系统窗口、弹窗与存储"]</pre>
+    E --> A["Native API<br/>系统窗口、弹窗与存储"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:409.2265625px;min-width:0px;aspect-ratio:409.2265625/324.171875"></span></pre>
 
 <h2 id="痛点一：批量好评回复"><a href="#痛点一：批量好评回复" class="headerlink" title="痛点一：批量好评回复"></a>痛点一：批量好评回复</h2><p>　　运营支持同学手里通常管着几十上百个商家账号，也有提前整理好的分品类回复话术。以前的操作是人工登录每一个账号，找到未回复的评价，逐条复制粘贴话术再点击提交，纯粹的体力活。</p>
 <p>　　天工的第一期目标就是把这个过程自动化：</p>
-<video controls playsinline preload="metadata" style="width: 100%; height: auto;" aria-label="天工批量填写好评回复的操作演示">
+<video controls playsinline preload="metadata" style="width: 100%; height: auto;" aria-label="天工批量填写好评回复的操作演示" width="2560" height="1550">
   <source src="/assets/electron-tiangong/reply-demo.mp4" type="video/mp4">
   你的浏览器不支持视频播放，可以<a href="/assets/electron-tiangong/reply-demo.mp4">下载原视频</a>查看。
 </video>
@@ -119,19 +123,19 @@
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;webview</span><br><span class="line">  key=&#123;currentAccount.<span class="property">id</span>&#125;</span><br><span class="line">  src=<span class="string">&quot;https://ecom.meituan.com/meishi/&quot;</span></span><br><span class="line">  partition=&#123;<span class="string">`persist:<span class="subst">$&#123;currentAccount.id&#125;</span>`</span>&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>　　通过给每个账号分配专属的 <code>partition</code>，直接复用了 Chromium 底层的会话隔离机制：</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     S["选择账号"] --> A["账号 A"]
     S --> B["账号 B"]
     A --> PA["persist:account-a<br/>A 的专属 Cookie 与 LocalStorage"]
     B --> PB["persist:account-b<br/>B 的专属 Cookie 与 LocalStorage"]
     PA --> VA["webview (账号 A 登录态)"]
-    PB --> VB["webview (账号 B 登录态)"]</pre>
+    PB --> VB["webview (账号 B 登录态)"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:559.859375px;min-width:0px;aspect-ratio:559.859375/361.9765625"></span></pre>
 
 <p>　　带上 <code>persist:</code> 前缀后，Session 数据会被持久化写入本地磁盘。只要登录态还有效，应用重启后就能接着用，不必重新扫码。</p>
 <p>　　实际切换非常丝滑。选中账号 A，左侧展示 A 门店的后台：</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/RKK9Cqsc.png" alt="选中账号 A 后，webview 使用对应的开店宝登录态"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/RKK9Cqsc.png" alt="选中账号 A 后，webview 使用对应的开店宝登录态" width="3024" height="1890" decoding="async" loading="lazy"></p>
 <p>　　切换到账号 B，左侧无缝切换到 B 门店的会话：</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/2ux2YQNJ.png" alt="切换到账号 B，页面里的门店和经营数据随账号改变"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/2ux2YQNJ.png" alt="切换到账号 B，页面里的门店和经营数据随账号改变" width="3024" height="1890" decoding="async" loading="lazy"></p>
 <p>　　第一次发现仅靠一个 <code>partition</code> 就能优雅解掉多账号共存和快速切换的问题时，着实被 Chromium 原生能力的强大惊艳到了。</p>
 <h3 id="状态持久化：装饰器-MobX-electron-store"><a href="#状态持久化：装饰器-MobX-electron-store" class="headerlink" title="状态持久化：装饰器 + MobX + electron-store"></a>状态持久化：装饰器 + MobX + electron-store</h3><p>　　除了开店宝网页的 Cookie，天工自身也有不少状态需要落盘：添加了哪些账号、当前选中的是谁、导入了哪些分类话术。</p>
 <p>　　如果每次修改状态都手动调一次写盘函数，代码会变得极易漏写。这里配合 <code>reflect-metadata</code>、装饰器、MobX 和 <code>electron-store</code>，实现了一套声明式的持久化逻辑：</p>
@@ -142,7 +146,7 @@
 <li>应用初始化时，通过 IPC 从主进程的 <code>electron-store</code> 读取数据，回填到 MobX store 中。</li>
 <li>通过 MobX 的 <code>reaction</code> 监听对应属性的变化，并在值发生改变时自动写回 <code>electron-store</code>。</li>
 </ol>
-<pre class="mermaid">sequenceDiagram
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
     participant S as Account / PersistStore
     participant R as MobX reaction
     participant P as preload / IPC
@@ -156,7 +160,7 @@
     Note over S,R: 业务层修改 accountList / currentAccountId
     S->>R: 属性值发生改变
     R->>P: 节流防抖后 set(key, value)
-    P->>D: 写入本地磁盘</pre>
+    P->>D: 写入本地磁盘</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1069.5px;min-width:900px;aspect-ratio:1069.5/669"></span></pre>
 
 <p>　　核心的监听写回逻辑非常洗练：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">reaction</span>(</span><br><span class="line">  <span class="function">() =&gt;</span> <span class="variable language_">this</span>[key],</span><br><span class="line">  <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">persistentStore</span>.<span class="title function_">set</span>(key, <span class="title function_">cloneDeep</span>(value))</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">delay</span>: <span class="number">300</span> &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -164,12 +168,12 @@
 <p>　　这样业务代码只需要专注修改 MobX 状态，数据的存取和磁盘同步完全自动化了。</p>
 <details>
 <summary>查看持久化时序设计原图</summary>
-<img src="https://s3.bmp.ovh/2026/11/04/1h2UxYBK.png" alt="Account、PersistStore、MobX 和 electron-store 时序图">
+<img src="https://s3.bmp.ovh/2026/11/04/1h2UxYBK.png" alt="Account、PersistStore、MobX 和 electron-store 时序图" width="2050" height="1648" decoding="async" loading="lazy">
 </details>
 
 <h3 id="从-Excel-导入话术与-IPC-进程通信"><a href="#从-Excel-导入话术与-IPC-进程通信" class="headerlink" title="从 Excel 导入话术与 IPC 进程通信"></a>从 Excel 导入话术与 IPC 进程通信</h3><p>　　运营同学整理好的话术是以 Excel 表格提供的。点击「导入话术」需要调起系统的文件选择框并读取本地文件内容。</p>
 <p>　　天工把文件选择和 Excel 解析放在 Main 进程里，React 页面通过 <code>preload</code> 暴露的接口发起请求，再经 IPC（Inter-Process Communication）拿回结果。开启 <code>contextIsolation</code> 后，preload 和页面处于不同的 JavaScript 环境，需要通过 <code>contextBridge</code> 把接口暴露给页面：</p>
-<pre class="mermaid">sequenceDiagram
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
     participant UI as React 页面
     participant P as preload
     participant M as Electron 主进程
@@ -181,7 +185,7 @@
     M->>M: xlsx.readFile() 解析每个 Sheet
     M-->>P: 返回结构化的话术数据
     P-->>UI: Promise resolve 数据
-    UI->>UI: 写入 MobX store 并持久化</pre>
+    UI->>UI: 写入 MobX store 并持久化</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1202.5px;min-width:900px;aspect-ratio:1202.5/663"></span></pre>
 
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// preload.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; contextBridge, ipcRenderer &#125; <span class="keyword">from</span> <span class="string">&#x27;electron&#x27;</span></span><br><span class="line"></span><br><span class="line">contextBridge.<span class="title function_">exposeInMainWorld</span>(<span class="string">&#x27;tiangong&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">importScripts</span>: <span class="function">() =&gt;</span> ipcRenderer.<span class="title function_">invoke</span>(<span class="string">&#x27;excel-import&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// renderer.tsx</span></span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> <span class="variable language_">window</span>.<span class="property">tiangong</span>.<span class="title function_">importScripts</span>()</span><br><span class="line"><span class="keyword">if</span> (result.<span class="property">success</span>) &#123;</span><br><span class="line">  scriptStore.<span class="title function_">updateGeneralTemplate</span>(result.<span class="property">data</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  message.<span class="title function_">info</span>(result.<span class="property">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -221,13 +225,13 @@
 <h3 id="Puppeteer-页面定位与真实的-DOM-事件模拟"><a href="#Puppeteer-页面定位与真实的-DOM-事件模拟" class="headerlink" title="Puppeteer 页面定位与真实的 DOM 事件模拟"></a>Puppeteer 页面定位与真实的 DOM 事件模拟</h3><p>　　准备好账号和话术后，就是让 Puppeteer 接管页面进行自动化填写。这里使用 <code>puppeteer-in-electron</code> 连接现有的 Chromium 实例。</p>
 <p>　　但这里有一个实际问题：React 侧只知道 webview 的 <code>webContentsId</code>，而 Puppeteer 操作的是 <code>Page</code> 实例，如何把它们准确对应上？</p>
 <p>　　天工早期采用了一个非常朴素且管用的方案：<strong>往目标 WebContents 里动态注入一个唯一 GUID，然后再遍历 Puppeteer 识别的所有 Page 找出包含该 GUID 的目标：</strong></p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     I["webview 的 webContentsId"] --> W["获取 Electron webContents 实例"]
     W --> G["向页面注入唯一 GUID 标记"]
     G --> T["枚举 Puppeteer 的 targets"]
     T --> P["匹配到 GUID 相同的 Page 实例"]
     P --> F["定位到美团评价的 iframe"]
-    F --> R["查找未回复评价的回复框并填入话术"]</pre>
+    F --> R["查找未回复评价的回复框并填入话术"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:287px;min-width:0px;aspect-ratio:287/611.3671875"></span></pre>
 
 <p>　　找到开店宝评价 iframe 后，遍历未回复列表并填入话术。在给输入框赋值时遇到了一个经典的前端坑：直接修改 <code>textarea.value</code>，美团页面的 React/Vue 内部状态并不会感知到变化，一旦提交内容依然是空的。</p>
 <p>　　最终通过派发完整事件链并模拟按键退格搞定：</p>
@@ -240,15 +244,15 @@
 <h3 id="无界面后台窗口与会话复用"><a href="#无界面后台窗口与会话复用" class="headerlink" title="无界面后台窗口与会话复用"></a>无界面后台窗口与会话复用</h3><p>　　批量下载如果还在前端弹出一个个 webview 乱晃，体验会很糟糕。这里的做法是在主进程中按需创建 <strong><code>show: false</code> 的隐藏 BrowserWindow</strong>，让 Puppeteer 在后台操作，同时复用前台账号的持久化 partition：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> downloadWindow = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">  <span class="attr">show</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">    <span class="attr">partition</span>: <span class="string">`persist:<span class="subst">$&#123;accountId&#125;</span>`</span>,</span><br><span class="line">    <span class="attr">nodeIntegration</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">contextIsolation</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     A["账号 A 的持久化会话<br/>persist:account-a"]
     V["前台可见 webview<br/>人工登录与日常查看"] --> A
     H["后台隐藏 BrowserWindow<br/>静默执行自动化任务"] --> A
-    P["Puppeteer<br/>连接 Electron 驱动页面"] --> H</pre>
+    P["Puppeteer<br/>连接 Electron 驱动页面"] --> H</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:422.1328125px;min-width:0px;aspect-ratio:422.1328125/324.171875"></span></pre>
 
 <p>　　前台和后台复用同一份登录态，自动化操作放在隐藏窗口里执行，结束后再销毁窗口，避免用完的页面一直占着资源。</p>
 <h3 id="经营参谋下载流程与下载拦截"><a href="#经营参谋下载流程与下载拦截" class="headerlink" title="经营参谋下载流程与下载拦截"></a>经营参谋下载流程与下载拦截</h3><p>　　以最繁琐的经营参谋为例，它需要分别切换美团和点评两个子平台：</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     A["打开后台经营参谋页"] --> B["等待表单渲染完成"]
     B --> C["切换美团 / 点评平台"]
     C --> D["选定日期区间并全选指标"]
@@ -256,11 +260,11 @@
     E --> F["确认弹窗并进入下载列表"]
     F --> G["等待生成完毕，绑定下载上下文"]
     G --> H["触发最终下载按钮"]
-    H --> I["主进程拦截下载流保存至本地"]</pre>
+    H --> I["主进程拦截下载流保存至本地"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:255px;min-width:0px;aspect-ratio:255/795.7578125"></span></pre>
 
 <p>　　这里关键在于：<strong>点击“立即下载”只是触发平台端生成异步报表，必须等列表渲染出对应记录后二次点击，才能拿到真实文件。</strong></p>
 <p>　　整个任务从 React 面板发起，主进程依次调度各个账号串行处理：</p>
-<pre class="mermaid">sequenceDiagram
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
     participant U as React / useDownloadManager
     participant S as downloadTaskStore
     participant M as 主进程下载服务
@@ -275,11 +279,11 @@
         M-->>U: 返回该账号处理结果
         U->>S: 更新账号任务状态
     end
-    U->>M: 调用系统桌面通知</pre>
+    U->>M: 调用系统桌面通知</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1117.5px;min-width:900px;aspect-ratio:1117.5/683"></span></pre>
 
 <h3 id="上下文绑定的精准文件拦截"><a href="#上下文绑定的精准文件拦截" class="headerlink" title="上下文绑定的精准文件拦截"></a>上下文绑定的精准文件拦截</h3><p>　　在批量任务下，可能会有多个平台、多个日期的报表同时触发下载。Chromium 捕获到的只是一个临时 URL，如何知道这个文件属于哪个主任务、哪个账号、哪个平台？</p>
 <p>　　解决方案是在触发真实的下载动作之前，先在主进程全局注册一个<strong>下载上下文（Download Context）</strong>，<code>downloadInterceptor</code> 捕获到流之后，直接提取上下文元数据来命名并归档文件：</p>
-<pre class="mermaid">sequenceDiagram
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
     participant P as 下载策略
     participant D as downloadInterceptor
     participant F as 本地文件系统
@@ -290,32 +294,32 @@
     D->>U: 通知创建 FileTask 进度条
     D->>F: 流式写入本地指定目录
     F-->>D: 文件落盘成功
-    D->>U: 更新该文件的下载状态</pre>
+    D->>U: 更新该文件的下载状态</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1089px;min-width:900px;aspect-ratio:1089/575"></span></pre>
 
 <details>
 <summary>查看经营参谋全链路时序原图</summary>
-<img src="https://s3.bmp.ovh/2026/11/04/X0SUh2KD.png" alt="经营参谋下载时序图">
+<img src="https://s3.bmp.ovh/2026/11/04/X0SUh2KD.png" alt="经营参谋下载时序图" width="1280" height="1272" decoding="async" loading="lazy">
 </details>
 
 <h2 id="任务调度与稳定性保障"><a href="#任务调度与稳定性保障" class="headerlink" title="任务调度与稳定性保障"></a>任务调度与稳定性保障</h2><p>　　当从单账号操作演进到几十个账号的批量调度时，工程重心就转移到了状态可观测性与异常排查上。</p>
 <h3 id="三级任务分层与状态汇总"><a href="#三级任务分层与状态汇总" class="headerlink" title="三级任务分层与状态汇总"></a>三级任务分层与状态汇总</h3><p>　　为了让前端能清晰展示全局和局部的下载进度，把任务拆分为三级结构：<strong>主任务（MainTask） -&gt; 账号任务（AccountTask） -&gt; 文件任务（FileTask）</strong>。</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     M["主任务<br/>批量下载经营参谋报表"]
     M --> A["账号 A 任务"]
     M --> B["账号 B 任务"]
     A --> A1["美团报表文件"]
     A --> A2["点评报表文件"]
     B --> B1["美团报表文件"]
-    B --> B2["点评报表文件"]</pre>
+    B --> B2["点评报表文件"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:610px;min-width:0px;aspect-ratio:610/269.78125"></span></pre>
 
 <p>　　账号状态不仅有简单的“成功”或“失败”，还支持“部分成功”（例如美团报表处理成功，但点评报表因后台超时失败）。不过，文件下载状态和账号执行结果走的是两条更新路径：文件下载结束后，更新对应文件的状态和账号下的文件统计；账号本身的状态，则由 React 侧根据主进程返回的执行结果判断，再汇总到主任务，驱动面板渲染。</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     F["文件写入成功"] --> FS["更新 FileTask"]
     FS --> FC["累加账号文件完成数"]
     R["主进程返回账号执行结果"] --> AS["更新 AccountTask (成功/部分成功/失败)"]
     AS --> MS["聚合 MainTask 状态"]
     FC --> UI["React / MobX 驱动界面渲染"]
-    MS --> UI</pre>
+    MS --> UI</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:500.85546875px;min-width:0px;aspect-ratio:500.85546875/334.78125"></span></pre>
 
 <h3 id="基于-AsyncLocalStorage-的独立任务日志"><a href="#基于-AsyncLocalStorage-的独立任务日志" class="headerlink" title="基于 AsyncLocalStorage 的独立任务日志"></a>基于 AsyncLocalStorage 的独立任务日志</h3><p>　　一旦线上报错，如果所有日志混杂在一个全局文件里，排查起来会极为痛苦。天工为每一次主任务单独分配一个独立的日志文件：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">logs/</span><br><span class="line">├── global.log</span><br><span class="line">└── task-logs/</span><br><span class="line">    ├── main-task-a.log</span><br><span class="line">    ├── main-task-b.log</span><br><span class="line">    └── orphaned-task-activities.log</span><br></pre></td></tr></table></figure>
@@ -324,38 +328,38 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> taskContext = <span class="keyword">new</span> <span class="title class_">AsyncLocalStorage</span>&lt;<span class="built_in">string</span>&gt;()</span><br><span class="line"><span class="keyword">const</span> taskLogger = log.<span class="title function_">create</span>(&#123; <span class="attr">logId</span>: <span class="string">&#x27;task&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line">taskLogger.<span class="property">transports</span>.<span class="property">file</span>.<span class="property">resolvePath</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> taskId = taskContext.<span class="title function_">getStore</span>()</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">join</span>(</span><br><span class="line">    app.<span class="title function_">getPath</span>(<span class="string">&#x27;logs&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;task-logs&#x27;</span>,</span><br><span class="line">    <span class="string">`<span class="subst">$&#123;taskId || <span class="string">&#x27;orphaned-task-activities&#x27;</span>&#125;</span>.log`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> taskContext.<span class="title function_">run</span>(mainTaskId, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  taskLogger.<span class="title function_">info</span>(<span class="string">&#x27;开始处理账号&#x27;</span>, accountId)</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">executeDownload</span>(options)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>　　任务结束后，日志文件会自动上传至 OSS 并上报埋点，直接在 Metabase 里按任务 ID 检索定位，省去了找用户远程要日志的沟通成本。</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/65UzaCZv.png" alt="Metabase 中的任务日志查询：创建时间、用户、版本、操作名称和日志下载地址"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/65UzaCZv.png" alt="Metabase 中的任务日志查询：创建时间、用户、版本、操作名称和日志下载地址" width="3840" height="1868" decoding="async" loading="lazy"></p>
 <h3 id="失败自动截屏：有图有真相"><a href="#失败自动截屏：有图有真相" class="headerlink" title="失败自动截屏：有图有真相"></a>失败自动截屏：有图有真相</h3><p>　　第三方后台由于样式改版、接口报错或突发验证码，随时可能导致 Puppeteer 找不到选择器。光看报错堆栈很难知道页面究竟卡在什么状态。</p>
 <p>　　因此在错误捕获分支中增加了自动截屏兜底：</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     E["自动化流程抛错"] --> P["尝试 Puppeteer 截图"]
     P -->|成功| S["写入本地临时图片"]
     P -->|失败| C["降级为 Electron capturePage 原生截图"]
     C -->|成功| S
     S --> U["异步上传至 OSS"]
     U -->|成功| T["关联 TaskId 并上报 URL"]
-    T --> M["Metabase 中结合日志秒级定责"]</pre>
+    T --> M["Metabase 中结合日志秒级定责"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:374.509765625px;min-width:0px;aspect-ratio:374.509765625/692.953125"></span></pre>
 
 <p>　　<strong>日志告诉你代码死在了哪一步，截屏告诉你当时现场是什么样子。</strong> 这两套机制上线后，排查线上问题的效率提升了不止一个数量级。</p>
 <h2 id="账号会话无缝迁移"><a href="#账号会话无缝迁移" class="headerlink" title="账号会话无缝迁移"></a>账号会话无缝迁移</h2><p>　　另一个很受运营好评的功能是账号信息的“一键搬家”。</p>
 <p>　　由于所有登录态都在各自独立命名的 <code>Partitions</code> 目录下，既然已经实现了隔离，那直接把这个目录打包迁移到另一台电脑上，是不是就能免扫码继承登录态？</p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/pF0jL6O0.png" alt="天工账号管理区的“输出账号信息文件夹到桌面”入口"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/pF0jL6O0.png" alt="天工账号管理区的“输出账号信息文件夹到桌面”入口" width="2172" height="1442" decoding="async" loading="lazy"></p>
 <p>　　天工在主进程中利用 <code>app.getPath(&#39;userData&#39;)</code> 获取路径，通过 Node.js 剔除无关的 <code>Cache</code>、<code>Code Cache</code> 目录后打包导出至桌面。再配一个简单的 CLI 工具在同事电脑上一键导入：</p>
-<pre class="mermaid">flowchart TB
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
     A["同事 A 电脑<br/>已登录的账号会话"] --> E["导出 Partitions 目录<br/>过滤无用 Cache"]
     E --> D["桌面的账号数据文件夹"]
     D --> I["同事 B 执行导入 CLI"]
     I --> P["写入 B 电脑的 Partitions 目录"]
     P --> S["同步 electron-store 账号列表"]
-    S --> B["打开天工，确认导入账号的登录态"]</pre>
+    S --> B["打开天工，确认导入账号的登录态"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:271px;min-width:0px;aspect-ratio:271/665.7578125"></span></pre>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看将要导入的内容（演练模式）</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span> --dry-run</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行实际导入</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s3.bmp.ovh/2026/11/04/Ft6ZkmaH.png" alt="CLI 导入示例：共 8 个账号，成功 8 个，跳过 0 个，失败 0 个"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/Ft6ZkmaH.png" alt="CLI 导入示例：共 8 个账号，成功 8 个，跳过 0 个，失败 0 个" width="1280" height="1206" decoding="async" loading="lazy"></p>
 <p>　　当时一人集中扫码，其他同事导入后就能接着用，省去了逐个登录的麻烦。最开始为了做隔离而引入的 <code>partition</code>，到这里，把账号切换、后台下载和账号共享这几件事都串起来了。</p>
 <h1 id="上线之后"><a href="#上线之后" class="headerlink" title="上线之后"></a>上线之后</h1><p>　　当时有一个 10 人的运营支持团队，专门负责下载各个门店的日常报表并上传到业务系统。天工内测灰度期间，他们一直充当最积极的核心用户，每天帮我们做真机测试，反馈了一大堆边界 case 和体验问题。工具能一点点跑顺、稳定下来，他们功不可没。</p>
 <p>　　2025 年 9 月 4 日，运营支持团队的 leader 在飞书群里公开表扬了天工的速度与准确率，还贴上了组员们的实测好评：<strong>79 个账号、3 天的经营参谋报表，Mac 端只花了 17 分钟就下载完了。</strong></p>
-<p><img src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" alt="2025 年 9 月 4 日，运营支持团队在群里对天工下载速度和准确率的反馈"></p>
+<p><img src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" alt="2025 年 9 月 4 日，运营支持团队在群里对天工下载速度和准确率的反馈" width="1740" height="1756" decoding="async" loading="lazy"></p>
 <p>　　作为研发，做提效工具能收到一线业务方这样真诚正向的反馈，当时真的成就感爆棚。那些他们以前每天机械重复、烦躁不堪的操作，终于全部解脱交给代码了。</p>
 <p>　　工具彻底稳定运行之后不久，这位 leader 和整个运营支持团队，被全部优化裁员了。</p>
 <p>　　现在回过头再看群里的那张截图，心里挺五味杂陈的。他们在群里真诚地感谢我们，热情地帮我们找 bug、测场景，一起把工具打磨成熟。但讽刺的是，这个工具最终替代掉的，恰恰就是他们自己的工作岗位。</p>
@@ -452,6 +456,28 @@
   <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
   <span>回到顶部</span>
 </button>
+
+<button type="button" class="mobile-toc-trigger" aria-haspopup="dialog" aria-controls="mobile-toc-dialog">目录</button>
+<dialog id="mobile-toc-dialog" aria-labelledby="mobile-toc-title">
+  <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
+</dialog>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
 
 </main>
   <footer class="site-footer">

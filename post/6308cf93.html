@@ -33,6 +33,10 @@
   </script>
   <link rel="stylesheet" href="/css/site.css">
   
+    <link rel="stylesheet" href="/css/article-media.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
   
   
   <script defer src="/js/site.js"></script>
@@ -90,7 +94,7 @@
     
     <div id="article-content" class="article-prose"><p>　　比赛结束之后才刷到杨毅老师在 G6 赛前发的这篇微博，突然就很感慨。<span id="more"></span></p>
 <div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/55e26e1943cdfb9c.jpg" />
+  <img src="https://s3.bmp.ovh/imgs/2023/01/02/55e26e1943cdfb9c.jpg" width="1000" height="1613" decoding="async" loading="eager" />
 </div>
 
 <p>　　我第一时间就联想到了 12 年东决 G6 ，因为这两场比赛的结果都不只是停留在那一场或是那一轮系列赛，而是会影响一个巨星二三十年后的定义。</p>
@@ -102,7 +106,7 @@
 <p>　　G6，在绿军的死亡主场，漫天嘘声。</p>
 <p>　　结局我们都知道，詹姆斯砍下 45+15+5，还有那个著名的死亡之瞳。热火将比赛拖入抢七并击败绿军，又势如破竹地在总决赛轻取年轻的雷霆，詹姆斯拿到了生涯第一个冠军戒指，从那时开始了逐神之路。</p>
 <div align=center>
-  <img src="https://s3.bmp.ovh/imgs/2023/01/02/ff936035a83250ad.jpg" />
+  <img src="https://s3.bmp.ovh/imgs/2023/01/02/ff936035a83250ad.jpg" width="2248" height="1080" decoding="async" loading="lazy" />
 </div>
 <center style="color:#C0C0C0;">死亡之瞳</center>
 
@@ -192,6 +196,23 @@
   <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
   <span>回到顶部</span>
 </button>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，可滚动查看放大后的内容">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
 
 </main>
   <footer class="site-footer">

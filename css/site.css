@@ -193,6 +193,16 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 .back-top-icon::before { content:""; position:absolute; inset:2px; border-radius:50%; background:var(--back-top-surface); }
 .back-top-icon svg { position:relative; width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .mobile-toc { display:none; }
+.mobile-toc-trigger { display:none; }
+.toc-open { overflow:hidden; }
+#mobile-toc-dialog { width:min(560px,calc(100% - 32px)); max-height:80dvh; margin:auto auto max(16px,env(safe-area-inset-bottom,0px)); padding:0; color:var(--text); background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
+#mobile-toc-dialog[open] { display:flex; flex-direction:column; }
+#mobile-toc-dialog::backdrop { background:#0007; }
+.mobile-toc-heading { flex:none; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--line); }
+.mobile-toc-heading h2 { margin:0; font-size:16px; }
+.mobile-toc-heading button { min-height:44px; padding:6px 10px; }
+#mobile-toc-dialog nav { flex:1; min-height:0; padding:12px 16px 20px; overflow:auto; overscroll-behavior:contain; font-size:14px; }
+#mobile-toc-dialog .toc-link { min-height:44px; padding-top:10px; padding-bottom:10px; }
 .article-license { border-top:1px solid var(--line); margin-top:50px; padding:24px 0; }
 .article-license p { font-size:13px; color:var(--muted); }
 .article-license a { color:var(--accent); }
@@ -295,6 +305,7 @@ mark { color:var(--accent); background:var(--accent-soft); border-radius:2px; }
   .desktop-toc { display:none; }
   /* 保留完整文字，并避开手机底部与横屏侧边的安全区。 */
   .back-top { right:calc(18px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); }
+  .mobile-toc-ready .mobile-toc-trigger { display:block; position:fixed; right:calc(154px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); z-index:3; height:48px; padding:0 17px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--accent); box-shadow:0 4px 16px #0002; font-size:13px; }
   .mobile-toc { display:block; background:var(--soft); border:1px solid var(--line); border-radius:6px; margin:26px 0; font-size:13px; }
   .mobile-toc summary { cursor:pointer; padding:11px 15px; color:var(--accent); font-weight:600; }
   .mobile-toc nav { padding:0 14px 14px; max-height:50vh; overflow:auto; }
