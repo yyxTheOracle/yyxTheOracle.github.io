@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
+    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/6308cf93.html</loc>
+    <loc>https://www.victoryeah.com/post/d87f7e0c.html</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -155,15 +155,6 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/music/index.html</loc>
-    
-    <lastmod>2023-08-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/photos/data.json</loc>
     
     <lastmod>2023-08-14</lastmod>
@@ -174,6 +165,15 @@
   
   <url>
     <loc>https://www.victoryeah.com/photos/index.html</loc>
+    
+    <lastmod>2023-08-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/music/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
