@@ -389,6 +389,74 @@
     });
   }
 
+  if (headings.length) {
+    const status = document.createElement('span');
+    status.className = 'sr-only';
+    status.setAttribute('role', 'status');
+    article.append(status);
+    let highlighted;
+    let highlightTimer;
+    let statusTimer;
+
+    // 只提示锚点指向的正文标题，不改变目录导航或浏览器自己的滚动位置。
+    function highlightChapter() {
+      let id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      highlighted?.classList.remove('is-chapter-target');
+      clearTimeout(highlightTimer);
+      highlighted = headings.find((heading) => heading.id === id);
+      if (!highlighted) return;
+      highlighted.classList.add('is-chapter-target');
+      highlightTimer = setTimeout(() => highlighted?.classList.remove('is-chapter-target'), 2000);
+    }
+    window.addEventListener('hashchange', highlightChapter);
+    tocLinks.forEach((link) => link.addEventListener('click', () => {
+      if (link.hash === location.hash) highlightChapter();
+    }));
+    highlightChapter();
+
+    headings.forEach((heading) => {
+      const link = heading.querySelector('a.headerlink');
+      if (!link) return;
+      const label = `复制章节链接：${heading.textContent.trim()}`;
+      link.setAttribute('aria-label', label);
+      link.title = '复制本节链接';
+      let feedbackTimer;
+      let copying = false;
+
+      // 提示不占正文空间；读屏提示和可见反馈使用同一份文案。
+      function showLinkFeedback(message) {
+        clearTimeout(feedbackTimer);
+        clearTimeout(statusTimer);
+        link.dataset.feedback = message;
+        status.textContent = message;
+        feedbackTimer = setTimeout(() => { delete link.dataset.feedback; }, 3000);
+        // 共享读屏提示只由最后一次操作清理，避免旧章节提前清掉新反馈。
+        statusTimer = setTimeout(() => { status.textContent = ''; }, 3000);
+      }
+      link.addEventListener('click', async (event) => {
+        // 修饰键仍能打开原生章节链接，无剪贴板权限时也保留地址栏复制的退路。
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (!navigator.clipboard?.writeText) {
+          showLinkFeedback('请从地址栏复制本节链接');
+          return;
+        }
+        event.preventDefault();
+        if (copying) return;
+        copying = true;
+        try {
+          await navigator.clipboard.writeText(link.href);
+          showLinkFeedback('本节链接已复制');
+        } catch {
+          location.hash = link.hash;
+          showLinkFeedback('复制失败，请从地址栏复制');
+        } finally {
+          copying = false;
+        }
+      });
+    });
+  }
+
   // Hexo 用 br 保存换行，克隆后转成文本，避免复制时把代码行粘在一起。
   function codeText(code) {
     const clone = code.cloneNode(true);
@@ -412,7 +480,9 @@
     copy.className = 'code-copy';
     copy.textContent = '复制代码';
     copy.setAttribute('aria-live', 'polite');
+    let copyFeedbackTimer;
     copy.addEventListener('click', async () => {
+      clearTimeout(copyFeedbackTimer);
       copy.disabled = true;
       try {
         await navigator.clipboard.writeText(text);
@@ -421,12 +491,17 @@
         copy.textContent = '复制失败，请手动选择代码';
       } finally {
         copy.disabled = false;
+        // 每次操作都有短暂反馈，再次复制时重新计时。
+        copyFeedbackTimer = setTimeout(() => { copy.textContent = '复制代码'; }, 2500);
       }
     });
     toolbar.append(language, copy);
     const content = document.createElement('div');
     content.className = 'code-content';
     content.id = `code-content-${index}`;
+    content.tabIndex = 0;
+    content.setAttribute('role', 'region');
+    content.setAttribute('aria-label', `${language.textContent} 代码内容`);
     table.replaceWith(content);
     content.append(table);
     figure.prepend(toolbar);
@@ -439,12 +514,53 @@
       toggle.setAttribute('aria-expanded', 'false');
       toggle.textContent = `展开全部 ${lines} 行`;
       toggle.addEventListener('click', () => {
+        const blockTop = figure.getBoundingClientRect().top;
         const collapsed = figure.classList.toggle('is-collapsed');
         toggle.setAttribute('aria-expanded', String(!collapsed));
         toggle.textContent = collapsed ? `展开全部 ${lines} 行` : '收起代码';
+        // 从长代码末尾收起时回到代码块开头，避免落到后面不相关的正文。
+        if (collapsed && blockTop < 0) figure.scrollIntoView({ behavior: 'instant', block: 'start' });
       });
       figure.append(toggle);
     }
+  });
+
+  article?.querySelectorAll(':scope > table').forEach((table, index) => {
+    const group = document.createElement('div');
+    group.className = 'article-table';
+    const scroll = document.createElement('div');
+    scroll.className = 'article-table-scroll';
+    const hint = document.createElement('p');
+    hint.className = 'article-table-hint';
+    hint.id = `article-table-hint-${index}`;
+    hint.textContent = '左右滑动查看完整表格';
+    hint.hidden = true;
+    table.replaceWith(group);
+    scroll.append(table);
+    group.append(hint, scroll);
+
+    // 只有被裁切的表格需要提示和键盘停靠点，普通表格保持原来的阅读顺序。
+    function updateTableOverflow() {
+      const overflow = scroll.scrollWidth > scroll.clientWidth + 1;
+      hint.hidden = !overflow;
+      if (overflow) {
+        scroll.tabIndex = 0;
+        scroll.setAttribute('role', 'region');
+        scroll.setAttribute('aria-label', table.caption?.textContent.trim() || '文章表格');
+        scroll.setAttribute('aria-describedby', hint.id);
+      } else {
+        scroll.removeAttribute('tabindex');
+        scroll.removeAttribute('role');
+        scroll.removeAttribute('aria-label');
+        scroll.removeAttribute('aria-describedby');
+      }
+    }
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(updateTableOverflow);
+      observer.observe(scroll);
+      observer.observe(table);
+    } else window.addEventListener('resize', updateTableOverflow);
+    updateTableOverflow();
   });
 
   // 首次异步绘图/代码折叠可能移动 hash 目标；仅在用户尚未操作时校准一次。

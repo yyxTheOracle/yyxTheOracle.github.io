@@ -139,7 +139,20 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 .article-prose h3 { font-size:20px; }
 .article-prose h4 { font-size:18px; }
 .article-prose a { color:var(--accent); text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:4px; }
-.article-prose a.headerlink { text-decoration:none; }
+/* 链接放进标题上方原有留白，不挤占标题行宽；无 JS 时仍是原生锚点。 */
+.article-prose :is(h1,h2,h3,h4,h5,h6)[id] { position:relative; margin-top:max(2.1em,36px); }
+.article-prose a.headerlink { position:absolute; right:0; top:-36px; display:grid; place-items:center; width:36px; height:36px; font:16px/1 ui-monospace,SFMono-Regular,Consolas,monospace; text-decoration:none; opacity:0; border-radius:6px; }
+.article-prose a.headerlink::before { content:'#'; }
+.article-prose :is(h1,h2,h3,h4,h5,h6):hover>.headerlink,.article-prose a.headerlink:focus-visible,.article-prose a.headerlink[data-feedback] { opacity:1; }
+.article-prose a.headerlink:is(:hover,:focus-visible) { background:var(--accent-soft); }
+.article-prose a.headerlink[data-feedback]::after { content:attr(data-feedback); position:absolute; right:40px; top:50%; transform:translateY(-50%); width:max-content; max-width:calc(100vw - 90px); padding:6px 9px; background:var(--surface); border:1px solid var(--line); border-radius:5px; color:var(--text); font:12px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+/* 使用静态底色提示，不增加 reduced-motion 用户需要追踪的动画。 */
+.article-prose .is-chapter-target { background:var(--accent-soft); border-radius:4px; }
+@media (max-width:700px),(hover:none) {
+  .article-prose :is(h1,h2,h3,h4,h5,h6)[id] { margin-top:max(2.1em,44px); }
+  .article-prose a.headerlink { opacity:1; width:44px; height:44px; top:-44px; }
+  .article-prose a.headerlink[data-feedback]::after { right:48px; }
+}
 .article-prose ul,.article-prose ol { padding-left:1.5em; }
 .article-prose li { margin:.5em 0; }
 .article-prose blockquote { margin:1.7em 0; padding:14px 22px; background:var(--soft); border-left:3px solid var(--accent); border-radius:0 6px 6px 0; color:var(--muted); }
@@ -148,9 +161,20 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 .article-prose iframe { max-width:100%; }
 .article-prose hr { border:0; border-top:1px solid var(--line); margin:32px 0; }
 .article-prose :not(pre)>code { font: .86em/1.6 ui-monospace,SFMono-Regular,Consolas,monospace; background:var(--accent-soft); color:var(--accent); padding:2px 5px; border-radius:4px; }
-.article-prose>table { display:block; overflow:auto; border-collapse:collapse; font-size:14px; margin:24px 0; }
-.article-prose>table th,.article-prose>table td { border:1px solid var(--line); padding:10px 14px; }
-.article-prose>table th { background:var(--soft); }
+.article-prose>table { display:block; overflow:auto; margin:24px 0; }
+.article-prose>table,.article-table-scroll>table { border-collapse:collapse; font-size:14px; }
+.article-prose>table :is(th,td),.article-table-scroll>table :is(th,td) { border:1px solid var(--line); padding:10px 14px; }
+.article-prose>table th,.article-table-scroll>table th { background:var(--soft); }
+.article-table { margin:24px 0; }
+.article-table-scroll { overflow:auto; }
+.article-table-hint { margin:0 0 8px; color:var(--muted); font-size:12px; }
+/* 表格让整段 API 横向阅读，避免被窄列拆成逐字换行。 */
+.article-prose>table code,.article-prose .article-table-scroll code { white-space:nowrap; max-width:none; }
+@media (max-width:800px) {
+  /* 窄屏优先让短术语整体换行，超出整行的长标识符仍能在内部断开。 */
+  .article-prose :not(pre)>code { display:inline-block; max-width:100%; vertical-align:baseline; overflow-wrap:anywhere; }
+  .article-prose>table :is(th,td),.article-table-scroll>table :is(th,td) { min-width:10em; }
+}
 .article-prose .mermaid { overflow:auto; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:20px 10px; margin:28px 0; text-align:center; }
 .mermaid svg { max-width:100%; height:auto; }
 /* 旧文章给节点写死了浅色背景；暗色模式统一覆盖，避免浅底配浅字。 */
@@ -159,7 +183,7 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 :root[data-theme="dark"] .mermaid .node>circle,
 :root[data-theme="dark"] .mermaid .node>ellipse { fill:var(--soft)!important; stroke:var(--accent)!important; }
 :root[data-theme="dark"] .mermaid .cluster rect { fill:var(--surface)!important; stroke:var(--line)!important; }
-.article-prose figure.highlight { margin:28px 0; background:var(--code); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.article-prose figure.highlight { margin:28px 0; scroll-margin-top:35px; background:var(--code); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
 .highlight table { border-collapse:collapse; width:100%; }
 .highlight pre { margin:0; padding:16px; font:13px/1.85 ui-monospace,SFMono-Regular,Consolas,monospace; white-space:pre; }
 .highlight td { padding:0; border:0; }
@@ -167,11 +191,15 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 .highlight .gutter pre { padding:16px 10px; text-align:right; }
 .highlight .code { color:var(--text); }
 .code-content { overflow:auto; }
-.highlight.is-collapsed .code-content { max-height:350px; overflow:hidden; }
+.highlight.is-collapsed .code-content { max-height:350px; overflow-x:auto; overflow-y:hidden; }
+.code-content:focus-visible { outline-offset:-3px; }
 .code-toolbar { display:flex; align-items:center; justify-content:space-between; gap:15px; padding:8px 14px; background:var(--soft); border-bottom:1px solid var(--line); font-size:12px; }
 .code-language { color:var(--muted); }
 .code-copy,.code-toggle { border:0; background:transparent; color:var(--accent); font-size:12px; padding:4px 8px; }
 .code-toggle { display:block; width:100%; border-top:1px solid var(--line); background:var(--soft); padding:10px; }
+@media (max-width:800px),(pointer:coarse) {
+  .code-copy,.code-toggle { min-height:44px; }
+}
 .highlight .comment,.highlight .quote { color:var(--muted); }
 .highlight .keyword,.highlight .selector-tag,.highlight .literal { color:#8658ad; }
 .highlight .string,.highlight .doctag,.highlight .regexp { color:#287a65; }
