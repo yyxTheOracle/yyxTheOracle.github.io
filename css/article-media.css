@@ -1,0 +1,42 @@
+/* 原生弹层沿用主题语义色；预留滚动条空间，打开时正文行宽不变。 */
+html { scrollbar-gutter:stable; }
+html.media-viewer-open { overflow:hidden; }
+/* 图与图注共用一个间距来源，避免图组 gap 和图片 margin 重复叠加。 */
+.article-prose .article-image { max-width:100%; margin:28px auto; }
+.article-prose .article-image img { display:block; max-width:100%; height:auto; margin:0 auto; }
+.article-prose .article-image figcaption,.article-image-caption { display:block; margin:10px 0 0; color:var(--muted); text-align:center; font-size:13px; line-height:1.7; overflow-wrap:anywhere; }
+.article-prose [data-image-size="compact"] { max-width:480px; margin:28px auto; }
+.article-prose [data-image-size="compact"]>.article-image { margin:0; }
+.article-prose .article-image-inline { display:inline-block; max-width:100%; vertical-align:middle; }
+.article-prose .article-image-inline img { max-width:100%; height:auto; margin:0; }
+.article-prose .article-gallery { margin:28px 0; }
+.article-prose .article-gallery>.article-image { margin:0 0 24px; }
+.article-prose .media-zoomable { cursor:zoom-in; }
+#media-viewer { width:calc(100% - 48px); max-width:1440px; height:calc(100dvh - 48px); max-height:none; padding:0; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--text); box-shadow:var(--shadow); overflow:hidden; }
+#media-viewer[open] { display:flex; flex-direction:column; }
+#media-viewer::backdrop { background:#0009; }
+.media-viewer-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 16px; border-bottom:1px solid var(--line); }
+.media-viewer-toolbar h2 { margin:0; font-size:15px; white-space:nowrap; }
+.media-viewer-actions { display:flex; gap:8px; }
+.media-viewer-actions button { min-height:44px; padding:6px 12px; background:var(--soft); border:1px solid var(--line); border-radius:6px; color:var(--accent); font-size:13px; white-space:nowrap; }
+.media-viewer-actions button:disabled { opacity:.45; cursor:default; }
+.media-viewer-viewport { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; cursor:grab; }
+.media-viewer-viewport:active { cursor:grabbing; }
+.media-viewer-canvas { display:grid; place-items:center; width:max-content; min-width:100%; min-height:100%; padding:16px; }
+.media-viewer-canvas img { display:block; max-width:none; flex:none; user-select:none; }
+.media-viewer-caption { flex:none; margin:0; padding:10px 16px; font-size:12px; color:var(--muted); border-top:1px solid var(--line); overflow-wrap:anywhere; }
+@media (max-width:700px) {
+  #media-viewer { width:100%; max-width:none; height:100dvh; border:0; border-radius:0; }
+  .media-viewer-toolbar { flex-wrap:wrap; gap:8px; padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px; }
+  .media-viewer-toolbar h2 { font-size:14px; }
+  .media-viewer-actions { gap:6px; margin-left:auto; }
+  .media-viewer-actions button { padding:6px 9px; }
+  .media-viewer-caption { padding-bottom:calc(10px + env(safe-area-inset-bottom,0px)); }
+}
+/* 主题在 head 中同步设置 data-theme；禁用 JS 时仍保留可读的图表源码。 */
+.diagram-placeholder { display:none; }
+html[data-theme] .mermaid-source { display:none; }
+html[data-theme] .diagram-placeholder { display:grid; place-items:center; margin:auto; white-space:normal; }
+.diagram-placeholder::after { content:"图表加载中…"; font:13px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--muted); }
+/* 占位与 SVG 使用同一块级尺寸，避免 inline SVG 的基线额外撑高容器。 */
+.article-prose .mermaid svg { display:block; margin:auto; }

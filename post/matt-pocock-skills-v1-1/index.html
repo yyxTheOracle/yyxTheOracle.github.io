@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>Matt Pocock Skills v1.1 使用体验 | Victor 的自留地</title>
+  
+  <meta name="description" content="因为 GPT-5.6 的发布，前两天每天都会有一次额度重置，这两次重置是到点直接重置的，没法存到 reset bank 里，加上台风天没法出门，于是我开着 5.6 Sol xHigh&#x2F;Ultra 疯狂蹬，蹬掉了 7.5 亿 Token。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matt Pocock Skills v1.1 使用体验">
+<meta property="og:url" content="https://www.victoryeah.com/post/matt-pocock-skills-v1-1/">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="因为 GPT-5.6 的发布，前两天每天都会有一次额度重置，这两次重置是到点直接重置的，没法存到 reset bank 里，加上台风天没法出门，于是我开着 5.6 Sol xHigh&#x2F;Ultra 疯狂蹬，蹬掉了 7.5 亿 Token。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2026-07-12T11:58:37.000Z">
+<meta property="article:modified_time" content="2026-11-08T11:51:17.679Z">
+<meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/matt-pocock-skills-v1-1/">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  
+    <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
+  
+  
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+      <a href="/about/" >关于</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="reading-layout">
+  <article class="reading-article" id="post-matt-pocock-skills-v1-1使用体验">
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/AI/">AI</a></div><h1>Matt Pocock Skills v1.1 使用体验</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2026-07-12">2026.07.12</time><span>约 1.6k 字</span><span>预计阅读 5 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/db62fe35.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    
+    <script>
+      // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
+      setTimeout(() => {
+        const count = document.querySelector('.waline-pageview-count');
+        if (count && count.querySelector('.pageview-loading')) count.textContent = '—';
+      }, 15000);
+    </script>
+    
+    <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E6%98%AF%E6%A8%A1%E5%9E%8B%E8%83%BD%E5%8A%9B%E4%B8%8D%E8%A1%8C%EF%BC%8C%E8%80%8C%E6%98%AF%E9%9C%80%E6%B1%82%E6%A0%B9%E6%9C%AC%E6%B2%A1%E5%AF%B9%E9%BD%90"><span class="toc-text">不是模型能力不行，而是需求根本没对齐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%88%E5%88%AB%E6%80%A5%E7%9D%80%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%AE%A9-AI-%E6%8A%8A%E9%9C%80%E6%B1%82%E9%97%AE%E6%B8%85%E6%A5%9A"><span class="toc-text">先别急着写代码，让 AI 把需求问清楚</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%89%E4%BA%86%E8%AF%A6%E7%BB%86-PRD%EF%BC%8CAI-%E8%BF%98%E8%83%BD%E9%97%AE%E5%87%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">有了详细 PRD，AI 还能问出什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA-CONTEXT-md%EF%BC%8C%E8%A7%A3%E5%86%B3%E4%B8%9A%E5%8A%A1%E5%92%8C%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%A3%E5%BE%84%E5%B7%AE%E5%BC%82"><span class="toc-text">一个 CONTEXT.md，解决业务和代码的口径差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E4%B8%80%E5%8F%A5%E2%80%9C%E7%9B%91%E6%8E%A7%E6%9C%BA%E7%A5%A8%E2%80%9D%EF%BC%8CAI-%E8%83%BD%E9%97%AE%E5%87%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">只有一句“监控机票”，AI 能问出什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-End"><span class="toc-text">The End</span></a></li></ol></nav></details>
+    <div id="article-content" class="article-prose"><p>　　因为 GPT-5.6 的发布，前两天每天都会有一次额度重置，这两次重置是到点直接重置的，没法存到 reset bank 里，加上台风天没法出门，于是我开着 5.6 Sol xHigh/Ultra 疯狂蹬，蹬掉了 7.5 亿 Token。<span id="more"></span></p>
+<div data-image-size="compact"><figure class="article-image"><img src="/assets/article-images/5ebef81f222525361dbf-760.webp" alt="GPT-5.6 Sol &#x989D;&#x5EA6;&#x91CD;&#x7F6E;&#x4E0E; Token &#x4F7F;&#x7528;&#x8BB0;&#x5F55;" width="6927" height="9238" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/ivNjuZze.webp" data-original-width="6927" data-original-height="9238" srcset="/assets/article-images/5ebef81f222525361dbf-480.webp 480w, /assets/article-images/5ebef81f222525361dbf-760.webp 760w, /assets/article-images/5ebef81f222525361dbf-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 480px"></figure>
+</div>
+
+<p>　　正好最近爆火的 Matt Pocock Skills 也更新到了 v1.1，于是蹬的时候尝试了他的 grill-with-docs -&gt; to-spec -&gt; to-tickets -&gt; implement -&gt; code-review 工作流，效果非常棒，尤其是最热门的 grill-with-docs / grill-me，会顺着你的想法一路往下挖，通过多轮的追问，把没说清楚的规则、没意识到的分支和藏在脑子里的隐含判断一个个拷打出来并收敛成一份 spec 文档，这个过程实在值得记录一下。</p>
+<figure class="article-image"><img src="/assets/article-images/f07890e9a707ac7032e8-760.webp" alt="Matt Pocock Skills v1.1" width="1452" height="1596" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/RJILqpE0.jpg" data-original-width="1452" data-original-height="1596" srcset="/assets/article-images/f07890e9a707ac7032e8-480.webp 480w, /assets/article-images/f07890e9a707ac7032e8-760.webp 760w, /assets/article-images/f07890e9a707ac7032e8-1452.webp 1452w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<h1 id="不是模型能力不行，而是需求根本没对齐"><a href="#不是模型能力不行，而是需求根本没对齐" class="headerlink" title="不是模型能力不行，而是需求根本没对齐"></a>不是模型能力不行，而是需求根本没对齐</h1><p>　　Matt 说他的 Skills 解决了一些软件开发中的常见痛点，作为灵魂的 grill-with-docs / grill-me 解决了下面两个最大的问题：</p>
+<ol>
+  <li>
+    <strong>The Agent Didn't Do What I Want.</strong>
+    <ul>
+      <li>你以为自己已经说清楚了，Agent 也以为自己听懂了，但看到结果才发现双方对目标的理解根本没有对齐，因为 “No-one knows exactly what they want.” ——《The Pragmatic Programmer》</li>
+    </ul>
+    <figure class="article-image"><img src="/assets/article-images/4ea241e6d7a251756ada-760.webp" alt="The Agent Didn&apos;t Do What I Want" width="1578" height="1520" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/42QeynfT.png" data-original-width="1578" data-original-height="1520" srcset="/assets/article-images/4ea241e6d7a251756ada-480.webp 480w, /assets/article-images/4ea241e6d7a251756ada-760.webp 760w, /assets/article-images/4ea241e6d7a251756ada-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+  </li>
+  <li>
+    <strong>The Agent Is Way Too Verbose.</strong>
+    <ul>
+      <li>开发和业务对同一个概念的口径可能不一致 & Agent 经常要在代码库中面对很多“黑话”，这两点会导致它的输出晦涩、冗余、漂移</li>
+    </ul>
+    <figure class="article-image"><img src="/assets/article-images/6643b6df0e1bedf6c616-760.webp" alt="The Agent Is Way Too Verbose" width="1596" height="1476" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/KTapt8Hg.png" data-original-width="1596" data-original-height="1476" srcset="/assets/article-images/6643b6df0e1bedf6c616-480.webp 480w, /assets/article-images/6643b6df0e1bedf6c616-760.webp 760w, /assets/article-images/6643b6df0e1bedf6c616-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+  </li>
+</ol>
+
+<h1 id="先别急着写代码，让-AI-把需求问清楚"><a href="#先别急着写代码，让-AI-把需求问清楚" class="headerlink" title="先别急着写代码，让 AI 把需求问清楚"></a>先别急着写代码，让 AI 把需求问清楚</h1><p>　　对于第一个痛点，Matt 的解决方法就是开启一个 grilling session，疯狂地拷打你。我看到一个比喻非常形象：只需要提供一根树干，grilling 会顺着它不断追问，让原本模糊的想法慢慢长出树枝和树叶。</p>
+<p>　　我用下来的感受是：结合 5.6 Sol 这样的 SOTA 模型，真的可以扫清 99% 的边缘情况 &amp; 细枝末节逻辑。</p>
+<p>　　这两天正好有两个不同类型的需求，第一个是公司的业务需求，已经做过需求评审了，有一份详尽的 PRD（树干、树枝和树叶都有了）；另一个是我自己的需求，只有一个简单的想法（就是一根光秃秃的树干）。</p>
+<p>　　对两个需求分别 grill-with-docs 后，前者补足了很多边缘情况，并把 PRD 里一些模糊的点逐个敲定，让这棵树更加完美；对于后者，它从头开始追问，把我的简单想法落地成了一个包含详细逻辑规则的具体实施方案，让一棵光秃秃的树干长出了树枝和树叶。</p>
+<h1 id="有了详细-PRD，AI-还能问出什么？"><a href="#有了详细-PRD，AI-还能问出什么？" class="headerlink" title="有了详细 PRD，AI 还能问出什么？"></a>有了详细 PRD，AI 还能问出什么？</h1><p>　　公司的需求大概是在某个中间节点增加一道审批，复杂点在于它会联动前面的订单数据和后续的入选履约流程，还要正确处理各种审批状态。</p>
+<figure class="article-image"><img src="/assets/article-images/7b6e12763085e4edae4e-760.webp" alt="&#x516C;&#x53F8;&#x9700;&#x6C42;&#x7684; Grilling Session" width="1424" height="1126" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/BMRea65e.png" data-original-width="1424" data-original-height="1126" srcset="/assets/article-images/7b6e12763085e4edae4e-480.webp 480w, /assets/article-images/7b6e12763085e4edae4e-760.webp 760w, /assets/article-images/7b6e12763085e4edae4e-1424.webp 1424w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　整个 grilling session 加上我的几次 challenge，一共进行了 20 多轮，我的感受是：提出的这些问题都切在非常关键的节点，要么关系到核心流程，要么藏在细节里但迟早会在开发或上线后暴露出来，并且 90% 以上的 case，给出的推荐方案就是我心中的最优想法，我直接确认就好了。</p>
+<p>　　即使是那 90% 我直接确认的 case，那些问题也非常有价值，因为 grilling 的价值并不只在于发现分歧，也在于确认共识。很多细节不可能全部体现在 PRD 中，如果不被主动问出来，就只能以隐含假设的形式存在。把它们逐一说清楚，再带到技术评审中和 PM 确认，可以显著减少开发过程中的理解偏差。</p>
+<div class="article-gallery" aria-label="审批流程截图"><figure class="article-image"><img src="/assets/article-images/e27698e905b344451700-760.webp" alt="&#x5BA1;&#x6279;&#x72B6;&#x6001;&#x95EE;&#x9898;" width="1372" height="1258" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/sGdyN3R4.png" data-original-width="1372" data-original-height="1258" srcset="/assets/article-images/e27698e905b344451700-480.webp 480w, /assets/article-images/e27698e905b344451700-760.webp 760w, /assets/article-images/e27698e905b344451700-1372.webp 1372w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 1&#xFF1A;&#x5BA1;&#x6279;&#x72B6;&#x6001;&#x95EE;&#x9898;"><figcaption>图 1：审批状态问题</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/f4e1365525c21fe780c7-760.webp" alt="&#x5165;&#x9009;&#x89C4;&#x5219;&#x95EE;&#x9898;" width="1364" height="1106" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/FFbvnPfo.png" data-original-width="1364" data-original-height="1106" srcset="/assets/article-images/f4e1365525c21fe780c7-480.webp 480w, /assets/article-images/f4e1365525c21fe780c7-760.webp 760w, /assets/article-images/f4e1365525c21fe780c7-1364.webp 1364w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 2&#xFF1A;&#x5165;&#x9009;&#x89C4;&#x5219;&#x95EE;&#x9898;"><figcaption>图 2：入选规则问题</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/65d2d5ca4717db1aac1c-760.webp" alt="Grilling Session &#x521B;&#x5EFA; CONTEXT.md" width="1408" height="1292" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/y4GvsqYK.png" data-original-width="1408" data-original-height="1292" srcset="/assets/article-images/65d2d5ca4717db1aac1c-480.webp 480w, /assets/article-images/65d2d5ca4717db1aac1c-760.webp 760w, /assets/article-images/65d2d5ca4717db1aac1c-1408.webp 1408w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 3&#xFF1A;Grilling Session &#x521B;&#x5EFA; CONTEXT.md"><figcaption>图 3：Grilling Session 创建 CONTEXT.md</figcaption></figure>
+</div>
+
+<h1 id="一个-CONTEXT-md，解决业务和代码的口径差异"><a href="#一个-CONTEXT-md，解决业务和代码的口径差异" class="headerlink" title="一个 CONTEXT.md，解决业务和代码的口径差异"></a>一个 CONTEXT.md，解决业务和代码的口径差异</h1><p>　　在第三张图中可以看到，Agent 创建了一个 <code>CONTEXT.md</code>，这正好对应 Matt 提到的第二个痛点：The Agent Is Way Too Verbose. 这里的“啰嗦”不只是话多，更深一层的原因是口径没有统一。业务、研发和代码库可能用不同的词指向同一个概念。Agent 一旦在这些口径之间来回切换，输出就容易变得晦涩、冗余，甚至逐渐漂移。</p>
+<p>　　拿这个需求来说，「商单」有时会被称为「订单」或「合同」；业务口中的「产品明细」，到了研发语境里，又可能变成 Product 字段或接口。名称不同，指向的却是同一个底层概念。</p>
+<p>　　<code>CONTEXT.md</code> 做的事情很简单：为这些业务术语下定义，并约定后续统一使用哪种表达。这样，Agent 不必每次都用一大段话重新解释，业务语言与代码之间也有了一套稳定的映射。</p>
+<p>　　我的体感是，真的不要小看这个 Markdown 文件。在随后的 grilling 和各种输出中，阅读负担明显降低了很多，读起来非常的舒服且轻松。而且它位于项目根目录，也可以作为项目级上下文被后续 session 持续复用。</p>
+<p>　　难怪 Matt 会说：It’s hard to explain how powerful this is. It might be the single coolest technique in this repo. Try it, and see. 统一语言的价值很难在第一次看到 <code>CONTEXT.md</code> 时感受到，但只要经历过几轮 chat，就很难再回到没有它的时候。</p>
+<figure class="article-image"><img src="/assets/article-images/ec0985f320c9780d9a58-760.webp" alt="CONTEXT.md &#x4E1A;&#x52A1;&#x672F;&#x8BED;&#x5B9A;&#x4E49;" width="1890" height="1254" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/PRdGU6hO.png" data-original-width="1890" data-original-height="1254" srcset="/assets/article-images/ec0985f320c9780d9a58-480.webp 480w, /assets/article-images/ec0985f320c9780d9a58-760.webp 760w, /assets/article-images/ec0985f320c9780d9a58-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<h1 id="只有一句“监控机票”，AI-能问出什么？"><a href="#只有一句“监控机票”，AI-能问出什么？" class="headerlink" title="只有一句“监控机票”，AI 能问出什么？"></a>只有一句“监控机票”，AI 能问出什么？</h1><p>　　我自己的需求只有一句非常模糊的描述：“我想监控机票价格。” Grilling 随后用 15 个问题，一步步拆出了监控范围、触发条件、通知机制和筛选标准，甚至把我自己都无法准确描述的“合适机票”，变成了一组可以实现和验证的规则。</p>
+<div class="article-gallery" aria-label="机票监控截图"><figure class="article-image"><img src="/assets/article-images/7539653bf6b405eb68cf-760.webp" alt="&#x76D1;&#x63A7;&#x673A;&#x7968;&#x4EF7;&#x683C;&#x7684; Grilling Session" width="1566" height="1372" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/Jetl2QG0.png" data-original-width="1566" data-original-height="1372" srcset="/assets/article-images/7539653bf6b405eb68cf-480.webp 480w, /assets/article-images/7539653bf6b405eb68cf-760.webp 760w, /assets/article-images/7539653bf6b405eb68cf-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 1&#xFF1A;&#x76D1;&#x63A7;&#x673A;&#x7968;&#x4EF7;&#x683C;&#x7684; Grilling Session"><figcaption>图 1：监控机票价格的 Grilling Session</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/9a07910c28f00aaf8b42-732.webp" alt="&#x673A;&#x7968;&#x76D1;&#x63A7;&#x89C4;&#x5219;" width="732" height="534" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/YwjvufxF.png" data-original-width="732" data-original-height="534" srcset="/assets/article-images/9a07910c28f00aaf8b42-480.webp 480w, /assets/article-images/9a07910c28f00aaf8b42-732.webp 732w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 2&#xFF1A;&#x673A;&#x7968;&#x76D1;&#x63A7;&#x89C4;&#x5219;"><figcaption>图 2：机票监控规则</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/78eff3aa066d9a4849bf-760.webp" alt="&#x673A;&#x7968;&#x7B5B;&#x9009;&#x53CD;&#x9988;" width="1250" height="1310" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/05/v6HrUGMq.png" data-original-width="1250" data-original-height="1310" srcset="/assets/article-images/78eff3aa066d9a4849bf-480.webp 480w, /assets/article-images/78eff3aa066d9a4849bf-760.webp 760w, /assets/article-images/78eff3aa066d9a4849bf-1250.webp 1250w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 3&#xFF1A;&#x673A;&#x7968;&#x7B5B;&#x9009;&#x53CD;&#x9988;"><figcaption>图 3：机票筛选反馈</figcaption></figure>
+</div>
+
+<h1 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h1><p>　　<code>grilling</code> 负责把需求问清楚，<code>CONTEXT.md</code> 负责让大家说同一种语言，后续的 spec、ticket、implement 和 review 再把这些东西变成一条可以执行、可以验证的链路。</p>
+<p>　　前面这些事情做对了，代码反而只是最后自然长出来的结果。</p>
+</div>
+    <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/jincai-30th-anniversary/"><span>上一篇</span><strong>雅典园的 20 周年和 30 周年丨我的 16 岁和 26 岁</strong></a><a href="/post/codex-computer-use-e2e/"><span>下一篇</span><strong>用 Codex Computer Use 搞定小程序 E2E Test</strong></a></nav>
+    
+<link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
+<section class="article-comments" aria-labelledby="article-comments-title">
+  <div class="article-comments-inner">
+    <header class="article-comments-header">
+      <h2 id="article-comments-title">留言</h2>
+      <p>欢迎交流想法，也欢迎指出文中的问题。</p>
+    </header>
+    <div id="waline"></div>
+  </div>
+</section>
+<script type="module">
+  // 沿用主站的提示和字段要求，预览不另设一套留言规则。
+  const locale = {
+    nick: '昵称',
+    nickError: '昵称不能少于3个字符',
+    mail: '邮箱',
+    mailError: '请填写正确的邮件地址',
+    link: '网址',
+    placeholder: '写下你的想法…',
+    sofa: '还没有留言，欢迎第一个参与。',
+    submit: '提交',
+    reply: '回复',
+    cancelReply: '取消回复',
+    comment: '评论',
+    more: '加载更多...',
+    preview: '预览',
+    emoji: '表情',
+    uploadImage: '上传图片',
+    seconds: '秒前',
+    minutes: '分钟前',
+    hours: '小时前',
+    days: '天前',
+    now: '刚刚',
+    uploading: '正在上传',
+    login: '登录',
+    logout: '退出',
+    admin: '博主',
+    word: '字',
+    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+  };
+
+  try {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    init({
+      el: '#waline',
+      serverURL: "https://victor-waline.vercel.app",
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
+      path: "/post/db62fe35.html",
+      locale,
+      login: "enable",
+      lang: "zh-CN",
+      dark: "html[data-theme=\"dark\"]",
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.1.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
+      ],
+      wordLimit: 0,
+      pageSize: 10,
+      imageUploader: false,
+      // 仅正式域名累计阅读量，本地预览始终不递增。
+      pageview: location.hostname === 'www.victoryeah.com' || location.hostname === 'victoryeah.com',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+    });
+  } catch {
+    document.querySelector('#waline').textContent = '评论加载失败，请刷新重试。';
+  }
+</script>
+
+
+  </article>
+  <aside class="desktop-toc"><nav aria-label="文章目录"><h2>本文目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E6%98%AF%E6%A8%A1%E5%9E%8B%E8%83%BD%E5%8A%9B%E4%B8%8D%E8%A1%8C%EF%BC%8C%E8%80%8C%E6%98%AF%E9%9C%80%E6%B1%82%E6%A0%B9%E6%9C%AC%E6%B2%A1%E5%AF%B9%E9%BD%90"><span class="toc-text">不是模型能力不行，而是需求根本没对齐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%88%E5%88%AB%E6%80%A5%E7%9D%80%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%AE%A9-AI-%E6%8A%8A%E9%9C%80%E6%B1%82%E9%97%AE%E6%B8%85%E6%A5%9A"><span class="toc-text">先别急着写代码，让 AI 把需求问清楚</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%89%E4%BA%86%E8%AF%A6%E7%BB%86-PRD%EF%BC%8CAI-%E8%BF%98%E8%83%BD%E9%97%AE%E5%87%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">有了详细 PRD，AI 还能问出什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA-CONTEXT-md%EF%BC%8C%E8%A7%A3%E5%86%B3%E4%B8%9A%E5%8A%A1%E5%92%8C%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%A3%E5%BE%84%E5%B7%AE%E5%BC%82"><span class="toc-text">一个 CONTEXT.md，解决业务和代码的口径差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E4%B8%80%E5%8F%A5%E2%80%9C%E7%9B%91%E6%8E%A7%E6%9C%BA%E7%A5%A8%E2%80%9D%EF%BC%8CAI-%E8%83%BD%E9%97%AE%E5%87%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">只有一句“监控机票”，AI 能问出什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-End"><span class="toc-text">The End</span></a></li></ol></nav></aside>
+</div>
+
+<button type="button" class="back-top">
+  <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
+  <span>回到顶部</span>
+</button>
+
+<button type="button" class="mobile-toc-trigger" aria-haspopup="dialog" aria-controls="mobile-toc-dialog">目录</button>
+<dialog id="mobile-toc-dialog" aria-labelledby="mobile-toc-title">
+  <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
+</dialog>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>

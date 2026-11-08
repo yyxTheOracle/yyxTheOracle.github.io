@@ -1,0 +1,81 @@
+/* 分类、标签和归档沿用同一套标题尺度与文章交互，页面说明按实际需要显示。 */
+.browse-shell { max-width:1040px; min-height:65vh; padding:62px 24px 48px; margin:auto; }
+.browse-heading { margin-bottom:48px; }
+.browse-heading h1 { margin:0; font:700 40px/1.3 'Victor Serif','Songti SC',serif; letter-spacing:-.025em; }
+.browse-heading p { margin:16px 0 0; color:color-mix(in srgb,var(--muted) 80%,var(--text)); font-size:14px; }
+.browse-list { position:relative; isolation:isolate; }
+.browse-marker { position:absolute; z-index:0; top:0; left:0; width:100%; height:var(--marker-height,0px); transform:translateY(var(--marker-y,0px)); border-radius:12px; background:var(--soft); pointer-events:none; opacity:var(--marker-opacity,0); transition:transform 280ms cubic-bezier(.16,1,.3,1),opacity 140ms ease; }
+.browse-row { display:grid; position:relative; z-index:1; grid-template-columns:minmax(0,1fr) 22px; align-items:center; gap:20px; padding:20px 24px; border-radius:12px; }
+.browse-copy { min-width:0; }
+.browse-row h3 { margin:0; font:700 21px/1.55 'Victor Serif','Songti SC',serif; letter-spacing:0; overflow-wrap:break-word; transition:color 140ms ease,transform 220ms cubic-bezier(.16,1,.3,1); }
+.browse-meta { display:flex; flex-wrap:wrap; gap:6px 18px; margin:10px 0 0; color:color-mix(in srgb,var(--muted) 80%,var(--text)); font-size:12px; line-height:1.6; }
+.browse-meta time { font-variant-numeric:tabular-nums; }
+.browse-arrow { width:19px; height:19px; fill:none; stroke:var(--muted); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.browse-row:is(.is-active,:focus-visible) h3 { color:var(--accent); transform:translateX(3px); }
+.browse-row:is(.is-active,:focus-visible) .browse-arrow { stroke:var(--accent); }
+.browse-row:focus-visible { outline-offset:-3px; }
+/* 原生年份锚点在没有脚本时也能跳转；手机改成横向换行目录。 */
+.archive-layout { display:grid; grid-template-columns:108px minmax(0,1fr); gap:46px; align-items:start; }
+.archive-years { position:sticky; top:32px; display:flex; flex-direction:column; gap:4px; padding-top:1px; }
+.archive-years a { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 12px; color:var(--text); font-size:14px; line-height:1.6; border-radius:6px; font-variant-numeric:tabular-nums; }
+.archive-year-count { color:color-mix(in srgb,var(--muted) 80%,var(--text)); font-size:12px; white-space:nowrap; }
+.archive-years a:is(:hover,:focus-visible) { background:var(--soft); color:var(--accent); }
+.archive-content { min-width:0; }
+.archive-group { scroll-margin-top:32px; }
+.archive-group+.archive-group { margin-top:40px; }
+.archive-group h2 { margin:0 0 12px; padding:0 24px; font:700 26px/1.4 'Victor Serif','Songti SC',serif; letter-spacing:0; }
+/* 轻卡片只承载分类入口，标签保留文字链接，不添加文章预览。 */
+.category-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; max-width:860px; }
+.category-link { display:flex; flex-direction:column; justify-content:space-between; gap:20px; min-width:0; min-height:126px; padding:24px 28px; color:var(--text); background:var(--surface); border-radius:12px; transition:background-color 180ms ease; }
+.category-link h2 { margin:0; font:700 24px/1.4 'Victor Serif','Songti SC',serif; letter-spacing:0; }
+.category-count { color:color-mix(in srgb,var(--muted) 80%,var(--text)); font-size:13px; font-weight:400; line-height:1.6; white-space:nowrap; }
+.category-tail { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.category-arrow { width:18px; height:18px; flex:none; fill:none; stroke:var(--muted); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:transform 180ms cubic-bezier(.16,1,.3,1); }
+.category-link:is(:hover,:focus-visible) { background:var(--soft); }
+.category-link:is(:hover,:focus-visible) h2 { color:var(--accent); }
+.category-link:is(:hover,:focus-visible) .category-arrow { stroke:var(--accent); transform:translateX(4px); }
+.category-tags { margin-top:42px; }
+.category-tags h2 { margin:0 0 14px; font-size:20px; font-weight:600; line-height:1.5; }
+.category-tag-links { display:flex; flex-wrap:wrap; gap:6px 18px; max-width:860px; }
+.category-tag-links a { display:inline-flex; align-items:baseline; gap:8px; padding:5px 0; color:var(--accent); font-size:14px; }
+.category-tag-links span { color:color-mix(in srgb,var(--muted) 80%,var(--text)); font-size:12px; }
+.category-tag-links a:is(:hover,:focus-visible) { color:var(--text); }
+/* 详情页保留分类和标签的区别，使用原生链接切换同级主题。 */
+.browse-breadcrumb { margin-bottom:24px; font-size:13px; color:var(--muted); }
+.browse-breadcrumb a:hover { color:var(--accent); }
+.browse-topic-links { display:flex; flex-wrap:wrap; gap:8px 10px; margin:28px 0 36px; }
+.browse-topic-links a { padding:7px 12px; border-radius:5px; color:var(--muted); font-size:14px; }
+.browse-topic-links a span { margin-left:9px; font-size:12px; }
+.browse-topic-links a[aria-current],.browse-topic-links a:hover { background:var(--soft); color:var(--accent); }
+.browse-detail .browse-heading { margin-bottom:20px; }
+@media(max-width:700px) {
+  .browse-shell { padding:38px 20px 30px; }
+  .browse-heading { margin-bottom:36px; }
+  .browse-heading h1 { font-size:32px; }
+  .browse-row { padding:19px 4px; gap:12px; grid-template-columns:minmax(0,1fr) 18px; }
+  .browse-row h3 { font-size:19px; }
+  .browse-marker { display:none; }
+  .browse-row.is-active h3 { color:var(--text); transform:none; }
+  .archive-layout { display:block; }
+  .archive-years { position:static; flex-direction:row; flex-wrap:wrap; gap:4px 12px; padding:0; margin:0 0 34px; }
+  .archive-years a { justify-content:flex-start; gap:9px; padding:7px 8px; }
+  .archive-group { scroll-margin-top:24px; }
+  .archive-group+.archive-group { margin-top:32px; }
+  .archive-group h2 { padding:0; margin-bottom:10px; font-size:24px; }
+  .category-links { gap:12px; }
+  .category-link { min-height:112px; padding:18px; gap:16px; }
+  .category-link h2 { font-size:22px; }
+  .category-count { font-size:12px; }
+  .category-tail { gap:10px; }
+  .category-tags { margin-top:34px; }
+  .category-tags h2 { font-size:19px; }
+  .category-tag-links { gap:6px 16px; }
+  .browse-topic-links { gap:7px; margin:24px 0; }
+  .browse-topic-links a { padding:6px 9px; font-size:13px; }
+}
+@media(hover:none) { .browse-marker { display:none; } }
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .browse-marker,.browse-row h3,.category-link,.category-arrow { transition:none; }
+  .browse-row:is(.is-active,:focus-visible) h3,.category-link:is(:hover,:focus-visible) .category-arrow { transform:none; }
+}

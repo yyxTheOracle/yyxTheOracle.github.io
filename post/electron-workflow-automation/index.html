@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>给运营支持团队做提效工具，做着做着，这个团队没了 | Victor 的自留地</title>
+  
+  <meta name="description" content="前言 前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给运营支持团队做提效工具，做着做着，这个团队没了">
+<meta property="og:url" content="https://www.victoryeah.com/post/electron-workflow-automation/">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="前言 前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2025-09-14T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-08T11:51:17.679Z">
+<meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/electron-workflow-automation/">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  
+    <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
+  
+  
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+      <a href="/about/" >关于</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="reading-layout">
+  <article class="reading-article" id="post-electron-tiangong">
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/AI/">AI</a></div><h1>给运营支持团队做提效工具，做着做着，这个团队没了</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2025-09-14">2025.09.14</time><span>约 5k 字</span><span>预计阅读 19 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2733f88e.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    
+    <script>
+      // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
+      setTimeout(() => {
+        const count = document.querySelector('.waline-pageview-count');
+        if (count && count.querySelector('.pageview-loading')) count.textContent = '—';
+      }, 15000);
+    </script>
+    
+    <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A9%E5%B7%A5%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-text">天工的设计与核心架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%97%9B%E7%82%B9%E4%B8%80%EF%BC%9A%E6%89%B9%E9%87%8F%E5%A5%BD%E8%AF%84%E5%9B%9E%E5%A4%8D"><span class="toc-text">痛点一：批量好评回复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Partition-%E6%90%9E%E5%AE%9A%E5%A4%9A%E8%B4%A6%E5%8F%B7%E4%BC%9A%E8%AF%9D%E9%9A%94%E7%A6%BB"><span class="toc-text">利用 Partition 搞定多账号会话隔离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9A%E8%A3%85%E9%A5%B0%E5%99%A8-MobX-electron-store"><span class="toc-text">状态持久化：装饰器 + MobX + electron-store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E-Excel-%E5%AF%BC%E5%85%A5%E8%AF%9D%E6%9C%AF%E4%B8%8E-IPC-%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="toc-text">从 Excel 导入话术与 IPC 进程通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Puppeteer-%E9%A1%B5%E9%9D%A2%E5%AE%9A%E4%BD%8D%E4%B8%8E%E7%9C%9F%E5%AE%9E%E7%9A%84-DOM-%E4%BA%8B%E4%BB%B6%E6%A8%A1%E6%8B%9F"><span class="toc-text">Puppeteer 页面定位与真实的 DOM 事件模拟</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%97%9B%E7%82%B9%E4%BA%8C%EF%BC%9A%E6%89%B9%E9%87%8F%E6%8A%A5%E8%A1%A8%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B8%8B%E8%BD%BD"><span class="toc-text">痛点二：批量报表自动化下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%95%8C%E9%9D%A2%E5%90%8E%E5%8F%B0%E7%AA%97%E5%8F%A3%E4%B8%8E%E4%BC%9A%E8%AF%9D%E5%A4%8D%E7%94%A8"><span class="toc-text">无界面后台窗口与会话复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E8%90%A5%E5%8F%82%E8%B0%8B%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B%E4%B8%8E%E4%B8%8B%E8%BD%BD%E6%8B%A6%E6%88%AA"><span class="toc-text">经营参谋下载流程与下载拦截</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%BB%91%E5%AE%9A%E7%9A%84%E7%B2%BE%E5%87%86%E6%96%87%E4%BB%B6%E6%8B%A6%E6%88%AA"><span class="toc-text">上下文绑定的精准文件拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B8%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%BF%9D%E9%9A%9C"><span class="toc-text">任务调度与稳定性保障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%BA%A7%E4%BB%BB%E5%8A%A1%E5%88%86%E5%B1%82%E4%B8%8E%E7%8A%B6%E6%80%81%E6%B1%87%E6%80%BB"><span class="toc-text">三级任务分层与状态汇总</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-AsyncLocalStorage-%E7%9A%84%E7%8B%AC%E7%AB%8B%E4%BB%BB%E5%8A%A1%E6%97%A5%E5%BF%97"><span class="toc-text">基于 AsyncLocalStorage 的独立任务日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E6%88%AA%E5%B1%8F%EF%BC%9A%E6%9C%89%E5%9B%BE%E6%9C%89%E7%9C%9F%E7%9B%B8"><span class="toc-text">失败自动截屏：有图有真相</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E5%8F%B7%E4%BC%9A%E8%AF%9D%E6%97%A0%E7%BC%9D%E8%BF%81%E7%A7%BB"><span class="toc-text">账号会话无缝迁移</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BF%E4%B9%8B%E5%90%8E"><span class="toc-text">上线之后</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></nav></details>
+    <div id="article-content" class="article-prose"><style>
+#post-electron-tiangong .article-title_code_ant { word-break: normal; overflow-wrap: break-word; }
+/* 多参与者时序图在窄屏保留文字大小，通过横向滚动查看。 */
+#post-electron-tiangong .mermaid { overflow-x: auto; }
+#post-electron-tiangong .mermaid svg[aria-roledescription="sequence"] { min-width: 900px; }
+</style>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　前段时间做了一个叫「天工」的桌面自动化工具，主要用来搞定美团开店宝里的好评批量回复和报表自动下载。这是我第一次上手 Electron 和 Puppeteer，整个开发过程基本是靠 Cursor + Claude 4 结对写出来的。<span id="more"></span></p>
+<p>　　借着 AI Coding，用自然语言把需求理顺、让模型给出骨架再一点点调细节，很快就能把一个以前没碰过的技术栈跑通。最爽的是反馈极其直观：在可见模式下，看着 Electron 窗口在眼前自动切换平台、选日期、勾指标、一路把报表落盘，那些原本需要运营同学每天机械重复几个小时的操作，程序自己几十秒就跑完了。第一次看着它跑通的时候，确实挺震撼的。</p>
+<h1 id="天工的设计与核心架构"><a href="#天工的设计与核心架构" class="headerlink" title="天工的设计与核心架构"></a>天工的设计与核心架构</h1><p>　　界面结构其实很直接：左边内嵌美团开店宝，右边是天工自己的操作面板，负责账号切换、话术管理和下载任务。</p>
+<figure class="article-image"><img src="/assets/article-images/06e7b08218b2bf6dcd3f-760.webp" alt="&#x5929;&#x5DE5;&#x754C;&#x9762;&#xFF1A;&#x5DE6;&#x4FA7;&#x5D4C;&#x5165;&#x5F00;&#x5E97;&#x5B9D;&#xFF0C;&#x53F3;&#x4FA7;&#x7BA1;&#x7406;&#x8D26;&#x53F7;&#x548C;&#x64CD;&#x4F5C;&#x529F;&#x80FD;" width="3024" height="1600" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/zKLZ7XJG.png" data-original-width="3024" data-original-height="1600" srcset="/assets/article-images/06e7b08218b2bf6dcd3f-480.webp 480w, /assets/article-images/06e7b08218b2bf6dcd3f-760.webp 760w, /assets/article-images/06e7b08218b2bf6dcd3f-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　技术栈是 <strong>Electron + React + TypeScript + MobX + Puppeteer</strong>。React 负责右侧的面板与交互，Electron 提供桌面窗口、会话隔离和本地能力，Puppeteer 则专门负责去操控开店宝的后台页面。</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart LR
+    E["Electron 桌面应用"] --> C["Chromium<br/>渲染 Web 界面与开店宝"]
+    E --> N["Node.js<br/>本地文件读写与 npm 生态"]
+    E --> A["Native API<br/>系统窗口、弹窗与存储"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:409.2265625px;min-width:0px;aspect-ratio:409.2265625/324.171875"></span></pre>
+
+<h2 id="痛点一：批量好评回复"><a href="#痛点一：批量好评回复" class="headerlink" title="痛点一：批量好评回复"></a>痛点一：批量好评回复</h2><p>　　运营支持同学手里通常管着几十上百个商家账号，也有提前整理好的分品类回复话术。以前的操作是人工登录每一个账号，找到未回复的评价，逐条复制粘贴话术再点击提交，纯粹的体力活。</p>
+<p>　　天工的第一期目标就是把这个过程自动化：</p>
+<video controls playsinline preload="metadata" style="width: 100%; height: auto;" aria-label="天工批量填写好评回复的操作演示" width="2560" height="1550">
+  <source src="/assets/electron-tiangong/reply-demo.mp4" type="video/mp4">
+  你的浏览器不支持视频播放，可以<a href="/assets/electron-tiangong/reply-demo.mp4">下载原视频</a>查看。
+</video>
+
+<p>　　在右侧面板勾选话术后点击「开始回复」，左侧开店宝里的评价回复框就会自动展开并轮换填入话术。这一版把最后的「发布」按钮留给了人工，话术填好后，还需要自己点击发布。</p>
+<h3 id="利用-Partition-搞定多账号会话隔离"><a href="#利用-Partition-搞定多账号会话隔离" class="headerlink" title="利用 Partition 搞定多账号会话隔离"></a>利用 Partition 搞定多账号会话隔离</h3><p>　　在普通浏览器里访问美团后台，同一个域名下 Cookie 是全局共享的。但在天工里，需要在同一个窗口里频繁切换几十个开店宝账号，并且点击右侧账号后，左侧必须瞬间切到对应账号的登录态。</p>
+<p>　　天工早期使用 Electron 的 <a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/api/webview-tag"><code>&lt;webview&gt;</code></a> 标签来承载开店宝页面，最核心的技巧只有这一行属性配置：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;webview</span><br><span class="line">  key=&#123;currentAccount.<span class="property">id</span>&#125;</span><br><span class="line">  src=<span class="string">&quot;https://ecom.meituan.com/meishi/&quot;</span></span><br><span class="line">  partition=&#123;<span class="string">`persist:<span class="subst">$&#123;currentAccount.id&#125;</span>`</span>&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>　　通过给每个账号分配专属的 <code>partition</code>，直接复用了 Chromium 底层的会话隔离机制：</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    S["选择账号"] --> A["账号 A"]
+    S --> B["账号 B"]
+    A --> PA["persist:account-a<br/>A 的专属 Cookie 与 LocalStorage"]
+    B --> PB["persist:account-b<br/>B 的专属 Cookie 与 LocalStorage"]
+    PA --> VA["webview (账号 A 登录态)"]
+    PB --> VB["webview (账号 B 登录态)"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:559.859375px;min-width:0px;aspect-ratio:559.859375/361.9765625"></span></pre>
+
+<p>　　带上 <code>persist:</code> 前缀后，Session 数据会被持久化写入本地磁盘。只要登录态还有效，应用重启后就能接着用，不必重新扫码。</p>
+<p>　　实际切换非常丝滑。选中账号 A，左侧展示 A 门店的后台：</p>
+<figure class="article-image"><img src="/assets/article-images/cb45976b2a07576c959a-760.webp" alt="&#x9009;&#x4E2D;&#x8D26;&#x53F7; A &#x540E;&#xFF0C;webview &#x4F7F;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x5F00;&#x5E97;&#x5B9D;&#x767B;&#x5F55;&#x6001;" width="3024" height="1890" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/RKK9Cqsc.png" data-original-width="3024" data-original-height="1890" srcset="/assets/article-images/cb45976b2a07576c959a-480.webp 480w, /assets/article-images/cb45976b2a07576c959a-760.webp 760w, /assets/article-images/cb45976b2a07576c959a-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　切换到账号 B，左侧无缝切换到 B 门店的会话：</p>
+<figure class="article-image"><img src="/assets/article-images/e9ef8e10dea0265566a3-760.webp" alt="&#x5207;&#x6362;&#x5230;&#x8D26;&#x53F7; B&#xFF0C;&#x9875;&#x9762;&#x91CC;&#x7684;&#x95E8;&#x5E97;&#x548C;&#x7ECF;&#x8425;&#x6570;&#x636E;&#x968F;&#x8D26;&#x53F7;&#x6539;&#x53D8;" width="3024" height="1890" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/2ux2YQNJ.png" data-original-width="3024" data-original-height="1890" srcset="/assets/article-images/e9ef8e10dea0265566a3-480.webp 480w, /assets/article-images/e9ef8e10dea0265566a3-760.webp 760w, /assets/article-images/e9ef8e10dea0265566a3-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　第一次发现仅靠一个 <code>partition</code> 就能优雅解掉多账号共存和快速切换的问题时，着实被 Chromium 原生能力的强大惊艳到了。</p>
+<h3 id="状态持久化：装饰器-MobX-electron-store"><a href="#状态持久化：装饰器-MobX-electron-store" class="headerlink" title="状态持久化：装饰器 + MobX + electron-store"></a>状态持久化：装饰器 + MobX + electron-store</h3><p>　　除了开店宝网页的 Cookie，天工自身也有不少状态需要落盘：添加了哪些账号、当前选中的是谁、导入了哪些分类话术。</p>
+<p>　　如果每次修改状态都手动调一次写盘函数，代码会变得极易漏写。这里配合 <code>reflect-metadata</code>、装饰器、MobX 和 <code>electron-store</code>，实现了一套声明式的持久化逻辑：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">persist</span>(<span class="params">target: <span class="built_in">object</span>, key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="title class_">Reflect</span>.<span class="title function_">defineMetadata</span>(<span class="string">&#x27;persist&#x27;</span>, <span class="literal">true</span>, target, key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Account</span> <span class="keyword">extends</span> <span class="title class_ inherited__">PersistStore</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>()</span><br><span class="line">    <span class="title function_">makeObservable</span>(<span class="variable language_">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@persist</span></span><br><span class="line">  <span class="meta">@observable</span></span><br><span class="line">  <span class="attr">accountList</span>: <span class="title class_">AccountWithImportScriptData</span>[] = []</span><br><span class="line"></span><br><span class="line">  <span class="meta">@persist</span></span><br><span class="line">  <span class="meta">@observable</span></span><br><span class="line">  <span class="attr">currentAccountId</span>: <span class="built_in">string</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　基类 <code>PersistStore</code> 通过反射收集所有打了 <code>@persist</code> 标记的字段：</p>
+<ol>
+<li>应用初始化时，通过 IPC 从主进程的 <code>electron-store</code> 读取数据，回填到 MobX store 中。</li>
+<li>通过 MobX 的 <code>reaction</code> 监听对应属性的变化，并在值发生改变时自动写回 <code>electron-store</code>。</li>
+</ol>
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
+    participant S as Account / PersistStore
+    participant R as MobX reaction
+    participant P as preload / IPC
+    participant D as 主进程 electron-store
+    Note over S: 创建 store，完成初始化
+    S->>P: 读取持久化字段
+    P->>D: get(key)
+    S->>R: 针对 @persist 字段注册 reaction
+    D-->>P: 返回本地保存的值
+    P-->>S: 异步回填属性
+    Note over S,R: 业务层修改 accountList / currentAccountId
+    S->>R: 属性值发生改变
+    R->>P: 节流防抖后 set(key, value)
+    P->>D: 写入本地磁盘</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1069.5px;min-width:900px;aspect-ratio:1069.5/669"></span></pre>
+
+<p>　　核心的监听写回逻辑非常洗练：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">reaction</span>(</span><br><span class="line">  <span class="function">() =&gt;</span> <span class="variable language_">this</span>[key],</span><br><span class="line">  <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">persistentStore</span>.<span class="title function_">set</span>(key, <span class="title function_">cloneDeep</span>(value))</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="attr">delay</span>: <span class="number">300</span> &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>　　这样业务代码只需要专注修改 MobX 状态，数据的存取和磁盘同步完全自动化了。</p>
+<details>
+<summary>查看持久化时序设计原图</summary>
+
+<figure class="article-image"><img src="/assets/article-images/3e886f684a39d84115ff-760.webp" alt="Account&#x3001;PersistStore&#x3001;MobX &#x548C; electron-store &#x65F6;&#x5E8F;&#x56FE;" width="2050" height="1648" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/1h2UxYBK.png" data-original-width="2050" data-original-height="1648" srcset="/assets/article-images/3e886f684a39d84115ff-480.webp 480w, /assets/article-images/3e886f684a39d84115ff-760.webp 760w, /assets/article-images/3e886f684a39d84115ff-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+</details>
+
+<h3 id="从-Excel-导入话术与-IPC-进程通信"><a href="#从-Excel-导入话术与-IPC-进程通信" class="headerlink" title="从 Excel 导入话术与 IPC 进程通信"></a>从 Excel 导入话术与 IPC 进程通信</h3><p>　　运营同学整理好的话术是以 Excel 表格提供的。点击「导入话术」需要调起系统的文件选择框并读取本地文件内容。</p>
+<p>　　天工把文件选择和 Excel 解析放在 Main 进程里，React 页面通过 <code>preload</code> 暴露的接口发起请求，再经 IPC（Inter-Process Communication）拿回结果。开启 <code>contextIsolation</code> 后，preload 和页面处于不同的 JavaScript 环境，需要通过 <code>contextBridge</code> 把接口暴露给页面：</p>
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
+    participant UI as React 页面
+    participant P as preload
+    participant M as Electron 主进程
+    participant F as 系统对话框 / Excel
+    UI->>P: 调用 window.tiangong.importScripts()
+    P->>M: ipcRenderer.invoke('excel-import')
+    M->>F: dialog.showOpenDialog()
+    F-->>M: 返回选中的本地文件路径
+    M->>M: xlsx.readFile() 解析每个 Sheet
+    M-->>P: 返回结构化的话术数据
+    P-->>UI: Promise resolve 数据
+    UI->>UI: 写入 MobX store 并持久化</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1202.5px;min-width:900px;aspect-ratio:1202.5/663"></span></pre>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// preload.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; contextBridge, ipcRenderer &#125; <span class="keyword">from</span> <span class="string">&#x27;electron&#x27;</span></span><br><span class="line"></span><br><span class="line">contextBridge.<span class="title function_">exposeInMainWorld</span>(<span class="string">&#x27;tiangong&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">importScripts</span>: <span class="function">() =&gt;</span> ipcRenderer.<span class="title function_">invoke</span>(<span class="string">&#x27;excel-import&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// renderer.tsx</span></span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> <span class="variable language_">window</span>.<span class="property">tiangong</span>.<span class="title function_">importScripts</span>()</span><br><span class="line"><span class="keyword">if</span> (result.<span class="property">success</span>) &#123;</span><br><span class="line">  scriptStore.<span class="title function_">updateGeneralTemplate</span>(result.<span class="property">data</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  message.<span class="title function_">info</span>(result.<span class="property">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　主进程中用 <code>xlsx</code> 解析 Excel 时，直接按 Sheet 页提取每一行的第一列：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worksheet = workbook.<span class="property">Sheets</span>[sheetName]</span><br><span class="line"><span class="keyword">const</span> rows = xlsx.<span class="property">utils</span>.<span class="title function_">sheet_to_json</span>(worksheet, &#123;</span><br><span class="line">  <span class="attr">header</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">blankrows</span>: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> scripts = rows.<span class="title function_">map</span>(<span class="function">(<span class="params">row, index</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">key</span>: <span class="string">`<span class="subst">$&#123;sheetName&#125;</span>-<span class="subst">$&#123;index + <span class="number">1</span>&#125;</span>`</span>,</span><br><span class="line">  <span class="attr">index</span>: index + <span class="number">1</span>,</span><br><span class="line">  <span class="attr">content</span>: <span class="title class_">Array</span>.<span class="title function_">isArray</span>(row) &amp;&amp; row.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="title class_">String</span>(row[<span class="number">0</span>]) : <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  sheetName</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<p>　　理清这个流程后，Electron 里的几类 IPC 模式也就非常清晰了：</p>
+<table>
+<thead>
+<tr>
+<th>通信方向</th>
+<th>核心 API</th>
+<th>典型业务场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Renderer → Main（单向）</td>
+<td><code>ipcRenderer.send</code> → <code>ipcMain.on</code></td>
+<td>页面通知主进程执行某项无须等待结果的动作</td>
+</tr>
+<tr>
+<td>Renderer → Main（双向）</td>
+<td><code>ipcRenderer.invoke</code> → <code>ipcMain.handle</code></td>
+<td>导入文件、读取本地配置并等待结果返回</td>
+</tr>
+<tr>
+<td>Main → Renderer（推送）</td>
+<td><code>webContents.send</code> → <code>ipcRenderer.on</code></td>
+<td>主进程向前端推送自动化执行进度、下载状态</td>
+</tr>
+<tr>
+<td>Renderer ↔ Renderer</td>
+<td>主进程中转 或 <code>MessagePort</code></td>
+<td>多页面或窗口间直接交换数据</td>
+</tr>
+</tbody></table>
+<h3 id="Puppeteer-页面定位与真实的-DOM-事件模拟"><a href="#Puppeteer-页面定位与真实的-DOM-事件模拟" class="headerlink" title="Puppeteer 页面定位与真实的 DOM 事件模拟"></a>Puppeteer 页面定位与真实的 DOM 事件模拟</h3><p>　　准备好账号和话术后，就是让 Puppeteer 接管页面进行自动化填写。这里使用 <code>puppeteer-in-electron</code> 连接现有的 Chromium 实例。</p>
+<p>　　但这里有一个实际问题：React 侧只知道 webview 的 <code>webContentsId</code>，而 Puppeteer 操作的是 <code>Page</code> 实例，如何把它们准确对应上？</p>
+<p>　　天工早期采用了一个非常朴素且管用的方案：<strong>往目标 WebContents 里动态注入一个唯一 GUID，然后再遍历 Puppeteer 识别的所有 Page 找出包含该 GUID 的目标：</strong></p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    I["webview 的 webContentsId"] --> W["获取 Electron webContents 实例"]
+    W --> G["向页面注入唯一 GUID 标记"]
+    G --> T["枚举 Puppeteer 的 targets"]
+    T --> P["匹配到 GUID 相同的 Page 实例"]
+    P --> F["定位到美团评价的 iframe"]
+    F --> R["查找未回复评价的回复框并填入话术"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:287px;min-width:0px;aspect-ratio:287/611.3671875"></span></pre>
+
+<p>　　找到开店宝评价 iframe 后，遍历未回复列表并填入话术。在给输入框赋值时遇到了一个经典的前端坑：直接修改 <code>textarea.value</code>，美团页面的 React/Vue 内部状态并不会感知到变化，一旦提交内容依然是空的。</p>
+<p>　　最终通过派发完整事件链并模拟按键退格搞定：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> textarea.evaluate(<span class="function">(<span class="params">el, value</span>) =&gt;</span> &#123;</span><br><span class="line">  el.<span class="property">value</span> = value</span><br><span class="line">  el.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;))</span><br><span class="line">  el.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;change&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;))</span><br><span class="line">&#125;, content)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 真实模拟一次按键触发第三方页面的状态同步</span></span><br><span class="line"><span class="keyword">await</span> textarea.<span class="title function_">type</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="keyword">await</span> textarea.<span class="title function_">press</span>(<span class="string">&#x27;Backspace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>　　做过网页逆向或自动化的前端应该对这个 hack 会心一笑：很多时候仅仅修改 DOM 属性是不够的，必须真正“骗过”上层框架的合成事件体系。</p>
+<h2 id="痛点二：批量报表自动化下载"><a href="#痛点二：批量报表自动化下载" class="headerlink" title="痛点二：批量报表自动化下载"></a>痛点二：批量报表自动化下载</h2><p>　　比起好评回复，运营支持团队更繁重的一项常规任务是<strong>下载门店经营报表</strong>并上传到内部系统。</p>
+<p>　　当时每位同学手里平均管着 120 多家门店，每周一和周二要逐个下载「经营参谋」和「推广通」报表，周四和周五要下载「门店评价」数据。下载时需要人工切进每个门店后台，选时间区间、手动勾选所有指标、提交生成任务，等报表生成后再去下载列表挨个点击下载。同样的操作，每周要机械重复成百上千次。</p>
+<p>　　天工的第二阶段就是将这部分实现全自动的批量调度与下载，覆盖<strong>经营参谋、门店评价、推广通</strong>三类数据。据当时统计测算，<strong>每人每周能直接省下 5~6 个小时的机械劳动。</strong></p>
+<h3 id="无界面后台窗口与会话复用"><a href="#无界面后台窗口与会话复用" class="headerlink" title="无界面后台窗口与会话复用"></a>无界面后台窗口与会话复用</h3><p>　　批量下载如果还在前端弹出一个个 webview 乱晃，体验会很糟糕。这里的做法是在主进程中按需创建 <strong><code>show: false</code> 的隐藏 BrowserWindow</strong>，让 Puppeteer 在后台操作，同时复用前台账号的持久化 partition：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> downloadWindow = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">  <span class="attr">show</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">    <span class="attr">partition</span>: <span class="string">`persist:<span class="subst">$&#123;accountId&#125;</span>`</span>,</span><br><span class="line">    <span class="attr">nodeIntegration</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">contextIsolation</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    A["账号 A 的持久化会话<br/>persist:account-a"]
+    V["前台可见 webview<br/>人工登录与日常查看"] --> A
+    H["后台隐藏 BrowserWindow<br/>静默执行自动化任务"] --> A
+    P["Puppeteer<br/>连接 Electron 驱动页面"] --> H</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:422.1328125px;min-width:0px;aspect-ratio:422.1328125/324.171875"></span></pre>
+
+<p>　　前台和后台复用同一份登录态，自动化操作放在隐藏窗口里执行，结束后再销毁窗口，避免用完的页面一直占着资源。</p>
+<h3 id="经营参谋下载流程与下载拦截"><a href="#经营参谋下载流程与下载拦截" class="headerlink" title="经营参谋下载流程与下载拦截"></a>经营参谋下载流程与下载拦截</h3><p>　　以最繁琐的经营参谋为例，它需要分别切换美团和点评两个子平台：</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    A["打开后台经营参谋页"] --> B["等待表单渲染完成"]
+    B --> C["切换美团 / 点评平台"]
+    C --> D["选定日期区间并全选指标"]
+    D --> E["点击「立即下载」提交生成任务"]
+    E --> F["确认弹窗并进入下载列表"]
+    F --> G["等待生成完毕，绑定下载上下文"]
+    G --> H["触发最终下载按钮"]
+    H --> I["主进程拦截下载流保存至本地"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:255px;min-width:0px;aspect-ratio:255/795.7578125"></span></pre>
+
+<p>　　这里关键在于：<strong>点击“立即下载”只是触发平台端生成异步报表，必须等列表渲染出对应记录后二次点击，才能拿到真实文件。</strong></p>
+<p>　　整个任务从 React 面板发起，主进程依次调度各个账号串行处理：</p>
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
+    participant U as React / useDownloadManager
+    participant S as downloadTaskStore
+    participant M as 主进程下载服务
+    participant B as 开店宝后台页面
+    U->>S: 初始化主任务与账号子任务
+    S-->>U: 返回任务 ID
+    loop 依次轮询选中账号
+        U->>S: 标记该账号为运行中
+        U->>M: 经 IPC 传入账号、日期、任务 ID
+        M->>B: 启动后台窗口执行 Puppeteer 下载策略
+        Note over M,B: 切换平台 -> 勾选指标 -> 生成报表 -> 触发文件下载
+        M-->>U: 返回该账号处理结果
+        U->>S: 更新账号任务状态
+    end
+    U->>M: 调用系统桌面通知</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1117.5px;min-width:900px;aspect-ratio:1117.5/683"></span></pre>
+
+<h3 id="上下文绑定的精准文件拦截"><a href="#上下文绑定的精准文件拦截" class="headerlink" title="上下文绑定的精准文件拦截"></a>上下文绑定的精准文件拦截</h3><p>　　在批量任务下，可能会有多个平台、多个日期的报表同时触发下载。Chromium 捕获到的只是一个临时 URL，如何知道这个文件属于哪个主任务、哪个账号、哪个平台？</p>
+<p>　　解决方案是在触发真实的下载动作之前，先在主进程全局注册一个<strong>下载上下文（Download Context）</strong>，<code>downloadInterceptor</code> 捕获到流之后，直接提取上下文元数据来命名并归档文件：</p>
+<pre class="mermaid"><span class="mermaid-source">sequenceDiagram
+    participant P as 下载策略
+    participant D as downloadInterceptor
+    participant F as 本地文件系统
+    participant U as React 任务界面
+    P->>D: 预先设置上下文 (主任务ID、账号、平台、日期)
+    P->>P: 点击列表里的下载按钮
+    D->>D: 捕获下载请求，读取上下文
+    D->>U: 通知创建 FileTask 进度条
+    D->>F: 流式写入本地指定目录
+    F-->>D: 文件落盘成功
+    D->>U: 更新该文件的下载状态</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:1089px;min-width:900px;aspect-ratio:1089/575"></span></pre>
+
+<details>
+<summary>查看经营参谋全链路时序原图</summary>
+
+<figure class="article-image"><img src="/assets/article-images/992ea62620353853de01-760.webp" alt="&#x7ECF;&#x8425;&#x53C2;&#x8C0B;&#x4E0B;&#x8F7D;&#x65F6;&#x5E8F;&#x56FE;" width="1280" height="1272" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/X0SUh2KD.png" data-original-width="1280" data-original-height="1272" srcset="/assets/article-images/992ea62620353853de01-480.webp 480w, /assets/article-images/992ea62620353853de01-760.webp 760w, /assets/article-images/992ea62620353853de01-1280.webp 1280w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+</details>
+
+<h2 id="任务调度与稳定性保障"><a href="#任务调度与稳定性保障" class="headerlink" title="任务调度与稳定性保障"></a>任务调度与稳定性保障</h2><p>　　当从单账号操作演进到几十个账号的批量调度时，工程重心就转移到了状态可观测性与异常排查上。</p>
+<h3 id="三级任务分层与状态汇总"><a href="#三级任务分层与状态汇总" class="headerlink" title="三级任务分层与状态汇总"></a>三级任务分层与状态汇总</h3><p>　　为了让前端能清晰展示全局和局部的下载进度，把任务拆分为三级结构：<strong>主任务（MainTask） -&gt; 账号任务（AccountTask） -&gt; 文件任务（FileTask）</strong>。</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    M["主任务<br/>批量下载经营参谋报表"]
+    M --> A["账号 A 任务"]
+    M --> B["账号 B 任务"]
+    A --> A1["美团报表文件"]
+    A --> A2["点评报表文件"]
+    B --> B1["美团报表文件"]
+    B --> B2["点评报表文件"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:610px;min-width:0px;aspect-ratio:610/269.78125"></span></pre>
+
+<p>　　账号状态不仅有简单的“成功”或“失败”，还支持“部分成功”（例如美团报表处理成功，但点评报表因后台超时失败）。不过，文件下载状态和账号执行结果走的是两条更新路径：文件下载结束后，更新对应文件的状态和账号下的文件统计；账号本身的状态，则由 React 侧根据主进程返回的执行结果判断，再汇总到主任务，驱动面板渲染。</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    F["文件写入成功"] --> FS["更新 FileTask"]
+    FS --> FC["累加账号文件完成数"]
+    R["主进程返回账号执行结果"] --> AS["更新 AccountTask (成功/部分成功/失败)"]
+    AS --> MS["聚合 MainTask 状态"]
+    FC --> UI["React / MobX 驱动界面渲染"]
+    MS --> UI</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:500.85546875px;min-width:0px;aspect-ratio:500.85546875/334.78125"></span></pre>
+
+<h3 id="基于-AsyncLocalStorage-的独立任务日志"><a href="#基于-AsyncLocalStorage-的独立任务日志" class="headerlink" title="基于 AsyncLocalStorage 的独立任务日志"></a>基于 AsyncLocalStorage 的独立任务日志</h3><p>　　一旦线上报错，如果所有日志混杂在一个全局文件里，排查起来会极为痛苦。天工为每一次主任务单独分配一个独立的日志文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">logs/</span><br><span class="line">├── global.log</span><br><span class="line">└── task-logs/</span><br><span class="line">    ├── main-task-a.log</span><br><span class="line">    ├── main-task-b.log</span><br><span class="line">    └── orphaned-task-activities.log</span><br></pre></td></tr></table></figure>
+
+<p>　　但在复杂的异步链路中，层层传递 <code>taskId</code> 非常冗余。这里用到了 Node.js 的 <code>AsyncLocalStorage</code> 来隐式绑定异步上下文：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> taskContext = <span class="keyword">new</span> <span class="title class_">AsyncLocalStorage</span>&lt;<span class="built_in">string</span>&gt;()</span><br><span class="line"><span class="keyword">const</span> taskLogger = log.<span class="title function_">create</span>(&#123; <span class="attr">logId</span>: <span class="string">&#x27;task&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line">taskLogger.<span class="property">transports</span>.<span class="property">file</span>.<span class="property">resolvePath</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> taskId = taskContext.<span class="title function_">getStore</span>()</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">join</span>(</span><br><span class="line">    app.<span class="title function_">getPath</span>(<span class="string">&#x27;logs&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;task-logs&#x27;</span>,</span><br><span class="line">    <span class="string">`<span class="subst">$&#123;taskId || <span class="string">&#x27;orphaned-task-activities&#x27;</span>&#125;</span>.log`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> taskContext.<span class="title function_">run</span>(mainTaskId, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  taskLogger.<span class="title function_">info</span>(<span class="string">&#x27;开始处理账号&#x27;</span>, accountId)</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">executeDownload</span>(options)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>　　任务结束后，日志文件会自动上传至 OSS 并上报埋点，直接在 Metabase 里按任务 ID 检索定位，省去了找用户远程要日志的沟通成本。</p>
+<figure class="article-image"><img src="/assets/article-images/fb38073bef1046d9d6b5-760.webp" alt="Metabase &#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x65E5;&#x5FD7;&#x67E5;&#x8BE2;&#xFF1A;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&#x3001;&#x7528;&#x6237;&#x3001;&#x7248;&#x672C;&#x3001;&#x64CD;&#x4F5C;&#x540D;&#x79F0;&#x548C;&#x65E5;&#x5FD7;&#x4E0B;&#x8F7D;&#x5730;&#x5740;" width="3840" height="1868" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/65UzaCZv.png" data-original-width="3840" data-original-height="1868" srcset="/assets/article-images/fb38073bef1046d9d6b5-480.webp 480w, /assets/article-images/fb38073bef1046d9d6b5-760.webp 760w, /assets/article-images/fb38073bef1046d9d6b5-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<h3 id="失败自动截屏：有图有真相"><a href="#失败自动截屏：有图有真相" class="headerlink" title="失败自动截屏：有图有真相"></a>失败自动截屏：有图有真相</h3><p>　　第三方后台由于样式改版、接口报错或突发验证码，随时可能导致 Puppeteer 找不到选择器。光看报错堆栈很难知道页面究竟卡在什么状态。</p>
+<p>　　因此在错误捕获分支中增加了自动截屏兜底：</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    E["自动化流程抛错"] --> P["尝试 Puppeteer 截图"]
+    P -->|成功| S["写入本地临时图片"]
+    P -->|失败| C["降级为 Electron capturePage 原生截图"]
+    C -->|成功| S
+    S --> U["异步上传至 OSS"]
+    U -->|成功| T["关联 TaskId 并上报 URL"]
+    T --> M["Metabase 中结合日志秒级定责"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:374.509765625px;min-width:0px;aspect-ratio:374.509765625/692.953125"></span></pre>
+
+<p>　　<strong>日志告诉你代码死在了哪一步，截屏告诉你当时现场是什么样子。</strong> 这两套机制上线后，排查线上问题的效率提升了不止一个数量级。</p>
+<h2 id="账号会话无缝迁移"><a href="#账号会话无缝迁移" class="headerlink" title="账号会话无缝迁移"></a>账号会话无缝迁移</h2><p>　　另一个很受运营好评的功能是账号信息的“一键搬家”。</p>
+<p>　　由于所有登录态都在各自独立命名的 <code>Partitions</code> 目录下，既然已经实现了隔离，那直接把这个目录打包迁移到另一台电脑上，是不是就能免扫码继承登录态？</p>
+<figure class="article-image"><img src="/assets/article-images/f676d45b04eadbfded3b-760.webp" alt="&#x5929;&#x5DE5;&#x8D26;&#x53F7;&#x7BA1;&#x7406;&#x533A;&#x7684;&#x201C;&#x8F93;&#x51FA;&#x8D26;&#x53F7;&#x4FE1;&#x606F;&#x6587;&#x4EF6;&#x5939;&#x5230;&#x684C;&#x9762;&#x201D;&#x5165;&#x53E3;" width="2172" height="1442" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/pF0jL6O0.png" data-original-width="2172" data-original-height="1442" srcset="/assets/article-images/f676d45b04eadbfded3b-480.webp 480w, /assets/article-images/f676d45b04eadbfded3b-760.webp 760w, /assets/article-images/f676d45b04eadbfded3b-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　天工在主进程中利用 <code>app.getPath(&#39;userData&#39;)</code> 获取路径，通过 Node.js 剔除无关的 <code>Cache</code>、<code>Code Cache</code> 目录后打包导出至桌面。再配一个简单的 CLI 工具在同事电脑上一键导入：</p>
+<pre class="mermaid"><span class="mermaid-source">flowchart TB
+    A["同事 A 电脑<br/>已登录的账号会话"] --> E["导出 Partitions 目录<br/>过滤无用 Cache"]
+    E --> D["桌面的账号数据文件夹"]
+    D --> I["同事 B 执行导入 CLI"]
+    I --> P["写入 B 电脑的 Partitions 目录"]
+    P --> S["同步 electron-store 账号列表"]
+    S --> B["打开天工，确认导入账号的登录态"]</span><span class="diagram-placeholder" aria-hidden="true" style="width:100%;max-width:271px;min-width:0px;aspect-ratio:271/665.7578125"></span></pre>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看将要导入的内容（演练模式）</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span> --dry-run</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行实际导入</span></span><br><span class="line">yarn import-partitions --<span class="built_in">source</span> <span class="string">&#x27;/path/to/Partitions_Export_...&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="article-image"><img src="/assets/article-images/2579ac476b8390aa533d-760.webp" alt="CLI &#x5BFC;&#x5165;&#x793A;&#x4F8B;&#xFF1A;&#x5171; 8 &#x4E2A;&#x8D26;&#x53F7;&#xFF0C;&#x6210;&#x529F; 8 &#x4E2A;&#xFF0C;&#x8DF3;&#x8FC7; 0 &#x4E2A;&#xFF0C;&#x5931;&#x8D25; 0 &#x4E2A;" width="1280" height="1206" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/Ft6ZkmaH.png" data-original-width="1280" data-original-height="1206" srcset="/assets/article-images/2579ac476b8390aa533d-480.webp 480w, /assets/article-images/2579ac476b8390aa533d-760.webp 760w, /assets/article-images/2579ac476b8390aa533d-1280.webp 1280w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　当时一人集中扫码，其他同事导入后就能接着用，省去了逐个登录的麻烦。最开始为了做隔离而引入的 <code>partition</code>，到这里，把账号切换、后台下载和账号共享这几件事都串起来了。</p>
+<h1 id="上线之后"><a href="#上线之后" class="headerlink" title="上线之后"></a>上线之后</h1><p>　　当时有一个 10 人的运营支持团队，专门负责下载各个门店的日常报表并上传到业务系统。天工内测灰度期间，他们一直充当最积极的核心用户，每天帮我们做真机测试，反馈了一大堆边界 case 和体验问题。工具能一点点跑顺、稳定下来，他们功不可没。</p>
+<p>　　2025 年 9 月 4 日，运营支持团队的 leader 在飞书群里公开表扬了天工的速度与准确率，还贴上了组员们的实测好评：<strong>79 个账号、3 天的经营参谋报表，Mac 端只花了 17 分钟就下载完了。</strong></p>
+<figure class="article-image"><img src="/assets/article-images/b35061754c79f573d7c2-760.webp" alt="2025 &#x5E74; 9 &#x6708; 4 &#x65E5;&#xFF0C;&#x8FD0;&#x8425;&#x652F;&#x6301;&#x56E2;&#x961F;&#x5728;&#x7FA4;&#x91CC;&#x5BF9;&#x5929;&#x5DE5;&#x4E0B;&#x8F7D;&#x901F;&#x5EA6;&#x548C;&#x51C6;&#x786E;&#x7387;&#x7684;&#x53CD;&#x9988;" width="1740" height="1756" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" data-original-width="1740" data-original-height="1756" srcset="/assets/article-images/b35061754c79f573d7c2-480.webp 480w, /assets/article-images/b35061754c79f573d7c2-760.webp 760w, /assets/article-images/b35061754c79f573d7c2-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　作为研发，做提效工具能收到一线业务方这样真诚正向的反馈，当时真的成就感爆棚。那些他们以前每天机械重复、烦躁不堪的操作，终于全部解脱交给代码了。</p>
+<p>　　工具彻底稳定运行之后不久，这位 leader 和整个运营支持团队，被全部优化裁员了。</p>
+<p>　　现在回过头再看群里的那张截图，心里挺五味杂陈的。他们在群里真诚地感谢我们，热情地帮我们找 bug、测场景，一起把工具打磨成熟。但讽刺的是，这个工具最终替代掉的，恰恰就是他们自己的工作岗位。</p>
+<p>　　天工确实是一次非常成功的业务提效实践。只是作为亲手写下这些代码的人，面对这样的终局，很难再单纯地为它感到高兴。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.electronjs.org/blog/10-years-of-electron">Electron 十周年回顾</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/tutorial/process-model">Electron Process Model</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/tutorial/context-isolation">Electron Context Isolation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/tutorial/ipc">Electron Inter-Process Communication</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/api/webview-tag#partition">Electron webview partition</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/TrevorSundberg/puppeteer-in-electron">puppeteer-in-electron</a></li>
+<li><a target="_blank" rel="noopener" href="https://mobx.js.org/reactions.html">MobX Reactions</a></li>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/api/async_context.html#class-asynclocalstorage">Node.js AsyncLocalStorage</a></li>
+</ul>
+</div>
+    <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/go-worker-pool/"><span>上一篇</span><strong>对接小红书海量数据丨Go 并发利器 Worker Pool 实践</strong></a><a href="/post/philip-roberts-event-loop/"><span>下一篇</span><strong>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</strong></a></nav>
+    
+<link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
+<section class="article-comments" aria-labelledby="article-comments-title">
+  <div class="article-comments-inner">
+    <header class="article-comments-header">
+      <h2 id="article-comments-title">留言</h2>
+      <p>欢迎交流想法，也欢迎指出文中的问题。</p>
+    </header>
+    <div id="waline"></div>
+  </div>
+</section>
+<script type="module">
+  // 沿用主站的提示和字段要求，预览不另设一套留言规则。
+  const locale = {
+    nick: '昵称',
+    nickError: '昵称不能少于3个字符',
+    mail: '邮箱',
+    mailError: '请填写正确的邮件地址',
+    link: '网址',
+    placeholder: '写下你的想法…',
+    sofa: '还没有留言，欢迎第一个参与。',
+    submit: '提交',
+    reply: '回复',
+    cancelReply: '取消回复',
+    comment: '评论',
+    more: '加载更多...',
+    preview: '预览',
+    emoji: '表情',
+    uploadImage: '上传图片',
+    seconds: '秒前',
+    minutes: '分钟前',
+    hours: '小时前',
+    days: '天前',
+    now: '刚刚',
+    uploading: '正在上传',
+    login: '登录',
+    logout: '退出',
+    admin: '博主',
+    word: '字',
+    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+  };
+
+  try {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    init({
+      el: '#waline',
+      serverURL: "https://victor-waline.vercel.app",
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
+      path: "/post/2733f88e.html",
+      locale,
+      login: "enable",
+      lang: "zh-CN",
+      dark: "html[data-theme=\"dark\"]",
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.1.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
+      ],
+      wordLimit: 0,
+      pageSize: 10,
+      imageUploader: false,
+      // 仅正式域名累计阅读量，本地预览始终不递增。
+      pageview: location.hostname === 'www.victoryeah.com' || location.hostname === 'victoryeah.com',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+    });
+  } catch {
+    document.querySelector('#waline').textContent = '评论加载失败，请刷新重试。';
+  }
+</script>
+
+
+  </article>
+  <aside class="desktop-toc"><nav aria-label="文章目录"><h2>本文目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A9%E5%B7%A5%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-text">天工的设计与核心架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%97%9B%E7%82%B9%E4%B8%80%EF%BC%9A%E6%89%B9%E9%87%8F%E5%A5%BD%E8%AF%84%E5%9B%9E%E5%A4%8D"><span class="toc-text">痛点一：批量好评回复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Partition-%E6%90%9E%E5%AE%9A%E5%A4%9A%E8%B4%A6%E5%8F%B7%E4%BC%9A%E8%AF%9D%E9%9A%94%E7%A6%BB"><span class="toc-text">利用 Partition 搞定多账号会话隔离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9A%E8%A3%85%E9%A5%B0%E5%99%A8-MobX-electron-store"><span class="toc-text">状态持久化：装饰器 + MobX + electron-store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E-Excel-%E5%AF%BC%E5%85%A5%E8%AF%9D%E6%9C%AF%E4%B8%8E-IPC-%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="toc-text">从 Excel 导入话术与 IPC 进程通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Puppeteer-%E9%A1%B5%E9%9D%A2%E5%AE%9A%E4%BD%8D%E4%B8%8E%E7%9C%9F%E5%AE%9E%E7%9A%84-DOM-%E4%BA%8B%E4%BB%B6%E6%A8%A1%E6%8B%9F"><span class="toc-text">Puppeteer 页面定位与真实的 DOM 事件模拟</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%97%9B%E7%82%B9%E4%BA%8C%EF%BC%9A%E6%89%B9%E9%87%8F%E6%8A%A5%E8%A1%A8%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B8%8B%E8%BD%BD"><span class="toc-text">痛点二：批量报表自动化下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%95%8C%E9%9D%A2%E5%90%8E%E5%8F%B0%E7%AA%97%E5%8F%A3%E4%B8%8E%E4%BC%9A%E8%AF%9D%E5%A4%8D%E7%94%A8"><span class="toc-text">无界面后台窗口与会话复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E8%90%A5%E5%8F%82%E8%B0%8B%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B%E4%B8%8E%E4%B8%8B%E8%BD%BD%E6%8B%A6%E6%88%AA"><span class="toc-text">经营参谋下载流程与下载拦截</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%BB%91%E5%AE%9A%E7%9A%84%E7%B2%BE%E5%87%86%E6%96%87%E4%BB%B6%E6%8B%A6%E6%88%AA"><span class="toc-text">上下文绑定的精准文件拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B8%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%BF%9D%E9%9A%9C"><span class="toc-text">任务调度与稳定性保障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%BA%A7%E4%BB%BB%E5%8A%A1%E5%88%86%E5%B1%82%E4%B8%8E%E7%8A%B6%E6%80%81%E6%B1%87%E6%80%BB"><span class="toc-text">三级任务分层与状态汇总</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-AsyncLocalStorage-%E7%9A%84%E7%8B%AC%E7%AB%8B%E4%BB%BB%E5%8A%A1%E6%97%A5%E5%BF%97"><span class="toc-text">基于 AsyncLocalStorage 的独立任务日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E6%88%AA%E5%B1%8F%EF%BC%9A%E6%9C%89%E5%9B%BE%E6%9C%89%E7%9C%9F%E7%9B%B8"><span class="toc-text">失败自动截屏：有图有真相</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E5%8F%B7%E4%BC%9A%E8%AF%9D%E6%97%A0%E7%BC%9D%E8%BF%81%E7%A7%BB"><span class="toc-text">账号会话无缝迁移</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BF%E4%B9%8B%E5%90%8E"><span class="toc-text">上线之后</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></nav></aside>
+</div>
+
+<button type="button" class="back-top">
+  <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
+  <span>回到顶部</span>
+</button>
+
+<button type="button" class="mobile-toc-trigger" aria-haspopup="dialog" aria-controls="mobile-toc-dialog">目录</button>
+<dialog id="mobile-toc-dialog" aria-labelledby="mobile-toc-title">
+  <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
+</dialog>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>

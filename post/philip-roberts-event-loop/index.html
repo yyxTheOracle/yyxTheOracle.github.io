@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲 | Victor 的自留地</title>
+  
+  <meta name="description" content="26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲">
+<meta property="og:url" content="https://www.victoryeah.com/post/philip-roberts-event-loop/">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="26 分钟的视频深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2024-03-07T15:04:15.000Z">
+<meta property="article:modified_time" content="2026-11-08T11:51:17.679Z">
+<meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/philip-roberts-event-loop/">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  
+    <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
+  
+  
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+      <a href="/about/" >关于</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="reading-layout">
+  <article class="reading-article" id="post-event-loop-part-1">
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/JavaScript/">JavaScript</a></div><h1>究竟什么是 Event Loop丨总结 Philip Roberts 在 JSConf 的演讲</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2024-03-07">2024.03.07</time><span>约 1.1k 字</span><span>预计阅读 4 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2a798ab5.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    
+    <script>
+      // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
+      setTimeout(() => {
+        const count = document.querySelector('.waline-pageview-count');
+        if (count && count.querySelector('.pageview-loading')) count.textContent = '—';
+      }, 15000);
+    </script>
+    
+    <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-JavaScript-Runtime-%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%AE%A4%E8%AF%86"><span class="toc-text">对 JavaScript Runtime 的正确认识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-call-stack"><span class="toc-text">The call stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blocking-%E9%98%BB%E5%A1%9E"><span class="toc-text">blocking 阻塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-is-this-a-problem-because-browsers"><span class="toc-text">Why is this a problem? because, browsers.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#the-solution-asynchronous-callbacks"><span class="toc-text">the solution? asynchronous callbacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concurrency-amp-the-Event-Loop"><span class="toc-text">Concurrency &amp; the Event Loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Loop-%E6%98%AF%E5%A6%82%E4%BD%95%E9%85%8D%E5%90%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%EF%BC%9F"><span class="toc-text">Event Loop 是如何配合浏览器渲染的？</span></a></li></ol></nav></details>
+    <div id="article-content" class="article-prose"><p>　　<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8aGhZQkoFbQ&list=PLI-Ik-cyh3JN2usTBFpZAVVPezC2I-8gM&index=5">26 分钟的视频</a>深入浅出地讲解了什么是 Event Loop 以及它与浏览器渲染的关系。<span id="more"></span></p>
+<h2 id="对-JavaScript-Runtime-的正确认识"><a href="#对-JavaScript-Runtime-的正确认识" class="headerlink" title="对 JavaScript Runtime 的正确认识"></a>对 JavaScript Runtime 的正确认识</h2><p>　　对于 JavaScript，我们常说 JS 有一个调用栈 (call stack)、有一个事件循环机制 (Event Loop)、有一个任务/回调队列 (task/callback queue) 以及一些 WebAPI，但这等价于 V8 也拥有以上这些东西吗？</p>
+<p>　　答案是：并非如此。 </p>
+<p>　　以 V8 为例，简单来看，它其实只包含一个堆 (heap) 和一个调用栈 (call stack)。</p>
+<p>　　如果 clone 一下 V8 的源码，会发现 setTimeout、DOM、HTTP Request 这些东西都是不在 V8 的源码中的。</p>
+<p>　　也就是说，V8 并不包括 Event Loop、callback queue 和其他的 WebAPIs。</p>
+<figure class="article-image"><img src="/assets/article-images/d04d5640bfcc7d9a0e99-754.webp" alt="&#x6D4F;&#x89C8;&#x5668;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x793A;&#x610F;&#x56FE;&#xFF1A;JavaScript &#x5806;&#x4E0E;&#x8C03;&#x7528;&#x6808;&#x3001;Web APIs &#x548C;&#x56DE;&#x8C03;&#x961F;&#x5217;" width="754" height="427" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg" data-original-width="754" data-original-height="427" srcset="/assets/article-images/d04d5640bfcc7d9a0e99-480.webp 480w, /assets/article-images/d04d5640bfcc7d9a0e99-754.webp 754w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　由上图可以看出，JS 的浏览器运行环境包含三部分: </p>
+<ul>
+<li>V8 (JavaScript Runtime)</li>
+<li>浏览器提供的 WebAPIs (DOM、AJAX、setTimeout…) </li>
+<li>callback queue 　　这三者互相配合，共同实现了 Event Loop。</li>
+</ul>
+<h2 id="The-call-stack"><a href="#The-call-stack" class="headerlink" title="The call stack"></a>The call stack</h2><p>　　<code>one thread === one call stack === one thing at a time</code></p>
+<p>　　JavaScript 是一门单线程语言，也就是只有一个调用栈，即一次只能做一件事。</p>
+<figure class="article-image"><img src="/assets/article-images/e8ce4ca3ee4b919e6e60-760.webp" alt="foo &#x629B;&#x51FA;&#x5F02;&#x5E38;&#x540E;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x5DE5;&#x5177;&#x663E;&#x793A; foo&#x3001;bar&#x3001;baz &#x7684;&#x8C03;&#x7528;&#x6808;" width="1798" height="735" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/9dffbb458ecfd50d.jpg" data-original-width="1798" data-original-height="735" srcset="/assets/article-images/e8ce4ca3ee4b919e6e60-480.webp 480w, /assets/article-images/e8ce4ca3ee4b919e6e60-760.webp 760w, /assets/article-images/e8ce4ca3ee4b919e6e60-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x629B;&#x9519;&#x540E;&#x7684; stack trace"><figcaption>抛错后的 stack trace</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/3e3153dbbed6cf9c8667-760.webp" alt="foo &#x9012;&#x5F52;&#x8C03;&#x7528;&#x5806;&#x6EE1;&#x8C03;&#x7528;&#x6808;&#xFF0C;&#x62A5;&#x9519; Maximum call stack size exceeded" width="1848" height="836" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/245adf7cc4cfe99e.jpg" data-original-width="1848" data-original-height="836" srcset="/assets/article-images/3e3153dbbed6cf9c8667-480.webp 480w, /assets/article-images/3e3153dbbed6cf9c8667-760.webp 760w, /assets/article-images/3e3153dbbed6cf9c8667-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x7206;&#x6808;&#x7684;&#x62A5;&#x9519;"><figcaption>爆栈的报错</figcaption></figure>
+<h2 id="blocking-阻塞"><a href="#blocking-阻塞" class="headerlink" title="blocking 阻塞"></a>blocking 阻塞</h2><p>　　<code>What happens when things are slow?</code></p>
+<p>　　慢的东西会阻塞调用栈</p>
+<p>　　什么是慢的/快的东西？以下是一些直观的理解：</p>
+<ul>
+<li>console.log 不慢</li>
+<li>从 0 到 100亿 做一个 while 循环是慢的</li>
+<li>网络请求是慢的 </li>
+</ul>
+<p>　　假设所有的 network request 都是同步（串行）的，那我们要等待每一个请求都结束之后，才能运行其他的代码。</p>
+<h2 id="Why-is-this-a-problem-because-browsers"><a href="#Why-is-this-a-problem-because-browsers" class="headerlink" title="Why is this a problem? because, browsers."></a>Why is this a problem? because, browsers.</h2><p>　　blocking 会成为一个问题的一大原因，就是因为我们是在浏览器里运行代码。</p>
+<p>　　而阻塞性的代码，会卡住 call stack，从而<strong>阻塞页面的渲染</strong>。</p>
+<h2 id="the-solution-asynchronous-callbacks"><a href="#the-solution-asynchronous-callbacks" class="headerlink" title="the solution? asynchronous callbacks"></a>the solution? asynchronous callbacks</h2><p>　　<code>Here&#39;s a function. Call me maybe?</code></p>
+<figure class="article-image"><img src="/assets/article-images/90e56765c8d263c04d88-749.webp" alt="setTimeout &#x5EF6;&#x8FDF;&#x4E94;&#x79D2;&#x8F93;&#x51FA; there&#xFF0C;&#x524D;&#x540E;&#x5206;&#x522B;&#x540C;&#x6B65;&#x8F93;&#x51FA; hi &#x548C; JSConfEU &#x7684;&#x4EE3;&#x7801;" width="749" height="444" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/78ace090e55544cc.jpg" data-original-width="749" data-original-height="444" srcset="/assets/article-images/90e56765c8d263c04d88-480.webp 480w, /assets/article-images/90e56765c8d263c04d88-749.webp 749w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　以这段简单的代码为例，执行到 setTimeOut 时，其中的 callback 就好像从 call stack 消失了一样。然后 5s 之后，又神奇地回到了 call stack 中，并被执行，其中到底有什么奥秘呢？</p>
+<h2 id="Concurrency-amp-the-Event-Loop"><a href="#Concurrency-amp-the-Event-Loop" class="headerlink" title="Concurrency &amp; the Event Loop"></a>Concurrency &amp; the Event Loop</h2><p>　　<code>One thing at a time, except not really?</code></p>
+<p>　　JavaScript Runtime 确实一次只能做一件事。但浏览器，并不只有 JavaScript Runtime。</p>
+<figure class="article-image"><img src="/assets/article-images/d04d5640bfcc7d9a0e99-754.webp" alt="&#x6D4F;&#x89C8;&#x5668;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x793A;&#x610F;&#x56FE;&#xFF1A;JavaScript &#x5806;&#x4E0E;&#x8C03;&#x7528;&#x6808;&#x3001;Web APIs &#x548C;&#x56DE;&#x8C03;&#x961F;&#x5217;" width="754" height="427" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/7848a596d0d408bb.jpg" data-original-width="754" data-original-height="427" srcset="/assets/article-images/d04d5640bfcc7d9a0e99-480.webp 480w, /assets/article-images/d04d5640bfcc7d9a0e99-754.webp 754w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x8FD8;&#x8BB0;&#x5F97;&#x8FD9;&#x5F20;&#x56FE;&#x5417;~"><figcaption>还记得这张图吗~</figcaption></figure>
+<p>　　还是以 setTimeout 为例，正如上文提到的，setTimeout 并不存在于 runtime 中，而是由浏览器的提供的 WebAPI。</p>
+<p>　　setTimeout 接收一个 callback 和一个 delay，当执行到 setTimeout 时，便由 WebAPI 接管了（上文提到过，setTimeout 并不存在于 V8 源码中），在 WebAPI 接管后，setTimeout 本身会 pop 出 call stack。</p>
+<figure class="article-image"><img src="/assets/article-images/5a8ebbe5f93008c971b4-760.webp" alt="setTimeout &#x7684;&#x56DE;&#x8C03;&#x7531; Web APIs &#x4E2D;&#x7684;&#x8BA1;&#x65F6;&#x5668;&#x63A5;&#x7BA1;&#xFF0C;&#x6B64;&#x65F6;&#x8C03;&#x7528;&#x6808;&#x4E3A;&#x7A7A;" width="1041" height="969" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/1c8358013ed2daa1.jpg" data-original-width="1041" data-original-height="969" srcset="/assets/article-images/5a8ebbe5f93008c971b4-480.webp 480w, /assets/article-images/5a8ebbe5f93008c971b4-760.webp 760w, /assets/article-images/5a8ebbe5f93008c971b4-1041.webp 1041w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　WebAPI 提供了计时器的功能，当 delay 的时间到了之后，WebAPI 并不会直接把 callback 塞到 call stack 中（如果真是如此的话，那 callback 很可能会突然地出现在正在执行的代码里，这肯定是不对的）。</p>
+<p>　　事实是，浏览器还提供了一个任务队列（回调队列），当倒计时结束后，这个 callback 将会进入这个队列中，等待进入 call stack。</p>
+<figure class="article-image"><img src="/assets/article-images/80b7c705d77dfa9df0f9-760.webp" alt="&#x8BA1;&#x65F6;&#x5668;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x56DE;&#x8C03;&#x8FDB;&#x5165;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#xFF0C;&#x7B49;&#x5F85;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x9001;&#x5165;&#x8C03;&#x7528;&#x6808;" width="1052" height="954" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2024/05/19/8b6b9225900c089f.jpg" data-original-width="1052" data-original-height="954" srcset="/assets/article-images/80b7c705d77dfa9df0f9-480.webp 480w, /assets/article-images/80b7c705d77dfa9df0f9-760.webp 760w, /assets/article-images/80b7c705d77dfa9df0f9-1052.webp 1052w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　这个时候，也就是 Event Loop 正式出场的时候。</p>
+<p>　　Event Loop 做的事情非常简单：看一眼 call stack，如果空了，那就从任务队列中取出第一个任务，塞到 call stack 中去执行。</p>
+<p>　　这个时候就得提到经典的 setTimeout(callback, 0) 了，通过上面的介绍，我们可以了解到这样写的目的，就是为了在 call stack 被清空的时候，才去执行 callback。</p>
+<p>　　AJAX 也是同理，AJAX 并不存在于 V8 中，而是由浏览器提供。请求的过程由 WebAPI 接手，因此并不会阻塞 call stack。即使这个请求永远不结束，也不会阻塞其他代码的执行 &amp; 浏览器的渲染。</p>
+<p>　　Event Listener 也是同理。以 $.on(‘button’, ‘click’, callback) 为例。WebAPIs 将会接手 click 事件的注册，当 click 发生时，WebAPIs 将会向任务队列中推入一个 callback。</p>
+<h2 id="Event-Loop-是如何配合浏览器渲染的？"><a href="#Event-Loop-是如何配合浏览器渲染的？" class="headerlink" title="Event Loop 是如何配合浏览器渲染的？"></a>Event Loop 是如何配合浏览器渲染的？</h2><p>　　在 call stack 不为空时，浏览器是无法渲染的。</p>
+<p>　　可以把 render 也看作是一个 callback，有一个专门的 render queue，它的优先级比 task queue 更高。</p>
+<p>　　以 60 帧为例，每 16.6ms，浏览器就会把一个 render 加到 render queue （优先级更高的队列）中，但要等到 call stack 清空时，再进行 render。</p>
+<p>　　我们常说的“不要阻塞事件循环”，就是指不要在栈上执行又臭又长的同步代码，因为这样一来，浏览器就无法渲染了。</p>
+</div>
+    <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/electron-workflow-automation/"><span>上一篇</span><strong>给运营支持团队做提效工具，做着做着，这个团队没了</strong></a><a href="/post/persistent-sms-countdown/"><span>下一篇</span><strong>发送验证码后的节流倒计时丨刷新 &amp; 重新进入页面，还原倒计时状态</strong></a></nav>
+    
+<link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
+<section class="article-comments" aria-labelledby="article-comments-title">
+  <div class="article-comments-inner">
+    <header class="article-comments-header">
+      <h2 id="article-comments-title">留言</h2>
+      <p>欢迎交流想法，也欢迎指出文中的问题。</p>
+    </header>
+    <div id="waline"></div>
+  </div>
+</section>
+<script type="module">
+  // 沿用主站的提示和字段要求，预览不另设一套留言规则。
+  const locale = {
+    nick: '昵称',
+    nickError: '昵称不能少于3个字符',
+    mail: '邮箱',
+    mailError: '请填写正确的邮件地址',
+    link: '网址',
+    placeholder: '写下你的想法…',
+    sofa: '还没有留言，欢迎第一个参与。',
+    submit: '提交',
+    reply: '回复',
+    cancelReply: '取消回复',
+    comment: '评论',
+    more: '加载更多...',
+    preview: '预览',
+    emoji: '表情',
+    uploadImage: '上传图片',
+    seconds: '秒前',
+    minutes: '分钟前',
+    hours: '小时前',
+    days: '天前',
+    now: '刚刚',
+    uploading: '正在上传',
+    login: '登录',
+    logout: '退出',
+    admin: '博主',
+    word: '字',
+    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+  };
+
+  try {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    init({
+      el: '#waline',
+      serverURL: "https://victor-waline.vercel.app",
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
+      path: "/post/2a798ab5.html",
+      locale,
+      login: "enable",
+      lang: "zh-CN",
+      dark: "html[data-theme=\"dark\"]",
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.1.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
+      ],
+      wordLimit: 0,
+      pageSize: 10,
+      imageUploader: false,
+      // 仅正式域名累计阅读量，本地预览始终不递增。
+      pageview: location.hostname === 'www.victoryeah.com' || location.hostname === 'victoryeah.com',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+    });
+  } catch {
+    document.querySelector('#waline').textContent = '评论加载失败，请刷新重试。';
+  }
+</script>
+
+
+  </article>
+  <aside class="desktop-toc"><nav aria-label="文章目录"><h2>本文目录</h2><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-JavaScript-Runtime-%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%AE%A4%E8%AF%86"><span class="toc-text">对 JavaScript Runtime 的正确认识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-call-stack"><span class="toc-text">The call stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blocking-%E9%98%BB%E5%A1%9E"><span class="toc-text">blocking 阻塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-is-this-a-problem-because-browsers"><span class="toc-text">Why is this a problem? because, browsers.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#the-solution-asynchronous-callbacks"><span class="toc-text">the solution? asynchronous callbacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concurrency-amp-the-Event-Loop"><span class="toc-text">Concurrency &amp; the Event Loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Loop-%E6%98%AF%E5%A6%82%E4%BD%95%E9%85%8D%E5%90%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%EF%BC%9F"><span class="toc-text">Event Loop 是如何配合浏览器渲染的？</span></a></li></ol></nav></aside>
+</div>
+
+<button type="button" class="back-top">
+  <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
+  <span>回到顶部</span>
+</button>
+
+<button type="button" class="mobile-toc-trigger" aria-haspopup="dialog" aria-controls="mobile-toc-dialog">目录</button>
+<dialog id="mobile-toc-dialog" aria-labelledby="mobile-toc-title">
+  <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
+</dialog>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd | Victor 的自留地</title>
+  
+  <meta name="description" content="前言 最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd">
+<meta property="og:url" content="https://www.victoryeah.com/post/ime-composition-events/">
+<meta property="og:site_name" content="Victor 的自留地">
+<meta property="og:description" content="前言 最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
+<meta property="article:published_time" content="2022-12-08T06:17:45.000Z">
+<meta property="article:modified_time" content="2026-11-08T11:51:17.679Z">
+<meta property="article:author" content="Victor Ye">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
+  <link rel="canonical" href="https://www.victoryeah.com/post/ime-composition-events/">
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+  
+  <script>
+    // 在样式加载前恢复主题，避免暗色阅读时先闪出白色背景。
+    try {
+      var preference = localStorage.getItem('victor-theme') || 'system';
+      document.documentElement.dataset.theme = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="/css/site.css">
+  
+    <link rel="stylesheet" href="/css/article-media.css">
+    <link rel="stylesheet" href="/css/media-viewer-controls.css">
+    <script defer src="/js/media-viewer.js"></script>
+  
+  
+  
+  
+  <script defer src="/js/site.js"></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Victor 的自留地首页"><img src="/img/avatar.jpg" width="36" height="36" alt=""><span>Victor 的自留地<span class="brand-dot">.</span></span></a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="/" >主页</a>
+      <a href="/archives/" >归档</a>
+      <a href="/categories/" >分类</a>
+      <a href="/about/" >关于</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="search-trigger" data-open-search aria-label="搜索全文"><span>搜索</span><kbd>⌘ K</kbd></button>
+      <fieldset class="theme-picker">
+        <legend class="sr-only">配色模式</legend>
+        <label class="theme-option" title="浅色">
+          <input class="sr-only" type="radio" name="theme-mode" value="light">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+          <span class="sr-only">浅色</span>
+        </label>
+        <label class="theme-option" title="深色">
+          <input class="sr-only" type="radio" name="theme-mode" value="dark">
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></span>
+          <span class="sr-only">深色</span>
+        </label>
+        <label class="theme-option" title="跟随系统">
+          <input class="sr-only" type="radio" name="theme-mode" value="system" checked>
+          <span class="theme-option-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M12 17v4m-4 0h8"></path></svg></span>
+          <span class="sr-only">跟随系统</span>
+        </label>
+      </fieldset>
+    </div>
+  </header>
+  
+  <main id="main">
+<div class="reading-layout">
+  <article class="reading-article" id="post-拼音输入法-composition-events">
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/JavaScript/">JavaScript</a></div><h1>拼音输入法的神奇 API丨onCompositionStart &amp; onCompositionEnd</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2022-12-08">2022.12.08</time><span>约 390 字</span><span>预计阅读 1 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/11426bbe.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    
+    <script>
+      // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
+      setTimeout(() => {
+        const count = document.querySelector('.waline-pageview-count');
+        if (count && count.querySelector('.pageview-loading')) count.textContent = '—';
+      }, 15000);
+    </script>
+    
+    <details class="mobile-toc"><summary>本文目录</summary><nav aria-label="手机文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E4%BC%AA%EF%BC%89%E4%BB%A3%E7%A0%81"><span class="toc-text">（伪）代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></nav></details>
+    <div id="article-content" class="article-prose"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近开发遇到了一个很 tricky 的问题，直接上 gif，看了就明白了：<span id="more"></span></p>
+<figure class="article-image"><img src="/assets/article-images/38e40dc8be0029001f26.gif" alt="&#x62FC;&#x97F3;&#x5C1A;&#x672A;&#x786E;&#x8BA4;&#x65F6;&#x5DF2;&#x89E6;&#x53D1;&#x641C;&#x7D22;&#xFF0C;&#x5361;&#x7247;&#x5217;&#x8868;&#x77ED;&#x6682;&#x663E;&#x793A;&#x65E0;&#x7ED3;&#x679C;" width="1616" height="748" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/01/9815a1854c8bffa4.gif" data-original-width="1616" data-original-height="748" data-media-animated="true"></figure>
+<p>　　可以明显看到，在搜狗拼音输入法<strong>还没有完成输入的时候</strong>就已经触发搜索了，此时根据拼音内容(一些英文)去搜索，会搜索不到任何结果，导致 Table 内显示空信息。</p>
+<p>　　这明显不是我们想要的效果，我们所希望的应该是在<strong>输入法完成输入（按下空格或回车）</strong>后，再去触发搜索框的搜索。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><blockquote>
+<p>onCompositionStart &amp; onCompositionEnd</p>
+</blockquote>
+<p>　　<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent">这两个事件</a>确实第一次接触，以 <code>compositionstart event</code> 为例：</p>
+<figure class="article-image"><img src="/assets/article-images/77f46c4ba535705cc1a1-705.webp" alt="MDN &#x5BF9; compositionstart &#x7684;&#x8BF4;&#x660E;&#xFF1A;&#x8F93;&#x5165;&#x6CD5;&#x5F00;&#x59CB;&#x7EC4;&#x5408;&#x6587;&#x672C;&#x65F6;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;" width="705" height="452" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/01/577af882fddac58b.jpg" data-original-width="705" data-original-height="452" srcset="/assets/article-images/77f46c4ba535705cc1a1-480.webp 480w, /assets/article-images/77f46c4ba535705cc1a1-705.webp 705w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="MDN &#x5BF9; compositionstart event &#x7684;&#x89E3;&#x91CA;"><figcaption>MDN 对 compositionstart event 的解释</figcaption></figure>
+<p>　　简单来说，搜狗拼音输入法就是图中所说的 <code>IME(Input Method Editor)</code> ，当开启一段 <code>composition session</code> 的时候就会触发这个事件，至于什么是 <code>composition session</code> 呢~</p>
+<figure class="article-image"><img src="/assets/article-images/2b9353ecb601004b3deb-558.webp" alt="&#x641C;&#x72D7;&#x62FC;&#x97F3;&#x8F93;&#x5165;&#x6CD5;&#x6B63;&#x5728;&#x8F93;&#x5165;&#x62FC;&#x97F3;&#xFF0C;&#x5019;&#x9009;&#x8BCD;&#x5C1A;&#x672A;&#x786E;&#x8BA4;" width="558" height="82" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/01/a4202af698e488f7.jpg" data-original-width="558" data-original-height="82" srcset="/assets/article-images/2b9353ecb601004b3deb-480.webp 480w, /assets/article-images/2b9353ecb601004b3deb-558.webp 558w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>&nbsp;</p>
+<p>　　知道有这个 event 之后，一切也就豁然开朗了，我们可以引入一个 <code>lock</code> 变量，通过 <code>onCompositionStart</code> &amp; <code>onCompositionEnd</code> 来维护；当且仅当 <code>lock</code> 为 <code>false</code> 的时候才触发搜索~</p>
+<h1 id="（伪）代码"><a href="#（伪）代码" class="headerlink" title="（伪）代码"></a>（伪）代码</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Input</span></span><br><span class="line">  onChange=&#123;<span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">setInputVal</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125;</span><br><span class="line">  onCompositionStart=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">true</span>)&#125;</span><br><span class="line">  onCompositionEnd=&#123;<span class="function">() =&gt;</span> <span class="title function_">setLock</span>(<span class="literal">false</span>)&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 输入拼音的情况下，选择了文字才搜索，正在输入拼音时不触发搜索</span></span><br><span class="line">  !lock &amp;&amp; <span class="title function_">triggerSearch</span>(inputVal);</span><br><span class="line">&#125;, [lock, inputVal]);</span><br></pre></td></tr></table></figure>
+
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><figure class="article-image"><img src="/assets/article-images/42cb1f607fa65cedb945.gif" alt="&#x7B49;&#x5F85;&#x62FC;&#x97F3;&#x5019;&#x9009;&#x8BCD;&#x786E;&#x8BA4;&#x540E;&#x518D;&#x641C;&#x7D22;&#xFF0C;&#x8F93;&#x5165;&#x8FC7;&#x7A0B;&#x4E2D;&#x4FDD;&#x7559;&#x539F;&#x6709;&#x5361;&#x7247;&#x5217;&#x8868;" width="1606" height="742" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/imgs/2023/01/01/4e3fad241e7bdbe7.gif" data-original-width="1606" data-original-height="742" data-media-animated="true"></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　之前我一直以为这不是个前端范畴的问题，是系统层面的，事实证明还是认知局限呀🤣今后还是要多多学习，多多记录。</p>
+</div>
+    <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/frontend-bookmarks/"><span>上一篇</span><strong>一些超级棒的前端技术博客 &amp; 演讲</strong></a><a href="/post/passing-probation-early/"><span>下一篇</span><strong>提前转正啦😝丨一些回忆与复盘</strong></a></nav>
+    
+<link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
+<section class="article-comments" aria-labelledby="article-comments-title">
+  <div class="article-comments-inner">
+    <header class="article-comments-header">
+      <h2 id="article-comments-title">留言</h2>
+      <p>欢迎交流想法，也欢迎指出文中的问题。</p>
+    </header>
+    <div id="waline"></div>
+  </div>
+</section>
+<script type="module">
+  // 沿用主站的提示和字段要求，预览不另设一套留言规则。
+  const locale = {
+    nick: '昵称',
+    nickError: '昵称不能少于3个字符',
+    mail: '邮箱',
+    mailError: '请填写正确的邮件地址',
+    link: '网址',
+    placeholder: '写下你的想法…',
+    sofa: '还没有留言，欢迎第一个参与。',
+    submit: '提交',
+    reply: '回复',
+    cancelReply: '取消回复',
+    comment: '评论',
+    more: '加载更多...',
+    preview: '预览',
+    emoji: '表情',
+    uploadImage: '上传图片',
+    seconds: '秒前',
+    minutes: '分钟前',
+    hours: '小时前',
+    days: '天前',
+    now: '刚刚',
+    uploading: '正在上传',
+    login: '登录',
+    logout: '退出',
+    admin: '博主',
+    word: '字',
+    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+  };
+
+  try {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+    init({
+      el: '#waline',
+      serverURL: "https://victor-waline.vercel.app",
+      // 使用文章模板传入的稳定标识，改标题、改链接或预览都不拆分已有评论与计数。
+      path: "/post/11426bbe.html",
+      locale,
+      login: "enable",
+      lang: "zh-CN",
+      dark: "html[data-theme=\"dark\"]",
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.1.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.1.0/bilibili',
+      ],
+      wordLimit: 0,
+      pageSize: 10,
+      imageUploader: false,
+      // 仅正式域名累计阅读量，本地预览始终不递增。
+      pageview: location.hostname === 'www.victoryeah.com' || location.hostname === 'victoryeah.com',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+    });
+  } catch {
+    document.querySelector('#waline').textContent = '评论加载失败，请刷新重试。';
+  }
+</script>
+
+
+  </article>
+  <aside class="desktop-toc"><nav aria-label="文章目录"><h2>本文目录</h2><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%88%E4%BC%AA%EF%BC%89%E4%BB%A3%E7%A0%81"><span class="toc-text">（伪）代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></nav></aside>
+</div>
+
+<button type="button" class="back-top">
+  <span class="back-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></span>
+  <span>回到顶部</span>
+</button>
+
+<button type="button" class="mobile-toc-trigger" aria-haspopup="dialog" aria-controls="mobile-toc-dialog">目录</button>
+<dialog id="mobile-toc-dialog" aria-labelledby="mobile-toc-title">
+  <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
+</dialog>
+
+<dialog id="media-viewer" aria-labelledby="media-viewer-title">
+  <header class="media-viewer-toolbar">
+    <h2 id="media-viewer-title">查看大图</h2>
+    <div class="media-viewer-actions">
+      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
+      <button type="button" data-media-zoom="fit">适应窗口</button>
+      <button type="button" data-media-zoom="width">按宽度阅读</button>
+      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
+      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
+    </div>
+  </header>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
+    <div class="media-viewer-canvas"></div>
+  </div>
+  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
+    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+    <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
+  </nav>
+  <p class="media-viewer-caption" aria-live="polite"></p>
+</dialog>
+
+
+</main>
+  <footer class="site-footer">
+    <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+  </footer>
+  <dialog id="search-dialog" aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
+    <label for="site-search" class="sr-only">搜索标题与正文</label>
+    <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
+    <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
+  </dialog>
+</body>
+</html>
