@@ -34,12 +34,30 @@
   article.querySelectorAll('.article-gallery').forEach((gallery) => {
     const figures = [...gallery.children].filter(child => child.matches('figure.article-image') && child.querySelector('img'));
     if (figures.length < 2) return;
+    const heading = document.createElement('div');
+    heading.className = 'article-gallery-heading';
+    const title = document.createElement('strong');
+    title.textContent = gallery.getAttribute('aria-label') || '文章图组';
+    const status = document.createElement('span');
+    status.className = 'article-gallery-status';
+    status.setAttribute('aria-live', 'polite');
+    status.setAttribute('aria-atomic', 'true');
+    status.textContent = `1 / ${figures.length} · 长图可在阅读区内滚动`;
+    heading.append(title, status);
     const thumbnails = document.createElement('div');
     thumbnails.className = 'article-gallery-thumbnails';
     thumbnails.setAttribute('role', 'group');
     thumbnails.setAttribute('aria-label', '选择图组图片');
     const buttons = figures.map((figure, position) => {
       const source = figure.querySelector('img');
+      const reader = document.createElement('div');
+      reader.className = 'article-gallery-scroll';
+      reader.tabIndex = 0;
+      reader.setAttribute('role', 'region');
+      reader.setAttribute('aria-label', `${description(source)}，可上下滚动阅读`);
+      // 移动完整媒体结构，保留 picture 的 source、原始链接及其点击行为。
+      reader.append(...[...figure.childNodes].filter(node => node.nodeName !== 'FIGCAPTION'));
+      figure.prepend(reader);
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'article-gallery-thumbnail';
@@ -48,7 +66,7 @@
       thumbnail.src = source.currentSrc || source.src;
       if (source.srcset) {
         thumbnail.srcset = source.srcset;
-        thumbnail.sizes = '96px';
+        thumbnail.sizes = '124px';
       }
       thumbnail.alt = '';
       thumbnail.loading = 'lazy';
@@ -60,15 +78,17 @@
       button.addEventListener('click', () => {
         figures.forEach((item, itemIndex) => { item.hidden = itemIndex !== position; });
         buttons.forEach((item, itemIndex) => item.setAttribute('aria-pressed', String(itemIndex === position)));
-        // 不用固定高度挤小文字截图，切换后从新主图顶部继续阅读。
-        figure.scrollIntoView({ block: 'start', behavior: 'instant' });
-        source.focus({ preventScroll: true });
+        // 只重置当前阅读区；保留选图焦点，让连续切换不再带动整篇文章。
+        reader.scrollTop = 0;
+        status.textContent = `${position + 1} / ${figures.length} · 长图可在阅读区内滚动`;
+        button.focus({ preventScroll: true });
       });
       figure.hidden = position !== 0;
       return button;
     });
     thumbnails.append(...buttons);
-    gallery.append(thumbnails);
+    // DOM 顺序与手机布局一致：先选图，再通过 Tab 进入可见阅读区。
+    gallery.prepend(heading, thumbnails);
     gallery.classList.add('is-enhanced');
   });
 
