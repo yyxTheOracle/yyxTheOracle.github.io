@@ -337,12 +337,13 @@
   if (headings.length && tocLinks.length) {
     // 每帧最多计算一次；平滑滚动结束时即使没有新的交叉事件，也能准确选中章节。
     function updateCurrentHeading() {
-      let current = headings[0];
+      // 首个标题到达判定线前仍在阅读开场，不选中任何章节。
+      let current;
       for (const heading of headings) {
         if (heading.getBoundingClientRect().top <= (header ? header.getBoundingClientRect().height + 72 : 120)) current = heading;
         else break;
       }
-      setCurrentHeading(current.id);
+      setCurrentHeading(current?.id);
     }
     let scheduled = false;
     function scheduleCurrentHeading() {

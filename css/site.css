@@ -215,14 +215,16 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 :root[data-theme="dark"] .highlight .keyword,:root[data-theme="dark"] .highlight .literal { color:#c9a4ed; }
 :root[data-theme="dark"] .highlight .string,:root[data-theme="dark"] .highlight .doctag { color:#9acbb8; }
 :root[data-theme="dark"] .highlight .number,:root[data-theme="dark"] .highlight .attr,:root[data-theme="dark"] .highlight .built_in { color:#e7b984; }
-.desktop-toc { position:sticky; top:calc(var(--header-height) + 24px); padding-top:8px; font-size:12px; max-height:calc(100dvh - var(--header-height) - 48px); overflow:auto; scrollbar-width:thin; }
+/* 为底部回顶按钮留出 48px 高度、40px 底距和 16px 间隔。 */
+.desktop-toc { position:sticky; top:calc(var(--header-height) + 24px); padding-top:8px; font-size:12px; max-height:calc(100dvh - var(--header-height) - 128px); overflow:auto; scrollbar-width:thin; }
 .desktop-toc h2 { font-size:13px; margin:0 0 17px; }
 .toc,.toc-child { list-style:none; padding:0; margin:0; }
 .toc-child { padding-left:12px; }
 .toc-link { display:block; color:var(--muted); border-left:2px solid transparent; padding:6px 0 6px 14px; line-height:1.55; }
 .toc-link:hover,.toc-link[aria-current] { color:var(--accent); border-left-color:var(--accent); background:var(--accent-soft); }
-/* 胶囊始终固定在视口右下角，不占用正文与目录的布局空间。 */
-.back-top { --back-top-surface:var(--surface); position:fixed; right:28px; bottom:28px; z-index:3; display:flex; align-items:center; gap:9px; height:48px; padding:0 15px 0 8px; border:1px solid var(--line); border-radius:999px; background:var(--back-top-surface); color:var(--accent); box-shadow:0 4px 16px #0002; font-size:13px; line-height:1.4; white-space:nowrap; transition:background-color .18s; }
+/* 复用文章网格对齐目录左侧，透明区域不拦截正文点击。 */
+.back-top-layout { position:fixed; inset:auto 0 40px; margin:0 auto; z-index:3; pointer-events:none; }
+.back-top { --back-top-surface:var(--surface); grid-column:2; justify-self:start; pointer-events:auto; display:flex; align-items:center; gap:9px; height:48px; padding:0 15px 0 8px; border:1px solid var(--line); border-radius:999px; background:var(--back-top-surface); color:var(--accent); box-shadow:0 4px 16px #0002; font-size:13px; line-height:1.4; white-space:nowrap; transition:background-color .18s; }
 .back-top:hover { --back-top-surface:var(--soft); }
 .back-top-icon { position:relative; display:grid; place-items:center; flex-shrink:0; width:30px; height:30px; border-radius:50%; background:conic-gradient(var(--accent) var(--reading-progress,0%),var(--line) 0); }
 .back-top-icon::before { content:""; position:absolute; inset:2px; border-radius:50%; background:var(--back-top-surface); }
@@ -339,7 +341,8 @@ mark { color:var(--accent); background:var(--accent-soft); border-radius:2px; }
   .reading-layout { display:block; max-width:800px; margin-top:30px; }
   .desktop-toc { display:none; }
   /* 保留完整文字，并避开手机底部与横屏侧边的安全区。 */
-  .back-top { right:calc(18px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); }
+  .back-top-layout { display:contents; }
+  .back-top { position:fixed; z-index:3; right:calc(18px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); }
   .mobile-toc-ready .mobile-toc-trigger { display:block; position:fixed; right:calc(154px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); z-index:3; height:48px; padding:0 17px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--accent); box-shadow:0 4px 16px #0002; font-size:13px; }
   .mobile-toc { display:block; background:var(--soft); border:1px solid var(--line); border-radius:6px; margin:26px 0; font-size:13px; }
   .mobile-toc summary { cursor:pointer; padding:11px 15px; color:var(--accent); font-weight:600; }
