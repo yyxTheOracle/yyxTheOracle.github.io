@@ -216,11 +216,12 @@ a.featured-post:is(:hover,:focus-visible) h3,.featured-main-copy:is(:hover,:focu
 :root[data-theme="dark"] .highlight .string,:root[data-theme="dark"] .highlight .doctag { color:#9acbb8; }
 :root[data-theme="dark"] .highlight .number,:root[data-theme="dark"] .highlight .attr,:root[data-theme="dark"] .highlight .built_in { color:#e7b984; }
 /* 为底部回顶按钮留出 48px 高度、40px 底距和 16px 间隔。 */
-.desktop-toc { position:sticky; top:calc(var(--header-height) + 24px); padding-top:8px; font-size:12px; max-height:calc(100dvh - var(--header-height) - 128px); overflow:auto; scrollbar-width:thin; }
-.desktop-toc h2 { font-size:13px; margin:0 0 17px; }
+.desktop-toc { position:sticky; top:calc(var(--header-height) + 24px); padding-top:8px; font-size:14px; max-height:calc(100dvh - var(--header-height) - 128px); overflow:auto; scrollbar-width:thin; }
+.desktop-toc h2 { font-size:15px; margin:0 0 17px; }
 .toc,.toc-child { list-style:none; padding:0; margin:0; }
 .toc-child { padding-left:12px; }
 .toc-link { display:block; color:var(--muted); border-left:2px solid transparent; padding:6px 0 6px 14px; line-height:1.55; }
+.desktop-toc-short .toc-link { padding-top:10px; padding-bottom:10px; }
 .toc-link:hover,.toc-link[aria-current] { color:var(--accent); border-left-color:var(--accent); background:var(--accent-soft); }
 /* 复用文章网格对齐目录左侧，透明区域不拦截正文点击。 */
 .back-top-layout { position:fixed; inset:auto 0 40px; margin:0 auto; z-index:3; pointer-events:none; }
