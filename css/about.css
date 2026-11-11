@@ -1,8 +1,8 @@
-/* 沿用全站宋体与语义色，段落以留白分组。 */
-.about-page { max-width:800px; margin:64px auto 80px; padding:0 24px; font-size:17px; line-height:1.95; overflow-wrap:break-word; }
+/* 沿用全站宋体与语义色，正文段落保持统一垂直节奏。 */
+.about-page { --about-gap:26px; max-width:800px; margin:64px auto 80px; padding:0 24px; font-size:17px; line-height:1.95; overflow-wrap:break-word; }
 .about-page h1 { margin:0; font:700 38px/1.4 'Victor Serif','Songti SC',serif; letter-spacing:-.025em; text-wrap:balance; }
-.about-page p { margin:0 0 20px; }
-.about-page p:last-child { margin-bottom:0; }
+.about-page p { margin:0; }
+.about-page p + p { margin-block-start:var(--about-gap); }
 .about-page strong { font-weight:650; }
 .about-page h1 strong { font-weight:700; }
 /* 姓名与“我是”一起换行，避免窄屏把短语拆开。 */
@@ -10,24 +10,23 @@
 .about-page em { font-style:italic; }
 .about-page code { font:600 .88em/1.7 ui-monospace,SFMono-Regular,Consolas,monospace; }
 .about-belief strong { color:var(--accent); }
-.about-profile { display:grid; grid-template-columns:minmax(0,1fr) 128px; gap:26px 32px; align-items:start; margin-bottom:44px; }
+.about-profile { display:grid; grid-template-columns:minmax(0,1fr) 128px; gap:26px 32px; align-items:start; margin-block-end:38px; }
 .about-profile h1 { grid-column:1; align-self:center; }
 .about-portrait { margin:0; grid-column:2; grid-row:1 / span 2; }
 .about-portrait img { display:block; width:128px; max-width:100%; height:auto; object-fit:cover; border-radius:50%; }
 .about-intro { grid-column:1; }
-.about-detail { display:grid; gap:38px; }
+.about-detail { display:grid; gap:var(--about-gap); }
 .about-page a { color:var(--accent); text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:5px; }
 .about-page a:hover { text-decoration-color:var(--accent); }
 .about-page a:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
-.about-contact ul { list-style:none; padding:0; margin:10px 0 0; }
-.about-contact li+li { margin-top:8px; }
+.about-contact ul { list-style:none; padding:0; margin-block:10px 0; }
+.about-contact li+li { margin-block-start:8px; }
 @media (max-width:800px) { .about-page { margin-top:40px; } }
 @media (max-width:540px) {
-  .about-page { padding:0 20px; margin:36px auto 48px; font-size:16px; }
-  .about-profile { grid-template-columns:minmax(0,1fr) 80px; gap:24px 12px; margin-bottom:34px; }
+  .about-page { --about-gap:20px; padding:0 20px; margin:36px auto 48px; font-size:16px; }
+  .about-profile { grid-template-columns:minmax(0,1fr) 80px; gap:24px 12px; margin-block-end:30px; }
   .about-profile h1 { font-size:28px; }
   .about-portrait { grid-row:1; }
   .about-portrait img { width:80px; }
   .about-intro { grid-column:1 / -1; }
-  .about-detail { gap:30px; }
 }
