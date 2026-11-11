@@ -39,6 +39,10 @@
   </script>
   <link rel="stylesheet" href="/css/site.css">
   
+    <link rel="stylesheet" href="/css/avatar-dive.css">
+    <script defer src="/js/avatar-dive.js"></script>
+  
+  
   
   
   
@@ -94,7 +98,14 @@
   <span class="hero-title-visual" aria-hidden="true">写代码，<br>也记录<span class="hero-word-ending"><span id="hero-word" class="hero-word" data-words="生活,想法,日常"><span class="hero-word-current">生活</span><span class="hero-word-next">想法</span></span><span class="hero-title-period">。</span></span></span>
 </h1>
 <p class="intro-description">前后端开发、AI Coding、踩坑复盘，偶尔写点别的。</p><div class="intro-links"><a class="primary-link" href="#latest">阅读文章 <span aria-hidden="true">↘</span></a><a href="https://github.com/yyxTheOracle" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div>
-    <figure class="profile-portrait"><img src="/img/avatar.jpg" width="260" height="260" alt="Victor 的潜水照片"><figcaption><span>Code Clarity</span> &gt; <span>Code Brevity</span></figcaption></figure>
+    <figure class="profile-portrait" data-avatar-dive data-diver-src="/img/avatar-diver-v1.webp">
+      
+      <button class="avatar-dive-trigger" data-avatar-dive-trigger type="button" disabled aria-label="拖动潜水员，留下气泡。也可点按或按回车体验，按 Escape 结束。" title="拖动或点按，和我一起潜水">
+        <img class="avatar-dive-seabed" data-avatar-seabed src="/img/avatar-seabed-v1.webp" width="260" height="260" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img data-avatar-photo src="/img/avatar.jpg" width="260" height="260" alt="Victor 的潜水照片" draggable="false">
+      </button>
+      <figcaption><span>Code Clarity</span> &gt; <span>Code Brevity</span></figcaption>
+    </figure>
   </section>
   <section class="featured-section" aria-labelledby="featured-title">
     <div class="section-heading"><h2 id="featured-title">精选文章</h2></div>

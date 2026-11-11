@@ -1,0 +1,37 @@
+/* 只有照片响应抓取；保留首页尺寸与留白，格言始终留在原位。 */
+.profile-portrait[data-avatar-dive] { transform:none; }
+.avatar-dive-trigger {
+  position:relative;
+  display:block;
+  padding:0;
+  border:0;
+  background:none;
+  line-height:0;
+  transform:rotate(3deg);
+  border-radius:40% 40% 12px 12px;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
+.avatar-dive-trigger:disabled { opacity:1; cursor:default; }
+.is-ready .avatar-dive-trigger { cursor:grab; }
+.is-diving .avatar-dive-trigger { cursor:grabbing; }
+.avatar-dive-trigger img { display:block; pointer-events:none; -webkit-user-drag:none; }
+.avatar-dive-trigger [data-avatar-photo] { position:relative; }
+.avatar-dive-seabed { position:absolute; inset:0; opacity:0; }
+.is-diving .avatar-dive-seabed { opacity:1; }
+.is-diving [data-avatar-photo] { opacity:0; }
+.avatar-dive-trigger:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
+/* 全页图层不接管事件，不影响文章链接、搜索、主题控件和正常滚页。 */
+.avatar-dive-float { position:fixed; left:0; top:0; z-index:6; pointer-events:none; transform-origin:center; }
+.avatar-dive-float[hidden] { display:none; }
+.avatar-dive-float img { display:block; width:100%; height:100%; max-width:none; object-fit:cover; pointer-events:none; user-select:none; filter:drop-shadow(0 12px 12px #06162730); }
+.avatar-dive-bubbles { position:fixed; inset:0; z-index:5; pointer-events:none; overflow:hidden; }
+.avatar-dive-bubble {
+  position:absolute;
+  pointer-events:none;
+  border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,rgb(225 249 255 / 55%) 0 9%,transparent 27%);
+}
