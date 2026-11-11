@@ -23,19 +23,34 @@
 .is-diving .avatar-dive-seabed { opacity:1; }
 .is-diving [data-avatar-photo] { opacity:0; }
 .avatar-dive-trigger:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
-/* 淡出后保留这一行的空间，避免拖动时相框与正文跳动。 */
+/* 旁注相对照片定位，不占格言空间；淡出时也不改变页面排版。 */
+.avatar-dive-anchor { position:relative; width:max-content; }
 .avatar-dive-hint {
-  display:block;
-  margin-bottom:6px;
-  color:var(--accent);
-  font-size:12px;
-  line-height:1.6;
+  position:absolute;
+  right:calc(100% + 10px);
+  top:43%;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:400;
+  line-height:1.5;
+  white-space:nowrap;
+  pointer-events:none;
   opacity:0;
   visibility:hidden;
   transition:opacity .25s ease,visibility 0s .25s;
 }
 .is-ready:not(.has-dived) .avatar-dive-hint { opacity:1; visibility:visible; transition-delay:0s; }
-@media (max-width:540px) { .avatar-dive-hint { font-size:11px; } }
+.avatar-dive-hint svg { width:32px; height:20px; stroke:currentColor; stroke-width:1; stroke-linecap:round; stroke-linejoin:round; }
+/* 手机照片左侧是正文，旁注上移，避免遮挡标题。 */
+@media (max-width:800px) {
+  .avatar-dive-hint { left:-32px; right:auto; top:-31px; gap:4px; transform:none; }
+  .avatar-dive-hint svg { width:25px; transform:translateY(5px) rotate(55deg); }
+}
 @media (prefers-reduced-motion:reduce) { .avatar-dive-hint { transition:none; } }
 /* 全页图层不接管事件，不影响文章链接、搜索、主题控件和正常滚页。 */
 .avatar-dive-float { position:fixed; left:0; top:0; z-index:6; pointer-events:none; transform-origin:center; }
