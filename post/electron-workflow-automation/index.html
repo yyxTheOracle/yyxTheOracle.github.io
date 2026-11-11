@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2025-09-14T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-11T08:26:24.940Z">
+<meta property="article:modified_time" content="2026-11-11T11:48:39.131Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="AI">
@@ -182,7 +182,7 @@
 <p>　　每次改完状态都手动调一次存盘？太容易漏了。这里用 <code>reflect-metadata</code> + 装饰器 + MobX + <code>electron-store</code>，搞了一套声明式的持久化：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 标记需要保存的字段，读写逻辑统一交给 PersistStore。</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">persist</span>(<span class="params">target: <span class="built_in">object</span>, key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="title class_">Reflect</span>.<span class="title function_">defineMetadata</span>(<span class="string">&#x27;persist&#x27;</span>, <span class="literal">true</span>, target, key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Account</span> <span class="keyword">extends</span> <span class="title class_ inherited__">PersistStore</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>()</span><br><span class="line">    <span class="title function_">makeObservable</span>(<span class="variable language_">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@persist</span></span><br><span class="line">  <span class="meta">@observable</span></span><br><span class="line">  <span class="attr">accountList</span>: <span class="title class_">AccountWithImportScriptData</span>[] = []</span><br><span class="line"></span><br><span class="line">  <span class="meta">@persist</span></span><br><span class="line">  <span class="meta">@observable</span></span><br><span class="line">  <span class="attr">currentAccountId</span>: <span class="built_in">string</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>　　基类 <code>PersistStore</code> 会找到所有打了 <code>@persist</code> 的字段：</p>
+<p>基类 <code>PersistStore</code> 会找到所有打了 <code>@persist</code> 的字段：</p>
 <ol>
 <li>启动时从 <code>electron-store</code> 读数据回填到 MobX store。</li>
 <li>用 MobX 的 <code>reaction</code> 监听变化，值变了就自动写回去。</li>

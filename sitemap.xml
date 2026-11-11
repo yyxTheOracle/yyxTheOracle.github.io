@@ -2,7 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.victoryeah.com/post/go-worker-pool/</loc>
+    
+    <lastmod>2026-11-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victoryeah.com/post/electron-workflow-automation/</loc>
+    
+    <lastmod>2026-11-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/philip-roberts-event-loop/</loc>
+    
+    <lastmod>2026-11-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/post/shanghai-plate-payment-pitfalls/</loc>
     
     <lastmod>2026-11-11</lastmod>
     
@@ -65,15 +92,6 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/post/go-worker-pool/</loc>
-    
-    <lastmod>2026-11-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/post/ime-composition-events/</loc>
     
     <lastmod>2026-11-06</lastmod>
@@ -93,24 +111,6 @@
   
   <url>
     <loc>https://www.victoryeah.com/post/passing-probation-early/</loc>
-    
-    <lastmod>2026-11-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/post/philip-roberts-event-loop/</loc>
-    
-    <lastmod>2026-11-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/post/shanghai-plate-payment-pitfalls/</loc>
     
     <lastmod>2026-11-06</lastmod>
     

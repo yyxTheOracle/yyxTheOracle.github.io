@@ -16,7 +16,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2026-01-11T08:45:18.000Z">
-<meta property="article:modified_time" content="2026-11-06T06:58:54.491Z">
+<meta property="article:modified_time" content="2026-11-11T11:48:39.147Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="后端开发">
 <meta property="article:tag" content="Go">
@@ -114,7 +114,7 @@
 <li>缺乏控制： 难以限制对下游资源（如数据库连接、API 调用）的并发访问。</li>
 </ul>
 <p>　　<code>Worker Pool</code> 通过 <strong>“复用”</strong> 和 <strong>“限额”</strong> 解决了这些问题。</p>
-<h1 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h1><p>　　一个典型的 <code>Worker Pool</code> 由三个部分组成：</p>
+<h1 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h1><p>一个典型的 <code>Worker Pool</code> 由三个部分组成：</p>
 <ul>
 <li><code>Job Queue</code> (任务队列)： 通常是一个 <code>channel</code>，用于存放待处理的任务。</li>
 <li><code>Worker</code> (工人)： 一组在后台循环运行的 <code>Goroutine</code>。</li>
@@ -171,7 +171,7 @@
 </blockquote>
 <h2 id="1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？"><a href="#1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？" class="headerlink" title="1. 为什么 jobs 和 results 都要初始化成有缓冲区的通道 (Buffered Channel)？"></a>1. 为什么 <code>jobs</code> 和 <code>results</code> 都要初始化成有缓冲区的通道 (<code>Buffered Channel</code>)？</h2><p>　　如果没有缓冲区，发一个任务就必须立刻有一个工人接走，否则发送者就会卡在那动弹不得。</p>
 <p>　　有了缓冲区，主程序可以先把 1000 个任务一股脑丢进暂存区，然后去干别的事。工人根据自己的节奏慢慢拿，这样能极大提高吞吐量，解耦了“发任务”和“做任务”的速度差异。</p>
-<h2 id="2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？"><a href="#2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？" class="headerlink" title="2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？"></a>2. 在发送任务结束后就立刻 <code>close(jobs)</code>，那如果 <code>jobs</code> 内的数据还没有被处理，不会出问题吗？</h2><p>　　<strong>不会。</strong>  这是 Go Channel 的重要特性：</p>
+<h2 id="2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？"><a href="#2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？" class="headerlink" title="2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？"></a>2. 在发送任务结束后就立刻 <code>close(jobs)</code>，那如果 <code>jobs</code> 内的数据还没有被处理，不会出问题吗？</h2><p><strong>不会。</strong>  这是 Go Channel 的重要特性：</p>
 <ul>
 <li>关闭通道仅仅意味着：<strong>以后不会再有新任务进来了</strong>。</li>
 <li>已经在通道里的任务（缓冲区里的）依然可以被正常读取。</li>
