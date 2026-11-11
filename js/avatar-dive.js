@@ -35,6 +35,11 @@
   let y = 0;
   let speed = 0;
 
+  // 同一标签页返回首页或刷新也不重复引导；存储受限时仍可正常拖动。
+  try {
+    if (sessionStorage.getItem('avatar-dive-hint-dismissed') === '1') figure.classList.add('has-dived');
+  } catch (_) {}
+
   // 固定人物使用视口坐标；原照的位置每次现算，读者滚页后仍能找回相框。
   function home() {
     const rect = photo.getBoundingClientRect();
@@ -70,11 +75,15 @@
     };
   }
 
-  function trail(now) {
-    if (reducedMotion.matches) return;
+  // 引导与气泡共用出框距离，轻微手抖不算完成拖动。
+  function hasLeftFrame() {
     const origin = home();
     const threshold = Math.min(55, Math.max(24, photo.offsetWidth * 0.23));
-    if (Math.hypot(x - origin.x, y - origin.y) <= threshold) return;
+    return Math.hypot(x - origin.x, y - origin.y) > threshold;
+  }
+
+  function trail(now) {
+    if (reducedMotion.matches || !hasLeftFrame()) return;
     if (now - lastBubble < clamp(180 - speed * 11, 48, 180)) return;
     lastBubble = now;
     emitBubble(5 + Math.random() * 7);
@@ -218,6 +227,11 @@
     x = nextX;
     y = nextY;
     paint();
+    // 只认亲手拖出，点按示范不会提前收走提示；减少动态效果时同样适用。
+    if (pointer.moved && !figure.classList.contains('has-dived') && hasLeftFrame()) {
+      figure.classList.add('has-dived');
+      try { sessionStorage.setItem('avatar-dive-hint-dismissed', '1'); } catch (_) {}
+    }
   });
 
   function releasePointer(event, cancelled = false) {

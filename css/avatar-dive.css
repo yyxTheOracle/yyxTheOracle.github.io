@@ -23,6 +23,20 @@
 .is-diving .avatar-dive-seabed { opacity:1; }
 .is-diving [data-avatar-photo] { opacity:0; }
 .avatar-dive-trigger:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
+/* 淡出后保留这一行的空间，避免拖动时相框与正文跳动。 */
+.avatar-dive-hint {
+  display:block;
+  margin-bottom:6px;
+  color:var(--accent);
+  font-size:12px;
+  line-height:1.6;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease,visibility 0s .25s;
+}
+.is-ready:not(.has-dived) .avatar-dive-hint { opacity:1; visibility:visible; transition-delay:0s; }
+@media (max-width:540px) { .avatar-dive-hint { font-size:11px; } }
+@media (prefers-reduced-motion:reduce) { .avatar-dive-hint { transition:none; } }
 /* 全页图层不接管事件，不影响文章链接、搜索、主题控件和正常滚页。 */
 .avatar-dive-float { position:fixed; left:0; top:0; z-index:6; pointer-events:none; transform-origin:center; }
 .avatar-dive-float[hidden] { display:none; }
