@@ -250,6 +250,26 @@
     }
   }
 
+  // 点击原生 dialog 外部遮罩时关闭弹窗；从内部拖选到遮罩松手时保持打开。
+  function bindDialogBackdropClose(dialogElement) {
+    let pressedInside = false;
+    const isBackdropEvent = (event) => {
+      if (event.target !== dialogElement) return false;
+      const bounds = dialogElement.getBoundingClientRect();
+      return event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom;
+    };
+    dialogElement.addEventListener('pointerdown', (event) => {
+      pressedInside = !isBackdropEvent(event);
+    });
+    dialogElement.addEventListener('click', (event) => {
+      const shouldClose = !pressedInside && isBackdropEvent(event);
+      pressedInside = false;
+      if (shouldClose) dialogElement.close();
+    });
+    dialogElement.addEventListener('close', () => { pressedInside = false; });
+  }
+
   // 原生 dialog 管理焦点限制与 Escape；关闭后回到打开它的控件。
   function openSearch(trigger) {
     if (dialog.open) return;
@@ -267,6 +287,7 @@
     document.querySelectorAll('[data-close-search]').forEach((button) => {
       button.addEventListener('click', () => dialog.close());
     });
+    bindDialogBackdropClose(dialog);
     dialog.addEventListener('close', () => searchTrigger?.focus());
     // 同一篇文章的章节跳转也要关闭弹窗，否则目标仍被遮挡。
     results.addEventListener('click', (event) => {
@@ -389,11 +410,7 @@
     summary.addEventListener('click', openToc);
     tocTrigger.addEventListener('click', openToc);
     tocDialog.querySelector('[data-close-toc]').addEventListener('click', () => tocDialog.close());
-    tocDialog.addEventListener('click', (event) => {
-      const bounds = tocDialog.getBoundingClientRect();
-      if (event.target === tocDialog && (event.clientX < bounds.left || event.clientX > bounds.right ||
-          event.clientY < bounds.top || event.clientY > bounds.bottom)) tocDialog.close();
-    });
+    bindDialogBackdropClose(tocDialog);
     // Esc、关闭按钮和选章都走同一清理，恢复焦点时不改变原来的滚动位置。
     tocDialog.addEventListener('close', () => {
       root.classList.remove('toc-open');

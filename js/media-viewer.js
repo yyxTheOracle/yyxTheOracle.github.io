@@ -203,7 +203,22 @@
   dialog.querySelector('[data-media-zoom="fit"]').addEventListener('click', () => { mode = 'fit'; resizePicture(1, true); });
   dialog.querySelector('[data-media-zoom="width"]').addEventListener('click', () => { mode = 'width'; resizePicture(scale, true); });
   dialog.querySelector('[data-media-close]').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  // 只有从外部遮罩按下并松手时才关闭；放大拖图或点到边框不触发误关。
+  let pressedInsideDialog = false;
+  const isBackdropEvent = (event) => {
+    if (event.target !== dialog) return false;
+    const bounds = dialog.getBoundingClientRect();
+    return event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom;
+  };
+  dialog.addEventListener('pointerdown', (event) => {
+    pressedInsideDialog = !isBackdropEvent(event);
+  });
+  dialog.addEventListener('click', (event) => {
+    const shouldClose = !pressedInsideDialog && isBackdropEvent(event);
+    pressedInsideDialog = false;
+    if (shouldClose) dialog.close();
+  });
   dialog.addEventListener('keydown', (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
     const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
@@ -222,6 +237,7 @@
     canvas.replaceChildren();
     picture = null;
     drag = null;
+    pressedInsideDialog = false;
     if (objectURL) URL.revokeObjectURL(objectURL);
     objectURL = null;
     origin?.focus({ preventScroll: true });
