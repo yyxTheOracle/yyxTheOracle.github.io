@@ -199,26 +199,29 @@
 </button>
 </div>
 
-<dialog id="media-viewer" aria-labelledby="media-viewer-title">
-  <header class="media-viewer-toolbar">
-    <h2 id="media-viewer-title">查看大图</h2>
-    <div class="media-viewer-actions">
-      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
-      <button type="button" data-media-zoom="fit">适应窗口</button>
-      <button type="button" data-media-zoom="width">按宽度阅读</button>
-      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
-      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
-    </div>
-  </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
-    <div class="media-viewer-canvas"></div>
-  </div>
-  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
-    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+<dialog id="media-viewer" aria-label="图片预览">
+  <header class="media-viewer-header">
     <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
-    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
-  </nav>
-  <p class="media-viewer-caption" aria-live="polite"></p>
+    <button type="button" class="media-viewer-close" data-media-close aria-label="关闭大图">
+      <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <button type="button" class="media-viewer-step prev" data-media-step="-1" aria-label="上一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="media-viewer-step next" data-media-step="1" aria-label="下一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="media-viewer-status" role="status" aria-live="polite"></div>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，双击或按 Z 缩放，左右键切换，点击空白处关闭">
+    <div class="media-viewer-canvas">
+      <div class="media-viewer-frame"></div>
+    </div>
+  </div>
+  <footer class="media-viewer-footer">
+    <p class="media-viewer-caption" aria-live="polite"></p>
+    <div class="media-viewer-filmstrip" role="group" aria-label="快速切换本文图片" hidden></div>
+  </footer>
 </dialog>
 
 
