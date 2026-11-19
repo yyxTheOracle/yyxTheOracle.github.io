@@ -1,0 +1,66 @@
+/* 只有照片响应抓取；保留首页尺寸与留白，格言始终留在原位。 */
+.profile-portrait[data-avatar-dive] { transform:none; }
+.avatar-dive-trigger {
+  position:relative;
+  display:block;
+  padding:0;
+  border:0;
+  background:none;
+  line-height:0;
+  transform:rotate(3deg);
+  border-radius:40% 40% 12px 12px;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
+.avatar-dive-trigger:disabled { opacity:1; cursor:default; }
+.is-ready .avatar-dive-trigger { cursor:grab; }
+.is-diving .avatar-dive-trigger { cursor:grabbing; }
+.avatar-dive-trigger img { display:block; pointer-events:none; -webkit-user-drag:none; }
+.avatar-dive-trigger [data-avatar-photo] { position:relative; }
+.avatar-dive-seabed { position:absolute; inset:0; opacity:0; }
+.is-diving .avatar-dive-seabed { opacity:1; }
+.is-diving [data-avatar-photo] { opacity:0; }
+.avatar-dive-trigger:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
+/* 旁注相对照片定位，不占格言空间；淡出时也不改变页面排版。 */
+.avatar-dive-anchor { position:relative; width:max-content; }
+.avatar-dive-hint {
+  position:absolute;
+  right:calc(100% + 10px);
+  top:43%;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:400;
+  line-height:1.5;
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease,visibility 0s .25s;
+}
+.is-ready:not(.has-dived) .avatar-dive-hint { opacity:1; visibility:visible; transition-delay:0s; }
+.avatar-dive-hint svg { width:32px; height:20px; stroke:currentColor; stroke-width:1; stroke-linecap:round; stroke-linejoin:round; }
+/* 手机照片左侧是正文，旁注上移，避免遮挡标题。 */
+@media (max-width:800px) {
+  .avatar-dive-hint { left:-32px; right:auto; top:-31px; gap:4px; transform:none; }
+  .avatar-dive-hint svg { width:25px; transform:translateY(5px) rotate(55deg); }
+}
+@media (prefers-reduced-motion:reduce) { .avatar-dive-hint { transition:none; } }
+/* 全页图层不接管事件，不影响文章链接、搜索、主题控件和正常滚页。 */
+.avatar-dive-float { position:fixed; left:0; top:0; z-index:6; pointer-events:none; transform-origin:center; }
+.avatar-dive-float[hidden] { display:none; }
+.avatar-dive-float img { display:block; width:100%; height:100%; max-width:none; object-fit:cover; pointer-events:none; user-select:none; filter:drop-shadow(0 12px 12px #06162730); }
+.avatar-dive-bubbles { position:fixed; inset:0; z-index:5; pointer-events:none; overflow:hidden; }
+.avatar-dive-bubble {
+  position:absolute;
+  pointer-events:none;
+  border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,rgb(225 249 255 / 55%) 0 9%,transparent 27%);
+}

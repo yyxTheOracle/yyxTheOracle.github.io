@@ -23,6 +23,8 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
   <link rel="canonical" href="https://www.victoryeah.com/post/antd-table-external-selection/">
+  
+  
   <link rel="icon" href="/img/favicon.ico">
   <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
   
@@ -34,6 +36,7 @@
     } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
   </script>
   <link rel="stylesheet" href="/css/site.css">
+  
   
     <link rel="stylesheet" href="/css/article-media.css">
     <link rel="stylesheet" href="/css/media-viewer-controls.css">
@@ -107,7 +110,7 @@
 <p>　　期间遇到了<code>form.setFieldsValue 不会触发控件 onChange</code>的问题，找到了一个<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinyouhunran/p/15578373.html">解决方案</a>，和我这篇文章的思路挺像的，也是需要<code>手动触发一个回调函数</code>，在这里更新记录一下。</p>
 </div>
     <aside class="article-license"><p>本文由 Victor Ye 撰写，采用 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可。转载请注明出处。</p></aside>
-    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/antd-style-overrides/"><span>上一篇</span><strong>修改 antd 组件默认样式的坑丨:global 关键字</strong></a><a href="/post/shanghai-plate-payment-pitfalls/"><span>下一篇</span><strong>傻逼上海国拍丨拍到牌照后的操蛋付款经历</strong></a></nav>
+    <nav class="article-neighbors" aria-label="相邻文章"><a href="/post/antd-style-overrides/"><span>上一篇</span><strong>修改 antd 组件默认样式的坑丨:global 关键字</strong></a><a href="/post/shanghai-plate-payment-pitfalls/"><span>下一篇</span><strong>我以为拍牌已经够难了，直到我见识了上海国拍的付款系统</strong></a></nav>
     
 <link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet">
 <section class="article-comments" aria-labelledby="article-comments-title">
@@ -194,33 +197,36 @@
   <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
 </dialog>
 
-<dialog id="media-viewer" aria-labelledby="media-viewer-title">
-  <header class="media-viewer-toolbar">
-    <h2 id="media-viewer-title">查看大图</h2>
-    <div class="media-viewer-actions">
-      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
-      <button type="button" data-media-zoom="fit">适应窗口</button>
-      <button type="button" data-media-zoom="width">按宽度阅读</button>
-      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
-      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
-    </div>
-  </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
-    <div class="media-viewer-canvas"></div>
-  </div>
-  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
-    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+<dialog id="media-viewer" aria-label="图片预览">
+  <header class="media-viewer-header">
     <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
-    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
-  </nav>
-  <p class="media-viewer-caption" aria-live="polite"></p>
+    <button type="button" class="media-viewer-close" data-media-close aria-label="关闭大图">
+      <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <button type="button" class="media-viewer-step prev" data-media-step="-1" aria-label="上一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="media-viewer-step next" data-media-step="1" aria-label="下一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="media-viewer-status" role="status" aria-live="polite"></div>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，双击或按 Z 缩放，左右键切换，点击空白处关闭">
+    <div class="media-viewer-canvas">
+      <div class="media-viewer-frame"></div>
+    </div>
+  </div>
+  <footer class="media-viewer-footer">
+    <p class="media-viewer-caption" aria-live="polite"></p>
+    <div class="media-viewer-filmstrip" role="group" aria-label="快速切换本文图片" hidden></div>
+  </footer>
 </dialog>
 
 
 </main>
   <footer class="site-footer">
     <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
-    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="https://www.xiaohongshu.com/user/profile/5bffbf6a51783a6fd2c762bb" rel="noopener noreferrer" target="_blank">小红书 ↗</a><a href="https://www.instagram.com/victorye0106/" rel="noopener noreferrer" target="_blank">Instagram ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
   </footer>
   <dialog id="search-dialog" aria-labelledby="search-title">
     <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
@@ -228,5 +234,12 @@
     <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
     <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
   </dialog>
+  
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>

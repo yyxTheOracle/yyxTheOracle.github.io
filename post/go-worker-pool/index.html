@@ -16,13 +16,15 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2026-01-11T08:45:18.000Z">
-<meta property="article:modified_time" content="2026-11-08T11:51:17.679Z">
+<meta property="article:modified_time" content="2026-11-15T15:24:19.092Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="后端开发">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.victoryeah.com/img/avatar.jpg">
   <link rel="canonical" href="https://www.victoryeah.com/post/go-worker-pool/">
+  
+  
   <link rel="icon" href="/img/favicon.ico">
   <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
   
@@ -34,6 +36,7 @@
     } catch (_) { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
   </script>
   <link rel="stylesheet" href="/css/site.css">
+  
   
     <link rel="stylesheet" href="/css/article-media.css">
     <link rel="stylesheet" href="/css/media-viewer-controls.css">
@@ -111,7 +114,7 @@
 <li>缺乏控制： 难以限制对下游资源（如数据库连接、API 调用）的并发访问。</li>
 </ul>
 <p>　　<code>Worker Pool</code> 通过 <strong>“复用”</strong> 和 <strong>“限额”</strong> 解决了这些问题。</p>
-<h1 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h1><p>　　一个典型的 <code>Worker Pool</code> 由三个部分组成：</p>
+<h1 id="核心结构"><a href="#核心结构" class="headerlink" title="核心结构"></a>核心结构</h1><p>一个典型的 <code>Worker Pool</code> 由三个部分组成：</p>
 <ul>
 <li><code>Job Queue</code> (任务队列)： 通常是一个 <code>channel</code>，用于存放待处理的任务。</li>
 <li><code>Worker</code> (工人)： 一组在后台循环运行的 <code>Goroutine</code>。</li>
@@ -168,7 +171,7 @@
 </blockquote>
 <h2 id="1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？"><a href="#1-为什么-jobs-和-results-都要初始化成有缓冲区的通道-Buffered-Channel-？" class="headerlink" title="1. 为什么 jobs 和 results 都要初始化成有缓冲区的通道 (Buffered Channel)？"></a>1. 为什么 <code>jobs</code> 和 <code>results</code> 都要初始化成有缓冲区的通道 (<code>Buffered Channel</code>)？</h2><p>　　如果没有缓冲区，发一个任务就必须立刻有一个工人接走，否则发送者就会卡在那动弹不得。</p>
 <p>　　有了缓冲区，主程序可以先把 1000 个任务一股脑丢进暂存区，然后去干别的事。工人根据自己的节奏慢慢拿，这样能极大提高吞吐量，解耦了“发任务”和“做任务”的速度差异。</p>
-<h2 id="2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？"><a href="#2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？" class="headerlink" title="2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？"></a>2. 在发送任务结束后就立刻 <code>close(jobs)</code>，那如果 <code>jobs</code> 内的数据还没有被处理，不会出问题吗？</h2><p>　　<strong>不会。</strong>  这是 Go Channel 的重要特性：</p>
+<h2 id="2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？"><a href="#2-在发送任务结束后就立刻-close-jobs-，那如果-jobs-内的数据还没有被处理，不会出问题吗？" class="headerlink" title="2. 在发送任务结束后就立刻 close(jobs)，那如果 jobs 内的数据还没有被处理，不会出问题吗？"></a>2. 在发送任务结束后就立刻 <code>close(jobs)</code>，那如果 <code>jobs</code> 内的数据还没有被处理，不会出问题吗？</h2><p><strong>不会。</strong>  这是 Go Channel 的重要特性：</p>
 <ul>
 <li>关闭通道仅仅意味着：<strong>以后不会再有新任务进来了</strong>。</li>
 <li>已经在通道里的任务（缓冲区里的）依然可以被正常读取。</li>
@@ -276,33 +279,36 @@
   <div class="mobile-toc-heading"><h2 id="mobile-toc-title">本文目录</h2><button type="button" class="plain-button" data-close-toc aria-label="关闭目录">关闭</button></div>
 </dialog>
 
-<dialog id="media-viewer" aria-labelledby="media-viewer-title">
-  <header class="media-viewer-toolbar">
-    <h2 id="media-viewer-title">查看大图</h2>
-    <div class="media-viewer-actions">
-      <button type="button" data-media-zoom="out" aria-label="缩小图片">缩小</button>
-      <button type="button" data-media-zoom="fit">适应窗口</button>
-      <button type="button" data-media-zoom="width">按宽度阅读</button>
-      <button type="button" data-media-zoom="in" aria-label="放大图片">放大</button>
-      <button type="button" data-media-close autofocus aria-label="关闭大图">关闭</button>
-    </div>
-  </header>
-  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，适应窗口时横滑切图，放大后滚动查看">
-    <div class="media-viewer-canvas"></div>
-  </div>
-  <nav class="media-viewer-navigation" aria-label="浏览本文图片" hidden>
-    <button type="button" data-media-step="-1" aria-label="上一张图片">← 上一张</button>
+<dialog id="media-viewer" aria-label="图片预览">
+  <header class="media-viewer-header">
     <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
-    <button type="button" data-media-step="1" aria-label="下一张图片">下一张 →</button>
-  </nav>
-  <p class="media-viewer-caption" aria-live="polite"></p>
+    <button type="button" class="media-viewer-close" data-media-close aria-label="关闭大图">
+      <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <button type="button" class="media-viewer-step prev" data-media-step="-1" aria-label="上一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="media-viewer-step next" data-media-step="1" aria-label="下一张图片" hidden>
+    <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="media-viewer-status" role="status" aria-live="polite"></div>
+  <div class="media-viewer-viewport" tabindex="0" aria-label="图片查看区，双击或按 Z 缩放，左右键切换，点击空白处关闭">
+    <div class="media-viewer-canvas">
+      <div class="media-viewer-frame"></div>
+    </div>
+  </div>
+  <footer class="media-viewer-footer">
+    <p class="media-viewer-caption" aria-live="polite"></p>
+    <div class="media-viewer-filmstrip" role="group" aria-label="快速切换本文图片" hidden></div>
+  </footer>
 </dialog>
 
 
 </main>
   <footer class="site-footer">
     <div><a class="footer-name" href="/">Victor 的自留地.</a><p>Code Clarity &gt; Code Brevity</p></div>
-    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
+    <div class="footer-links"><a href="https://github.com/yyxTheOracle" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="https://www.xiaohongshu.com/user/profile/5bffbf6a51783a6fd2c762bb" rel="noopener noreferrer" target="_blank">小红书 ↗</a><a href="https://www.instagram.com/victorye0106/" rel="noopener noreferrer" target="_blank">Instagram ↗</a><a href="/atom.xml">RSS 订阅 ↗</a><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license noopener">CC BY-NC-SA 4.0</a><span>© 2026 Victor Ye · Hexo / Vercel</span></div>
   </footer>
   <dialog id="search-dialog" aria-labelledby="search-title">
     <div class="search-heading"><h2 id="search-title">在文章里找一找</h2><button type="button" class="plain-button" data-close-search aria-label="关闭搜索">关闭 <kbd>Esc</kbd></button></div>
@@ -310,5 +316,12 @@
     <input id="site-search" type="search" placeholder="试试 Channel、缓冲区、Electron…" autocomplete="off">
     <div id="search-results" role="region" aria-label="搜索结果" aria-live="polite"><p class="search-hint">搜索标题和正文，直接跳到相关章节。</p></div>
   </dialog>
+  
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
