@@ -39,6 +39,19 @@
     return image.closest('figure')?.querySelector('figcaption')?.textContent.trim() || image.dataset.caption || image.alt || '文章图片';
   }
 
+  /** 优先沿用原图尺寸，响应式缩略图加载前后采用同一比例。 */
+  function imageDimensions(image) {
+    return {
+      width: Number(image.dataset.originalWidth) || image.naturalWidth || Number(image.getAttribute('width')),
+      height: Number(image.dataset.originalHeight) || image.naturalHeight || Number(image.getAttribute('height')),
+    };
+  }
+
+  /** 图组和放大查看都只对超长截图采用适宽阅读。 */
+  function isTallImage(imageWidth, imageHeight) {
+    return imageWidth > 0 && imageHeight / imageWidth >= 2.5;
+  }
+
   /** 仅增强显式图组，原始 figure 保留在 DOM 中作为无脚本回退和图库来源。 */
   article.querySelectorAll('.article-gallery').forEach((gallery) => {
     const figures = [...gallery.children].filter(child => child.matches('figure.article-image') && child.querySelector('img'));
@@ -69,7 +82,7 @@
     stage.className = 'article-gallery-stage';
     const previousStep = createStepButton(-1, previous);
     const nextStep = createStepButton(1, next);
-    stage.append(...figures, previousStep, nextStep);
+    stage.append(...figures, previousStep, nextStep, hint);
     const thumbnails = document.createElement('div');
     thumbnails.className = 'article-gallery-thumbnails';
     thumbnails.setAttribute('role', 'group');
@@ -78,9 +91,7 @@
       const source = sources[position];
       const reader = document.createElement('div');
       reader.className = 'article-gallery-scroll';
-      reader.tabIndex = 0;
       reader.setAttribute('role', 'region');
-      reader.setAttribute('aria-label', `${description(source)}，可上下滚动阅读`);
       // 移动完整媒体结构，保留 picture 的 source、原始链接及其点击行为。
       reader.append(...[...figure.childNodes].filter(node => node.nodeName !== 'FIGCAPTION'));
       figure.prepend(reader);
@@ -98,10 +109,20 @@
       thumbnail.loading = 'lazy';
       thumbnail.decoding = 'async';
       const label = document.createElement('span');
-      label.textContent = description(source);
-      if (!/^图\s*\d/.test(label.textContent)) label.textContent = `图 ${position + 1}：${label.textContent}`;
+      label.textContent = `图 ${position + 1}`;
+      const text = description(source);
+      let fullLabel = text;
+      if (gallery.dataset.captions === 'number') fullLabel = label.textContent;
+      else if (!/^图\s*\d/.test(text)) fullLabel = `${label.textContent}：${text}`;
+      button.setAttribute('aria-label', fullLabel);
+      // 说明放在照片下方。手写图组可能只有 alt，此时补齐原生图注。
+      if (!figure.querySelector('figcaption')) {
+        const caption = document.createElement('figcaption');
+        caption.textContent = fullLabel;
+        figure.append(caption);
+      }
       // 图注可以只写图号；辅助技术仍可通过替代文字了解图片的具体内容。
-      if (/^图\s*\d+$/.test(label.textContent) && source.alt) {
+      if (/^图\s*\d+$/.test(fullLabel) && source.alt) {
         button.setAttribute('aria-description', source.alt);
         source.setAttribute('aria-description', source.alt);
       }
@@ -111,7 +132,7 @@
         button.focus({ preventScroll: true });
       });
       reader.addEventListener('scroll', updateHint, { passive: true });
-      source.addEventListener('load', updateHint);
+      source.addEventListener('load', updateReader);
       return button;
     });
     thumbnails.append(...buttons);
@@ -143,24 +164,36 @@
       figures.forEach((item, index) => { item.hidden = index !== position; });
       buttons.forEach((button, index) => button.setAttribute('aria-pressed', String(index === position)));
       const figure = figures[position];
-      figure.append(hint);
       figure.querySelector('.article-gallery-scroll').scrollTop = 0;
       status.textContent = `${position + 1} / ${figures.length}`;
       previousStep.disabled = position === 0;
       nextStep.disabled = position === figures.length - 1;
       // 带链接的图片保留作者指定的目标，组内查看按钮只作用于可放大的图片。
       openButton.hidden = !images.includes(sources[position]);
+      updateReader();
+    }
+
+    /** 普通照片完整展示，只有实际溢出的长图才需要键盘滚动和阅读提示。 */
+    function updateReader() {
+      const source = sources[currentIndex];
+      const reader = figures[currentIndex].querySelector('.article-gallery-scroll');
+      const size = imageDimensions(source);
+      const isLong = isTallImage(size.width, size.height);
+      reader.classList.toggle('is-long-image', isLong);
+      const scrollable = isLong && reader.clientHeight > 0 && reader.scrollHeight > reader.clientHeight;
+      reader.tabIndex = scrollable ? 0 : -1;
+      reader.setAttribute('aria-label', description(source) + (scrollable ? '，可上下滚动阅读' : ''));
       updateHint();
     }
 
-    /** 提示只出现在明显超出阅读区的长图顶部；滚动、切图和尺寸变化时重算。 */
+    /** 离开长图顶部后收起阅读提示。 */
     function updateHint() {
       const reader = figures[currentIndex].querySelector('.article-gallery-scroll');
-      hint.hidden = !reader.clientHeight || reader.scrollTop > 20 || reader.scrollHeight < reader.clientHeight * 1.35;
+      hint.hidden = reader.tabIndex !== 0 || reader.scrollTop > 20;
     }
 
     selectImage(0);
-    if (window.ResizeObserver) new ResizeObserver(updateHint).observe(gallery);
+    if (window.ResizeObserver) new ResizeObserver(updateReader).observe(stage);
   });
 
   const zoomControls = dialog.querySelector('.media-viewer-zoom');
@@ -263,10 +296,6 @@
     }
   }
 
-  function isTallImage() {
-    return Boolean(width && height && height / width >= 2.5);
-  }
-
   /** 按钮缩放时，视口中央的表格行和列应尽可能停在原位。 */
   function selectZoomMode(selectedMode) {
     if (zoomControls.hidden || !picture || !width || !height) return;
@@ -290,7 +319,7 @@
 
   function toggleZoom(clientX, clientY) {
     if (!picture || !width || !height) return;
-    const isTall = isTallImage();
+    const isTall = isTallImage(width, height);
     if (mode === 'fit') {
       const { fit, maximum } = canvasMetrics();
       mode = isTall ? 'width' : 'zoom';
@@ -350,8 +379,7 @@
       objectURL = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)], { type: 'image/svg+xml' }));
       picture.src = objectURL;
     } else {
-      width = Number(target.dataset.originalWidth) || target.naturalWidth || Number(target.getAttribute('width'));
-      height = Number(target.dataset.originalHeight) || target.naturalHeight || Number(target.getAttribute('height'));
+      ({ width, height } = imageDimensions(target));
       const previewSrc = target.currentSrc || target.src;
       const originalSrc = target.dataset.originalSrc;
       // 动画的正文资源就是原始字节副本，无需再请求外部图床。
@@ -371,7 +399,7 @@
       if (upgradeSrc || picture !== current || !dialog.open) return;
       width = current.naturalWidth || width;
       height = current.naturalHeight || height;
-      if (mode === 'fit' && scale === 1 && isTallImage()) {
+      if (mode === 'fit' && scale === 1 && isTallImage(width, height)) {
         mode = 'width';
         resizePicture(1, true);
         showToast('长图已按宽度对齐顶部');
@@ -403,7 +431,7 @@
       if (active) btn.scrollIntoView?.({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'nearest', inline: 'center' });
     });
 
-    const isTall = isTallImage();
+    const isTall = isTallImage(width, height);
     mode = isTall ? 'width' : 'fit';
     scale = 1;
     drag = null;
