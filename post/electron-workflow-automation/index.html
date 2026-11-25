@@ -7,16 +7,16 @@
   
   <title>给运营支持团队做提效工具，做着做着，这个团队没了 | Victor 的自留地</title>
   
-  <meta name="description" content="前言 最近用 Electron 做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人负责一定数量的商户，日常在美团的开店宝后台有两块最耗时的工作：一是对客人的好评进行回复（有个回复好评的话术库，对于好评，从里面随便挑一条回复就行，不千篇一律就...">
+  <meta name="description" content="前言 最近做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人都负责运营一些商户，日常在美团的开店宝后台有两块比较耗时的工作： 对好评进行回复（从话术库中随便挑一条回复即可，不千篇一律就行）； 下载三类报表（经营参谋、推广通、门店评价）并上传...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="给运营支持团队做提效工具，做着做着，这个团队没了">
 <meta property="og:url" content="https://www.victoryeah.com/post/electron-workflow-automation/">
 <meta property="og:site_name" content="Victor 的自留地">
-<meta property="og:description" content="前言 最近用 Electron 做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人负责一定数量的商户，日常在美团的开店宝后台有两块最耗时的工作：一是对客人的好评进行回复（有个回复好评的话术库，对于好评，从里面随便挑一条回复就行，不千篇一律就...">
+<meta property="og:description" content="前言 最近做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人都负责运营一些商户，日常在美团的开店宝后台有两块比较耗时的工作： 对好评进行回复（从话术库中随便挑一条回复即可，不千篇一律就行）； 下载三类报表（经营参谋、推广通、门店评价）并上传...">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.victoryeah.com/img/avatar.jpg">
 <meta property="article:published_time" content="2025-09-14T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-19T13:45:19.136Z">
+<meta property="article:modified_time" content="2026-11-25T09:23:21.878Z">
 <meta property="article:author" content="Victor Ye">
 <meta property="article:tag" content="前端开发">
 <meta property="article:tag" content="AI">
@@ -87,7 +87,7 @@
   <main id="main">
 <div class="reading-layout">
   <article class="reading-article" id="post-electron-tiangong">
-    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/AI/">AI</a></div><h1>给运营支持团队做提效工具，做着做着，这个团队没了</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2025-09-14">2025.09.14</time><span>约 5.6k 字</span><span>预计阅读 21 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2733f88e.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
+    <header class="post-header"><a class="back-link" href="/archives/">← 所有文章</a><div class="article-tags"><a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a href="/tags/AI/">AI</a></div><h1>给运营支持团队做提效工具，做着做着，这个团队没了</h1><div class="post-meta"><span>Victor Ye</span><time datetime="2025-09-14">2025.09.14</time><span>约 5.7k 字</span><span>预计阅读 21 分钟</span><span>阅读量 <span class="waline-pageview-count" data-path="/post/2733f88e.html" aria-live="polite"><span class="pageview-loading" role="status" aria-label="阅读量加载中"></span></span></span></div></header>
     
     <script>
       // 在 CDN 资源加载前开始计时；成功读数会替换 spinner，超时不覆盖已显示的数字。
@@ -105,12 +105,27 @@
 #post-electron-tiangong .mermaid svg[aria-roledescription="sequence"] { min-width: 900px; }
 </style>
 
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近用 Electron 做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人负责一定数量的商户，日常在美团的开店宝后台有两块最耗时的工作：一是对客人的好评进行回复（有个回复好评的话术库，对于好评，从里面随便挑一条回复就行，不千篇一律就可以）；二是去下载三类报表（经营参谋、推广通、门店评价），然后上传到公司的内部系统。天工的初衷就是自动化这些操作，帮他们提高人效，让他们人均能接管更多商户。</p>
-<p>　　这是我第一次接触 Electron 和 Puppeteer，整个开发流程都是用 Cursor + Claude 4 Sonnet 完成的。看着 Electron 窗口在眼前自动切换页面、选日期、勾指标、一路把报表下载到本地，那些原本需要运营同学每天机械重复几个小时的操作，Puppeteer 脚本几十秒就跑完了。内测灰度期间，运营支持团队一直充当最积极的核心用户，反馈了一大堆边界 case 和体验问题。2025 年 9 月 4 日，团队 leader 在群里兴奋地说：79 个账号，3 天的经营参谋数据，只用了 17 分钟！</p>
-<figure class="article-image"><img src="/assets/article-images/b35061754c79f573d7c2-760.webp" alt="2025 &#x5E74; 9 &#x6708; 4 &#x65E5;&#xFF0C;&#x8FD0;&#x8425;&#x652F;&#x6301;&#x56E2;&#x961F;&#x5728;&#x7FA4;&#x91CC;&#x5BF9;&#x5929;&#x5DE5;&#x4E0B;&#x8F7D;&#x901F;&#x5EA6;&#x548C;&#x51C6;&#x786E;&#x7387;&#x7684;&#x53CD;&#x9988;" width="1740" height="1756" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" data-original-width="1740" data-original-height="1756" srcset="/assets/article-images/b35061754c79f573d7c2-480.webp 480w, /assets/article-images/b35061754c79f573d7c2-760.webp 760w, /assets/article-images/b35061754c79f573d7c2-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
-<p>　　看到他们的反馈，那种 sense of achievement 真的太强烈了。但戏剧性的是，就在天工彻底稳定运行之后不久，这位 leader 和整个运营支持团队都被优化了，这个工具最终替代的，恰恰是这群帮我们打磨它的人。</p>
-<p>　　天工毫无疑问是一次非常成功的业务提效实践，写下这篇复盘，不仅是梳理这个工具从零搭建起来的工程细节，也是为了纪念这支曾经和我们并肩走过这段路的运营支持团队——在公司的组织架构里，他们或许只是被打上“已离职”标签、轻描淡写翻过的一页；但在天工的来时路上，他们是绝对绕不开的同行者。</p>
-<h1 id="天工长什么样"><a href="#天工长什么样" class="headerlink" title="天工长什么样"></a>天工长什么样</h1><p>　　天工有四个菜单，界面形式不太一样：</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　最近做了一个叫「天工」的桌面端应用（感觉现在有一堆叫「天工」的产品🤣）给我司的运营支持团队提效，他们每个人都负责运营一些商户，日常在美团的开店宝后台有两块比较耗时的工作：</p>
+<div style="padding-left: 2em;">
+
+<ol>
+<li>对好评进行回复（从话术库中随便挑一条回复即可，不千篇一律就行）；</li>
+<li>下载三类报表（经营参谋、推广通、门店评价）并上传到公司内部系统。</li>
+</ol>
+</div>
+
+<p>　　天工诞生的初衷就是把这些重复操作自动化，帮他们提高人效，让他们人均能接管更多商户。</p>
+<p>　　这是我第一次接触 <a target="_blank" rel="noopener" href="https://www.electronjs.org/">Electron</a> 和 <a target="_blank" rel="noopener" href="https://pptr.dev/">Puppeteer</a>，整个开发过程都是和 Cursor &amp; Claude Sonnet 4 协作完成的，当时团队正好刚开始全面推广 AI Coding，需要量化提效成果，下面这两张图是当时的记录：</p>
+<div class="article-gallery" data-captions="number" aria-label="天工的 AI 辅助开发工时记录"><figure class="article-image"><img src="/assets/article-images/c5f057f640877967d5da-760.webp" alt="&#x5DE5;&#x65F6;&#x8868;&#x9010;&#x9879;&#x5BF9;&#x7167;&#x5B9E;&#x9645;&#x8017;&#x65F6;&#x4E0E;&#x4F30;&#x8BA1;&#x8282;&#x7701;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x65C1;&#x8FB9;&#x9644;&#x6709;&#x548C; AI &#x5BF9;&#x8BDD;&#x7684;&#x622A;&#x56FE;" width="3816" height="10881" decoding="async" loading="eager" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/25/0W8gu5sZ.webp" data-original-width="3816" data-original-height="10881" srcset="/assets/article-images/c5f057f640877967d5da-480.webp 480w, /assets/article-images/c5f057f640877967d5da-760.webp 760w, /assets/article-images/c5f057f640877967d5da-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 1"><figcaption>图 1</figcaption></figure>
+<figure class="article-image"><img src="/assets/article-images/428f947106894adf87d7-760.webp" alt="&#x53E6;&#x4E00;&#x4EFD;&#x5DE5;&#x65F6;&#x8868;&#x4E2D;&#xFF0C;&#x62A5;&#x9519;&#x622A;&#x56FE;&#x8FD9;&#x4E00;&#x9879;&#x8BB0;&#x5F55;&#x4E3A;&#x5B9E;&#x9645;&#x8017;&#x65F6; 8 &#x5C0F;&#x65F6;&#x3001;&#x8282;&#x7701; 16 &#x5C0F;&#x65F6;" width="3603" height="1842" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/25/cgL5Fsej.png" data-original-width="3603" data-original-height="1842" srcset="/assets/article-images/428f947106894adf87d7-480.webp 480w, /assets/article-images/428f947106894adf87d7-760.webp 760w, /assets/article-images/428f947106894adf87d7-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px" data-caption="&#x56FE; 2"><figcaption>图 2</figcaption></figure>
+</div>
+
+<p>　　在 Cursor 和 Claude 的加持下，第一版下载链路只花了一个下午就跑通了。看着 Electron 窗口自动跳转页面、选择日期范围、勾选指定指标、等待 loading 结束、点击下载按钮、把报表 Excel 下载到 Download 里的指定文件夹——运营平日里要花好几个小时去重复干的活，脚本几十秒就跑完了，那种感觉简直妙不可言！</p>
+<p>　　内测期间，试用的几位运营完全是把天工当宝贝，每天都在高强度使用，反馈了一大堆边界 case 和体验问题。这个月月初，团队 leader 在群里兴奋地说：79 个账号，3 天的经营参谋数据，只用了 17 分钟！</p>
+<figure class="article-image"><img src="/assets/article-images/b35061754c79f573d7c2-760.webp" alt="2025 &#x5E74; 9 &#x6708; 4 &#x65E5;&#xFF0C;&#x8FD0;&#x8425;&#x652F;&#x6301;&#x56E2;&#x961F;&#x5728;&#x7FA4;&#x91CC;&#x5BF9;&#x5929;&#x5DE5;&#x4E0B;&#x8F7D;&#x901F;&#x5EA6;&#x548C;&#x51C6;&#x786E;&#x7387;&#x7684;&#x53CD;&#x9988;" width="1740" height="1756" decoding="async" loading="lazy" data-article-image data-original-src="https://s3.bmp.ovh/2026/11/04/XH1gRbVN.jpg" data-original-width="1740" data-original-height="1756" srcset="/assets/article-images/b35061754c79f573d7c2-480.webp 480w, /assets/article-images/b35061754c79f573d7c2-760.webp 760w, /assets/article-images/b35061754c79f573d7c2-1520.webp 1520w" sizes="(max-width: 800px) calc(100vw - 48px), 760px"></figure>
+<p>　　看到这些反馈的时候，那种 sense of achievement 真的拉满了。但 drama 的是，天工刚全量推广没多久，这位 leader 和整个运营支持团队就被优化了……这个工具最终替代的，恰恰是这群帮我们打磨它的人。</p>
+<p>　　天工毫无疑问是一次非常成功的业务提效实践，写下这篇复盘，除了记录这个工具从零搭起来的工程细节，也是为了纪念这支曾经和我们并肩走过这段路的运营支持团队。在公司的组织架构里，他们或许只是被打上“已离职”标签、轻描淡写翻过的一页，但在天工的来时路上，他们是绝对绕不开的战友与同行者。</p>
+<h1 id="天工长什么样"><a href="#天工长什么样" class="headerlink" title="天工长什么样"></a>天工长什么样</h1><p>　　天工的顶部有四个菜单项：</p>
 <table>
 <thead>
 <tr>
@@ -507,6 +522,10 @@
 <dialog id="media-viewer" aria-label="图片预览">
   <header class="media-viewer-header">
     <span class="media-viewer-counter" aria-live="polite" aria-atomic="true"></span>
+    <div class="media-viewer-zoom" role="group" aria-label="图片缩放" hidden>
+      <button type="button" data-zoom="width" aria-pressed="false">适宽</button>
+      <button type="button" data-zoom="actual" aria-label="100%，按原始尺寸显示" aria-pressed="false">100%</button>
+    </div>
     <button type="button" class="media-viewer-close" data-media-close aria-label="关闭大图">
       <svg class="media-viewer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
