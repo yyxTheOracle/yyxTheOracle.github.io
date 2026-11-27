@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/music/index.html</loc>
+    <loc>https://www.victoryeah.com/photos/data.json</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/photos/data.json</loc>
+    <loc>https://www.victoryeah.com/music/index.html</loc>
     
     <lastmod>2023-08-14</lastmod>
     
@@ -209,6 +209,13 @@
 
   
   <url>
+    <loc>https://www.victoryeah.com/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victoryeah.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -217,13 +224,6 @@
   
   <url>
     <loc>https://www.victoryeah.com/tags/JavaScript/</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victoryeah.com/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -253,13 +253,6 @@
 
   
   <url>
-    <loc>https://www.victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victoryeah.com/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -267,7 +260,7 @@
   </url>
   
   <url>
-    <loc>https://www.victoryeah.com/categories/AI/</loc>
+    <loc>https://www.victoryeah.com/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -275,6 +268,13 @@
   
   <url>
     <loc>https://www.victoryeah.com/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victoryeah.com/categories/AI/</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
